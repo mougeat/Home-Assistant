@@ -1,0 +1,1163 @@
+# ############################################################
+# #                                                         ##
+# #           SCREENS, TABLET & POPUP AUTOMATIONS           ##
+# #                                                         ##
+# ############################################################
+good_night:
+  sequence:
+  - service: homeassistant.turn_off
+    entity_id:
+    - input_boolean.voice_notifications
+  - service: browser_mod.close_popup
+  - service: browser_mod.blackout
+
+browser_blackout_button:
+  sequence:
+  - service: browser_mod.close_popup
+  - service: browser_mod.blackout
+
+
+browser_window_reload:
+  sequence:
+  - service: lovelace.reload_resources
+  - delay: 00:00:05
+  - service: browser_mod.window_reload
+    data:
+      navigation_path: /lovelace/
+      deviceID:
+      - a6cyril_lan
+      - A6Cyril
+  - service: browser_mod.window_reload
+    data:
+      navigation_path: /lovelace/Computer
+      deviceID:
+      - officecyril
+  - service: browser_mod.window_reload
+    data:
+      navigation_path: /lovelace/Tablet
+      deviceID:
+      - tabletsamsung
+  - service: browser_mod.window_reload
+    data:
+      navigation_path: /lovelace/Naima
+      deviceID:
+      - smartphone_bureau
+  - service: browser_mod.window_reload
+    data:
+      navigation_path: /lovelace/Tablet
+      deviceID:
+      - tabletlenovo
+
+
+restart_ha:
+  sequence:
+  - service: homeassistant.restart
+reload_automations:
+  sequence:
+  - service: automation.reload
+reload_scripts:
+  sequence:
+  - service: script.reload
+run_config_check:
+  sequence:
+  - service: config_check.run
+  
+ 
+
+# ###########################################################
+radio_bureau:
+  sequence:
+    - service: browser_mod.close_popup
+    - delay: 00:00:01
+    - service: browser_mod.popup
+      data:
+        deviceID:
+          - tabletlenovo
+          - officecyril
+        title: "Radio bureau"
+        style:
+          background: url("/local/images-lovelace/background/{{ states.input_select.tablet_wallpaper.state }}.jpg")
+          background-repeat: no-repeat
+          background-size: 100% 100%
+          padding: 4px 0px 0px 0px
+          "--app-toolbar-font-size": 1.875em
+          "--primary-text-color": rgba(255,255,255,0.75)
+          border-radius: 22px
+          border: solid 2px dimgray
+          font-weight: bold
+          width: 100%
+          box-sizing: border-box
+          margin: 0
+          text-shadow: "2px 2px 4px black"
+        card:
+              type: custom:mini-media-player
+              entity: media_player.officecyril
+              artwork: cover
+              source: icon
+              volume_stateless: true
+              scale: 1.7
+              hide:
+                name: true
+                icon: true
+                power: true
+              shortcuts:
+                columns: 3
+                buttons:
+                  - name: RTL2
+                    type: service
+                    id: script.rtl2
+                    image: /local/images-lovelace/icon/rtl2.png
+                  - name: RTL2 Châtel
+                    type: service
+                    id: script.rtl2_chatel
+                    #image: /local/images-lovelace/icon/rtl2.png
+                  - name: LFM
+                    type: service
+                    id: script.lfm
+                    image: /local/images-lovelace/icon/lfm.png
+                  - name: Rouge FM
+                    type: service
+                    id: script.rouge_fm
+                    image: /local/images-lovelace/icon/rouge.jpg
+                  - name: Vertical
+                    type: service
+                    id: script.vertical
+                    image: /local/images-lovelace/icon/vertical.jpg
+                  - name: France info
+                    type: service
+                    id: script.france_info
+                    image: /local/images-lovelace/icon/france_info.jpg
+                  - name: RTS La première
+                    type: service
+                    id: script.rts1
+                    image: /local/images-lovelace/icon/rts1.png
+          
+browser_popup_3:
+  sequence:
+    - service: browser_mod.close_popup
+    - service: browser_mod.popup
+      data:
+        deviceID:
+          - officecyril
+          - a6cyril
+          - tabletlenovo
+        title: Camera salon
+        card:
+          type: picture-glance
+          title: salon
+          entities:
+            - light.rez_salon
+            - light.rez_salle_a_manger
+          camera_image: camera.camera_salon
+    - service: browser_mod.more_info
+      data:
+        deviceID:
+          - officecyril
+          - a6cyril
+          - tabletlenovo
+        entity_id: camera.salon
+        large: true
+# ############################################################
+browser_popup_bureau:
+  sequence:
+    - service: browser_mod.close_popup
+    #- delay: '00:00:01'
+    - service: browser_mod.popup
+      data:
+        deviceID:
+          - officecyril
+          - a6cyril
+          - tabletlenovo
+        title: Camera bureau
+        card:
+          type: picture-glance
+          title: Bureau
+          entities:
+            - light.rez_buerau
+          camera_image: camera.tablet_lenovo
+    - service: browser_mod.more_info
+      data:
+        deviceID:
+          - officecyril
+          - a6cyril
+          - tabletlenovo
+        entity_id: camera.tablet_lenovo
+        large: true
+    - delay: '00:01:00'
+    - service: browser_mod.close_popup          
+# ############################################################
+# #                                                         ##
+# #                      NOTIFICATIONS                      ##
+# #                                                         ##
+# ############################################################
+
+overheat_plancher:
+  sequence:
+  - condition: state
+    entity_id: binary_sensor.surchauffe_plancher
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.notifications
+    state: 'on'
+  - service: notify.notify_cyril
+    data:
+      title: Barthel's
+      message: ⚠️ Surchauffe du plancher chauffant !!! Risque de dommage sur le carrelage
+  - service: browser_mod.toast
+    data:
+      message: ⚠️⚠️ Surchauffe du plancher chauffant !!! Risque de dommage sur le carrelage
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: alarm
+  - delay: '00:01:00'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+  - condition: state
+    entity_id: input_boolean.voice_notifications
+    state: 'on'
+  - condition: state
+    entity_id: person.cyril
+    state: 'home'
+  - service: notify.mobile_app_sm_g970f
+    data:
+      message: TTS
+      title: Surchauffe du plancher chauffant !!! Risque de dommage sur le carrelage
+      data:
+          channel: alarm_stream
+
+freez_risk_3000:
+  sequence:
+  - condition: state
+    entity_id: binary_sensor.pompe_3000_freez
+    state: 'on'
+    for: '00:05:00'
+  - condition: state
+    entity_id: input_boolean.notifications
+    state: 'on'
+  - service: notify.notify_cyril
+    data:
+      title: Barthel's
+      message: ⚠️ Risque de gel sur la pompe pompe de la cuve 3000l 🚱!!! vidangez la !!!!!!!!!
+  - service: browser_mod.toast
+    data:
+      message: ⚠️ Risque de gel sur la pompe pompe de la cuve 3000l 🚱!!! vidangez la !!!!!!!!!
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: alarm
+  - delay: '00:01:00'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+
+freez_risk_4000:
+  sequence:
+  - condition: state
+    entity_id: binary_sensor.pompe_4000_freez
+    state: 'on'
+    for: '00:05:00'
+  - condition: state
+    entity_id: input_boolean.notifications
+    state: 'on'
+  - service: notify.notify_cyril
+    data:
+      title: Barthel's
+      message: ⚠️ Risque de gel sur la pompe pompe de la cuve 4000l 🚱!!! vidangez la !!!!!!!!!
+  - service: browser_mod.toast
+    data:
+      message: ⚠️ Risque de gel sur la pompe pompe de la cuve 4000l 🚱!!! vidangez la !!!!!!!!!
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: alarm
+  - delay: '00:01:00'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+
+
+overheat_risk_4000:
+  sequence:
+  - condition: state
+    entity_id: binary_sensor.pompe_4000_surchauffe
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.notifications
+    state: 'on'
+  - service: notify.notify_cyril
+    data:
+      title: Barthel's
+      message: ⚠️ La pompe de la cuve 4000l est en surchauffe 🚱!!! coupez la !!!!!!!!!
+  - service: browser_mod.toast
+    data:
+      message: ⚠️ La pompe de la cuve 4000l est en surchauffe 🚱!!! coupez la !!!!!!!!!
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: alarm
+  - delay: '00:01:00'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+
+overheat_risk_3000:
+  sequence:
+  - condition: state
+    entity_id: binary_sensor.pompe_3000_surchauffe
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.notifications
+    state: 'on'
+  - service: notify.notify_cyril
+    data:
+      title: Barthel's
+      message: ⚠️ La pompe de la cuve 3000l est en surchauffe 🚱!!! coupez la !!!!!!!!!
+  - service: browser_mod.toast
+    data:
+      message: ⚠️ La pompe de la cuve 3000l est en surchauffe 🚱!!! coupez la !!!!!!!!!
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: alarm
+  - delay: '00:01:00'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+
+garage_door_open:
+  sequence:
+  - condition: state
+    entity_id: binary_sensor.status_porte_garage
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.notifications
+    state: 'on'
+  - service: browser_mod.toast
+    data:
+      message: La porte du garage viens d'être ouverte.
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: ready
+  - delay: '00:00:40'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+ 
+
+garage_door_open_voice:
+  sequence:
+  - delay: 00:00:15
+  - condition: state
+    entity_id: binary_sensor.status_porte_garage
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.voice_notifications
+    state: 'on'
+  - condition: state
+    entity_id: group.person_group
+    state: 'home'
+  - service: notify.alexa_media
+    data:
+      target: media_player.officecyril
+      message: La porte du garage viens d'être ouverte.
+      data:
+        type: tts
+  
+
+chauffage_ncessaire:
+  sequence:
+  - condition: state
+    entity_id: binary_sensor.heating_on_necessary
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.notifications
+    state: 'on'
+  - service: notify.notify_all
+    data:
+      title: Barthel's
+      message: ⚠️Il faut faire du feu ! La {{  state_attr('sensor.prev_temp_maison', 'friendly_name')  }}  est de {{ states['sensor.prev_temp_maison'].state }}°C !
+  - service: browser_mod.toast
+    data:
+      message: ⚠️Il faut faire du feu ! La {{  state_attr('sensor.prev_temp_maison', 'friendly_name')  }}  est de {{ states['sensor.prev_temp_maison'].state }}°C !
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: alert
+  - delay: '00:01:00'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+
+  
+
+chauffage_ncessaire_voice:
+  sequence:
+  - condition: state
+    entity_id: binary_sensor.heating_on_necessary
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.voice_notifications
+    state: 'on'
+  - condition: state
+    entity_id: group.person_group
+    state: 'home'
+  #- service: notify.alexa_media
+  #  data:
+  #    target: media_player.cuisine
+  #    message: 'Froid prévu et, la {{  state_attr(''sensor.prev_temp_maison'', ''friendly_name'')  }}  est de {{ states[''sensor.prev_temp_maison''].state }}°C ! Il faudrait faire du feu '
+  #    data:
+  #      type: tts
+  #- condition: state
+  #  entity_id: person.cyril
+  #  state: 'home'
+  #- service: notify.mobile_app_sm_g970f
+  #  data:
+  #    message: TTS
+  #    title: Froid prévu et, la {{  state_attr('sensor.prev_temp_maison', 'friendly_name')  }}  est de {{ states['sensor.prev_temp_maison'].state }}°C ! Il faudrait faire du feu
+  #    data:
+  #        channel: alarm_stream_max
+  
+
+cuve_pluie_vide:
+  sequence:
+  - delay: 00:00:05
+  - condition: state
+    entity_id: binary_sensor.no_rain_water
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.notifications
+    state: 'on'
+  - service: notify.notify_all
+    data:
+      title: Barthel's
+      message: ⚠️ 🚱  Les cuves d'eau de pluie sont vide, basculer sur le reseau !!!!
+  - service: browser_mod.toast
+    data:
+      message:  🚱  Les cuves d'eau de pluie sont vide, basculer sur le reseau !!!! 
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: alert
+  - delay: '00:01:00'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+
+cuve_pluie_vide_voice:
+  sequence:
+  - delay: 00:00:05
+  - condition: state
+    entity_id: binary_sensor.no_rain_water 
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.voice_notifications
+    state: 'on'
+  - condition: state
+    entity_id: group.person_group
+    state: 'home'
+  - service: notify.alexa_media
+    data:
+      target: media_player.cuisine
+      message: Les cuves d'eau de pluie sont vide, basculer sur le reseau !!!!
+      data:
+        type: tts
+
+change_filtre:
+  sequence:
+  - condition: state
+    state: 'on'
+    entity_id: input_boolean.notifications
+  - condition: state
+    state: 'on'
+    entity_id: binary_sensor.change_rain_filtre
+  - service: notify.notify_cyril
+    data:
+      title: Barthel's
+      message: '⚠️ Il est temps de changer les filtres eau de pluie '
+  - delay: 00:00:10 
+  - service: script.change_filtre_loop
+  - condition: state
+    entity_id: binary_sensor.change_rain_filtre
+    state: 'off'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: alert
+  - delay: '00:00:40'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+
+
+change_filtre_loop:
+  sequence:
+  - condition: state
+    state: 'on'
+    entity_id: input_boolean.notifications
+  - condition: state
+    state: 'on'
+    entity_id: binary_sensor.change_rain_filtre
+  - service: notify.notify_cyril
+    data:
+      title: Barthel's
+      message: '⚠️ Il est temps de changer les filtres eau de pluie '
+  - delay: 00:01:10
+  - service: script.change_filtre
+
+fin_lave_linge:
+  sequence:
+    - delay: 00:00:05
+    - condition: numeric_state
+      entity_id: sensor.ecocompteur_lave_linge
+      below: '3'
+    - condition: state
+      entity_id: input_boolean.notifications
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.power_notifications
+      state: 'on'
+    - service: notify.notify_all
+      data:
+        title: "Barthel's"
+        message: "Cycle du lave linge terminé"
+    - service: browser_mod.toast
+      data:
+        message: "Cycle du lave linge terminé"
+
+
+fin_lave_linge_voice:
+  sequence:
+  - delay: 00:00:05
+  - condition: numeric_state
+    entity_id: sensor.ecocompteur_lave_linge
+    below: '3'
+  - condition: state
+    entity_id: input_boolean.voice_notifications
+    state: 'on'
+  - condition: state
+    entity_id: group.person_group
+    state: 'home'
+  - condition: state
+    entity_id: input_boolean.power_notifications
+    state: 'on'
+  - service: notify.alexa_media
+    data:
+      target: media_player.cuisine
+      message: Cycle du lave linge terminé
+      data:
+        type: tts
+
+
+fin_seche_linge:
+  sequence:
+    - delay: 00:00:05
+    - condition: numeric_state
+      entity_id: sensor.ecocompteur_seche_linge
+      below: '3'
+    - condition: state
+      entity_id: input_boolean.notifications
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.power_notifications
+      state: 'on'
+    - service: notify.notify_all
+      data:
+        title: "Barthel's"
+        message: "Cycle du sèche linge terminé"
+    - service: browser_mod.toast
+      data:
+        message: "Cycle du sèche linge terminé"
+
+
+fin_seche_linge_voice:
+  sequence:
+  - delay: 00:00:05
+  - condition: numeric_state
+    entity_id: sensor.ecocompteur_seche_linge
+    below: '3'
+  - condition: state
+    entity_id: input_boolean.voice_notifications
+    state: 'on'
+  - condition: state
+    entity_id: group.person_group
+    state: 'home'
+  - condition: state
+    entity_id: input_boolean.power_notifications
+    state: 'on'
+  - service: notify.alexa_media
+    data:
+      target: media_player.cuisine
+      message: Cycle du sèche linge terminé
+      data:
+        type: tts
+
+fin_lave_vaisselle:
+  sequence:
+    - delay: 00:00:05
+    - condition: numeric_state
+      entity_id: sensor.ecocompteur_lave_vaisselle
+      below: '2'
+    - condition: state
+      entity_id: input_boolean.notifications
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.power_notifications
+      state: 'on'
+    - service: notify.notify_all
+      data:
+        title: "Barthel's"
+        message: "Cycle du lave vaisselle terminé"
+    - service: browser_mod.toast
+      data:
+        message: "Cycle du lave vaisselle terminé"
+
+
+fin_lave_vaisselle_voice:
+  sequence:
+  - delay: 00:00:05
+  - condition: numeric_state
+    entity_id: sensor.ecocompteur_lave_vaisselle
+    below: '2'
+  - condition: state
+    entity_id: input_boolean.voice_notifications
+    state: 'on'
+  - condition: state
+    entity_id: group.person_group
+    state: 'home'
+  - condition: state
+    entity_id: input_boolean.power_notifications
+    state: 'on'
+  - service: notify.alexa_media
+    data:
+      target: media_player.cuisine
+      message: Cycle du lave vaisselle terminé
+      data:
+        type: tts
+
+# ############################################################
+# #                                                         ##
+# #                ALARM. NIGHT, WAKE UP                    ##
+# #                                                         ##
+# ############################################################
+naima_wake_up:
+  sequence:
+  - condition: state
+    entity_id: input_boolean.naima_work_alarm
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  - condition: state
+    entity_id: person.naima
+    state: 'home'
+  - service: script.morning
+
+cyril_wake_up: 
+  sequence:
+  - condition: state
+    entity_id: input_boolean.cyril_work_alarm
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  - condition: state
+    entity_id: person.cyril
+    state: 'home'
+  - delay: 00:05:00
+  - service: cover.open_cover
+    data: 
+      entity_id: group.cover_groupe_cuisine
+  - delay: 00:10:00
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+  - service: light.turn_on
+    data:
+      entity_id: light.ext_chemin
+  
+
+ilyann_wake_up:
+  sequence:
+  - condition: state
+    entity_id: input_boolean.ilyann_work_alarm
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.workday_ilyann
+    state: 'on'
+  - service: script.morning
+  - delay: 00:00:30
+  - service: light.turn_on
+    data:
+      entity_id: light.1er_ilyann_soleil
+  - delay: 00:01:00
+  - service: light.turn_on
+    data:
+      entity_id: light.1er_ilyann_nuage
+  - delay: 00:01:00
+  - service: cover.open_cover
+    data: 
+      entity_id: cover.cover_ilyann
+
+emmener_ilyann_ecole:
+  sequence:
+  - condition: state
+    entity_id: input_boolean.ilyann_work_alarm
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.workday_ilyann
+    state: 'on'
+  - condition: state
+    entity_id: person.cyril
+    state: 'home'
+  - service: notify.mobile_app_sm_g970f
+    data:
+      message: TTS
+      title: Cyril, il est l'heure d'emmener Ilyann à l'école
+      data:
+        channel: alarm_stream
+
+chercher_ilyann_ecole:
+  sequence:
+  - condition: state
+    entity_id: input_boolean.ilyann_work_alarm
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.workday_ilyann
+    state: 'on'
+  - condition: state
+    entity_id: person.cyril
+    state: 'home'
+  - service: notify.mobile_app_sm_g970f
+    data:
+      message: TTS
+      title: Cyril, il est l'heure de chercher Ilyann à l'école
+      data:
+        channel: alarm_stream
+
+
+morning:
+  sequence:
+  - service: homeassistant.turn_on
+    entity_id:
+    - input_boolean.notifications
+    - input_boolean.auto_vmc
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.vmc
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+
+evening_etage:
+  sequence:
+  - condition: state
+    entity_id: input_boolean.auto_cover_etage
+    state: 'on'
+  - service: cover.close_cover
+    data: 
+      entity_id: group.cover_groupe_etage 
+
+evening_rez:
+  sequence:
+  - service: script.turn_on
+    data:
+      entity_id: script.evening_bureau
+  - service: script.turn_on
+    data:
+      entity_id: script.evening_salon
+  - service: script.turn_on
+    data:
+      entity_id: script.evening_voisin
+  - service: script.turn_on
+    data:
+      entity_id: script.evening_cuisine
+
+
+evening_bureau:
+  sequence:
+  - condition: state
+    entity_id: input_boolean.auto_cover_bureau
+    state: 'on'
+  - service: cover.close_cover
+    data: 
+      entity_id: group.cover_groupe_bureau
+
+evening_salon:
+  sequence:
+  - condition: state
+    entity_id: input_boolean.auto_cover_salon
+    state: 'on'
+  - service: cover.close_cover
+    data: 
+      entity_id: group.cover_groupe_salon
+
+evening_voisin:
+  sequence:
+  - condition: state
+    entity_id: input_boolean.auto_cover_voisin
+    state: 'on'
+  - service: cover.close_cover
+    data: 
+      entity_id: cover.cover_voisin
+
+evening_cuisine:
+  sequence:
+  - condition: state
+    entity_id: input_boolean.auto_cover_cuisine
+    state: 'on'
+  - service: cover.close_cover
+    data: 
+      entity_id: group.cover_groupe_cuisine
+
+# ############################################################
+# #                                                         ##
+# #                       ALARME                            ##
+# #                                                         ##
+# ############################################################
+
+# [Alarm]Activation de l'alarme
+alarm_arm:
+  sequence:
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.home_alarm
+      data:
+        code: !secret code_alarme
+
+# ############################################################
+# [Alarm]Désactivation de l'alarme
+alarm_disarm:
+  sequence:
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.home_alarm
+      data:
+        code: !secret code_alarme
+
+# ############################################################
+# [Alarm]Notification lorsque l'alarme est activée
+alarm_away_mode_armed:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: ready
+    - service: browser_mod.toast
+      data:
+        message:  Alarme activée
+    - service: notify.notify_cyril
+      data_template:
+        message: "⚠️Alarme domicile activée à {{ states('sensor.time') }}"
+    - delay: '00:00:10'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+
+# ###########################################################
+# [Alarm]Notification lorsque l'alarme est desactivée
+alarm_disarmed:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alert_type
+        option: stop
+    - service: browser_mod.toast
+      data:
+        message:  Alarme désactivée
+    - service: notify.notify_cyril
+      data_template:
+        message: "Alarme domicile désactivée à {{ states('sensor.time') }}"
+
+# ###########################################################
+# [Alarm] Intrusion
+alarme_intrusion:
+  sequence:
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.home_alarm
+      data:
+        code: !secret code_alarme
+    - service: script.alarme_intrusion_notification
+    #- service: script.alarme_intrusion_voice
+
+# ###########################################################
+# [Alarm]Notification de l'intrusion
+alarme_intrusion_notification:
+  sequence:
+  - service: notify.notify_cyril
+    data:
+      message: ⚠️ 🆘 ALERTE INTRUSION à {{ states('sensor.time') }} !!!!! ⚠️ 🆘
+  - service: browser_mod.toast
+    data:
+      message:  ⚠️ 🆘 ALERTE INTRUSION !!!!! ⚠️ 🆘
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: alarm
+  - delay: '02:00:00'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+
+alarme_intrusion_voice:
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.cuisine
+      volume_level: '0.95'
+  #- service: notify.alexa_media
+  #  data:
+  #    message: Alarme intrusion la police a été informée
+  #    data:
+  #      type: tts
+  - delay: 00:00:10
+  - service: media_player.play_media
+    data:
+      media_content_id: /local/VEHSirn_Sirene_exterieure_gendarmerie_(ID_0886)_LS.mp3
+      media_content_type: music
+    target:
+      entity_id: media_player.cuisine
+  - service: notify.mobile_app_sm_g970f
+    data:
+      message: TTS
+      title: ALERTE INTRUSION au domicile !!!!!
+      data:
+        channel: alarm_stream_max
+  
+
+# ###########################################################
+# [Alarm]Detection de fumée dans la maison
+alarme_feu:
+  sequence:
+  - service: notify.notify_cyril
+    data:
+      message: ⚠️ 🆘 ALERTE FUMEE à {{ states('sensor.time') }} !!!!! ⚠️ 🆘
+  - service: browser_mod.toast
+    data:
+      message:  ⚠️ 🆘 ALERTE FUMEE !!!!! ⚠️ 🆘
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: alarm
+  - service: notify.mobile_app_sm_g970f
+    data:
+      message: TTS
+      title: Attention de la fumée a été detectée, vérifier l'origine sinon evacuer !
+      data:
+        channel: alarm_stream_max
+  - delay: '02:00:00'
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.alert_type
+      option: stop
+    
+alarme_feu_voice:
+  sequence:
+  - condition: state
+    entity_id: input_boolean.voice_notifications
+    state: 'on'
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.officecyril
+      volume_level: '0.95'
+  - service: notify.alexa_media
+    data:
+      message: Attention de la fumée a été detectée, vérifier l'origine sinon evacuer !
+      data:
+        type: tts
+  - delay: 00:00:10
+  - service: media_player.play_media
+    data:
+      media_content_id: /local/ALRMElec_Alarme_incendie_collectivite_3_(ID_2249)_LS.mp3
+      media_content_type: music
+    target:
+      entity_id: media_player.officecyril
+  
+
+# ###########################################################
+# [Alarm]Flash Lumineux
+flash_light:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.flash_light_auto
+      state: 'on'
+    - service: homeassistant.turn_on
+      entity_id: group.alarm_flash_lights
+    - delay:
+        milliseconds: 500
+    - service: homeassistant.turn_off
+      entity_id: group.alarm_flash_lights
+    - delay:
+        milliseconds: 100
+    - service: script.flash_light_loop
+
+# # Light Loop
+flash_light_loop:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.flash_light_auto
+      state: 'on'
+    - delay:
+        milliseconds: 400
+    - condition: state
+      entity_id: alarm_control_panel.home_alarm
+      state: 'triggered'
+    - service: script.flash_light
+
+# ############################################################
+# #                                                         ##
+# #                         RADIO                           ##
+# #                                                         ##
+# ############################################################
+mute_radio_bureau:
+  sequence:
+  - service: media_player.volume_mute
+    data:
+      entity_id: media_player.officecyril
+      is_volume_muted: true
+
+unmute_radio_bureau:   
+  sequence:
+  - service: media_player.volume_mute
+    data:
+      entity_id: media_player.officecyril
+      is_volume_muted: false
+
+rtl2:
+  sequence:
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.officecyril
+      media_content_id: 'http://streaming.radio.rtl2.fr:80/rtl2-1-48-192'
+      media_content_type: music
+  - service: script.radio_bureau
+
+rtl2_chatel:
+  sequence:
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.officecyril
+      media_content_id: 'http://broadcast.infomaniak.net/radiochatel.aac'
+      media_content_type: music
+  - service: script.radio_bureau
+
+lfm:
+  sequence:
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.officecyril
+      media_content_id: 'http://broadcast.infomaniak.ch/lausannefm-high.mp3'
+      media_content_type: music
+  - service: script.radio_bureau
+
+rouge_fm:
+  sequence:
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.officecyril
+      media_content_id: 'http://broadcast.infomaniak.ch/rougefm-high.mp3'
+      media_content_type: music
+  - service: script.radio_bureau
+
+vertical:
+  sequence:
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.officecyril
+      media_content_id: 'http://verticalradio.ice.infomaniak.ch/verticalradio-128.aac'
+      media_content_type: music
+  - service: script.radio_bureau
+
+france_info:
+  sequence:
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.officecyril
+      media_content_id: 'http://direct.franceinfo.fr/live/franceinfo-midfi.mp3'
+      media_content_type: music
+  - service: script.radio_bureau    
+
+rts1:
+  sequence:
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.officecyril
+      media_content_id: 'http://stream.srg-ssr.ch/la-1ere/aacp_96.m3u'
+      media_content_type: music
+  - service: script.radio_bureau    
+
+  
+radio_player:
+  sequence:
+#    - service: media_player.volume_set
+#      data:
+#        entity_id: media_player.a6cyril
+#        volume_level: '0.35'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.officecyril
+        volume_level: '0.35'
+    - service: media_player.play_media
+      data_template:
+        entity_id: >
+         {% if is_state("input_select.output_radio", "Tel. Cyril") %} media_player.a6cyril
+         {% elif is_state("input_select.output_radio", "Bureau Cyril") %} media_player.officecyril
+         {% elif is_state("input_select.output_radio", "Tablet Lenovo") %} media_player.tabletlenovo
+         {% elif is_state("input_select.output_radio", "Tablet Samsung") %} media_player.tabletsamsung
+         {% elif is_state("input_select.output_radio", "PC Bureau") %} media_player.officepc
+         {% elif is_state("input_select.output_radio", "Bureau") %} media_player.smartphone_bureau
+         {% endif %}
+        media_content_id: >
+         {% if is_state("input_select.radio_station", "RTL2") %} http://streaming.radio.rtl2.fr:80/rtl2-1-48-192
+         {% elif is_state("input_select.radio_station", "RTL2 Châtel") %} http://broadcast.infomaniak.net/radiochatel.aac
+         {% elif is_state("input_select.radio_station", "LFM") %} http://broadcast.infomaniak.ch/lausannefm-high.mp3
+         {% elif is_state("input_select.radio_station", "Rouge FM") %} http://broadcast.infomaniak.ch/rougefm-high.mp3
+         {% elif is_state("input_select.radio_station", "Vertical") %} http://verticalradio.ice.infomaniak.ch/verticalradio-128.aac
+         {% endif %}
+        media_content_type: 'music'
+    - service: script.radio_bureau
+# ############################################################
+# #                                                         ##
+# #                         THEME                           ##
+# #                                                         ##
+# ############################################################
+
+browser_theme_black_blue:
+  sequence:
+    - service: frontend.set_theme
+      data:
+        name: Caule Black Blue
+    - service: browser_mod.set_theme
+      data:
+        deviceID:
+          - a6cyril_lan
+          - officecyril
+          - tabletsamsung
+          - tabletlenovo
+        theme: Caule Black Blue
+        
+        
+# ############################################################
+# #                                                         ##
+# #                         SCENES                          ##
+# #                                                         ##
+# ############################################################
+
+scene_tele:
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: light.ext_salon

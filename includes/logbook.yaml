@@ -1,0 +1,44 @@
+---
+# # logbook# /config/includes/logbook.yaml
+# ###########################################################
+include:
+  domains:
+    - automation
+    - binary_sensor
+    - device_tracker
+    - light
+    - switch
+  entities:
+    - binary_sensor.niveau_bas_4000
+    - binary_sensor.niveau_bas_3000
+    - sensor.humidite_jed
+    - sensor.humidite_ilyann
+    - sensor.humidite_parents
+    - sensor.humidite_sdb_parents
+    - sensor.humidite_salon
+    - sensor.humidite_sdb_bureau
+    - sensor.porte_garage
+    - sensor.temperature_cuve_4000l
+    - sensor.temperature_jed
+    - sensor.temperature_ilyann
+    - sensor.temperature_parents
+    - sensor.temperature_sdb_parents
+    - sensor.temperature_salon
+    - sensor.temperature_sdb_bureau
+    - sensor.chevenoz_weather_alert     
+    - sensor.dark_sky_visibility
+    - sensor.chevenoz_cloud_cover
+    - sensor.prev_temp_maison
+    - sensor.prev_temp_maison
+    - sensor.poulailler_tension
+    - sensor.niveau_de_batterie_poulailler 
+
+exclude:
+  domains:
+    - camera
+    - media_player
+    - sun
+    - moon
+    - sensor
+    - group
+    - script

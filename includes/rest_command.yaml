@@ -1,0 +1,10 @@
+---
+# # rest_command# /config/includes/rest_command.yaml
+# ###########################################################
+
+  reload_f454:
+    url: http://192.168.1.73:8123/api/config/config_entries/entry/6f00891ea7b5d12ba588ee36f5b59dab/reload 
+    method: POST
+    headers:
+      authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIwZThhNjg3ZTFlNTY0NmVjYmQ2NzdmMzU1OWUwNDM3ZCIsImlhdCI6MTYxMzI4Njg0NCwiZXhwIjoxOTI4NjQ2ODQ0fQ.PDhcsRc5rfjxQXx01HKGgK0z5YOFdZeE07sky14f1Q4'
+      content-type: 'application/json'

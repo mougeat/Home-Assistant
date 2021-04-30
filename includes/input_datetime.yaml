@@ -1,0 +1,59 @@
+---
+# # input_datetime# /config/includes/input_datetime.yaml
+# ###########################################################
+
+# input_datetime:
+date_reset_filtres:
+  name: Date
+  has_date: true
+  has_time: false
+  #initial: "2020-04-22"
+time_naima_alarm:
+  name: Alarme Naima
+  has_date: false
+  has_time: true
+#  initial: "07:00:00"
+time_cyril_alarm:
+  name: Alarme Cyril
+  has_date: false
+  has_time: true
+#  initial: "05:15:00"
+time_ilyann_alarm:
+  name: Alarme Ilyann
+  has_date: false
+  has_time: true
+#  initial: "08:00:00"
+  
+time_voice_notification_off:
+  name: Arrêt notification vocale
+  has_date: false
+  has_time: true
+#  initial: "21:00:00"
+  
+time_voice_notification_on:
+  name: Mise en route notification vocale
+  has_date: false
+  has_time: true
+#  initial: "07:30:00"
+time:
+  name: Time
+  has_date: false
+  has_time: true
+  initial: "01:31:00"
+
+time_ilyann_ecole_matin:
+  name: Horaire école Ilyann matin
+  has_date: false
+  has_time: true
+time_ilyann_ecole_midi:
+  name: Horaire école Ilyann midi
+  has_date: false
+  has_time: true
+time_ilyann_ecole_13h:
+  name: Horaire école Ilyann 13h
+  has_date: false
+  has_time: true
+time_ilyann_ecole_soir:
+  name: Horaire école Ilyann soir
+  has_date: false
+  has_time: true

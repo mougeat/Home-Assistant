@@ -1,0 +1,226 @@
+---
+# # lights# /config/includes/lights.yaml
+# ###########################################################
+
+
+# ###################################################
+# Lumières MyHome
+# ###################################################
+
+# Etage
+  - platform: myhome
+    devices:
+      1er_jed:
+        where: '61'
+        name: Jed
+        dimmable: false
+      1er_jed_applique:
+        where: '65'
+        name: Jed applique
+        dimmable: false
+
+      1er_ilyann_nuage:
+        where: '63'
+        name: Ilyann nuage
+        dimmable: false
+      1er_ilyann_soleil:
+        where: '62'
+        name: Ilyann soleil
+        dimmable: false
+
+      1er_mezzanine:
+        where: '64'
+        name: Mezzanine
+        dimmable: true
+
+      2eme_grenier:
+        where: '98'
+        name: Grenier
+        dimmable: false
+
+      1er_parents:
+        where: '71'
+        name: Parents
+        dimmable: false
+
+      1er_naima:
+        where: '72'
+        name: Naima
+        dimmable: false
+
+      1er_cyril:
+        where: '75'
+        name: Cyril
+        dimmable: false
+
+      1er_dressing:
+        where: '79'
+        name: Dressing
+        dimmable: false
+
+      1er_couloir_parents:
+        where: '94'
+        name: Couloir parents
+        dimmable: false
+
+      1er_bain:
+        where: '75'
+        name: Bain
+        dimmable: false
+
+      1er_sdb_parents_douche:
+        where: '73'
+        name: SDB parents douche
+        dimmable: false 
+
+      1er_sdb_parents_lavabo:
+        where: '92'
+        name: SDB parents lavabo
+        dimmable: false 
+
+      1er_sdb_principale:
+        where: '95'
+        name: SDB principale
+        dimmable: false 
+
+      1er_applique_sdb_principale:
+        where: '74'
+        name: Applqiue SDB principale
+        dimmable: false 
+
+      1er_wc:
+        where: '76'
+        name: WC étage
+        dimmable: false 
+
+      1er_balisage_escalier:
+        where: '81'
+        name: Balisage escalier
+        dimmable: false 
+
+      1er_escalier:
+        where: '47'
+        name: Escalier 1er
+        dimmable: false
+
+# Rez de chaussée
+      rez_entree:
+        where: '51'
+        name: Entrée
+        dimmable: false 
+
+      rez_salle_a_manger:
+        where: '52'
+        name: Salle à manger
+        dimmable: false 
+
+      rez_cuisine:
+        where: '53'
+        name: Cuisine
+        dimmable: false 
+
+      rez_sdb_bureau:
+        where: '55'
+        name: SdB Bureau
+        dimmable: false 
+
+      rez_applique_sdb:
+        where: '59'
+        name: Applique SdB rez
+        dimmable: false 
+
+      rez_wc:
+        where: '56'
+        name: WC Rez
+        dimmable: false
+
+      rez_couloir:
+        where: '57'
+        name: Couloir
+        dimmable: false 
+
+      rez_salon:
+        where: '58'
+        name: Salon
+        dimmable: true
+  
+      rez_applique_cuisine:
+        where: '99'
+        name: Applique cuisine
+        dimmable: false 
+
+      rez_bureau:
+        where: '54'
+        name: Bureau
+        dimmable: false 
+
+# Extérieur
+      ext_chemin:
+        where: '82'
+        name: Balisage chemin
+        dimmable: false
+        manufacturer: legrand
+        model: F411 
+      
+      ext_entree:
+        where: '39'
+        name: Ext. entrée
+        dimmable: false 
+
+      ext_salon:
+        where: '33'
+        name: Ext. salon
+        dimmable: false 
+        
+      ext_cuisine:
+        where: '34'
+        name: Ext. cuisine
+        dimmable: false 
+
+      ext_parents:
+        where: '35'
+        name: Ext. parents
+        dimmable: false 
+  
+      ext_salle_a_manger:
+        where: '36'
+        name: Ext. salle à manger
+        dimmable: false 
+
+      ext_bureau:
+        where: '37'
+        name: Ext. bureau
+        dimmable: false 
+
+# Sous sol
+      ss_sol_garage:
+        where: '41'
+        name: Garage
+        dimmable: false
+
+      ss_sol_chaufferie:
+        where: '42'
+        name: Chaufferie
+        dimmable: false
+
+      ss_sol_buanderie:
+        where: '43'
+        name: Buanderie
+        dimmable: false
+
+      ss_sol_laverie:
+        where: '44'
+        name: Laverie
+        dimmable: false
+
+      ss_sol_wc:
+        where: '45'
+        name: WC sous sol
+        dimmable: false
+
+      ss_sol_escalier:
+        where: '46'
+        name: Escalier cave
+        dimmable: false
+      
+    

@@ -1,0 +1,40 @@
+---
+# # !includes/camera.yaml
+# ##############################
+#  camera:
+
+- platform: mjpeg
+  mjpeg_url: !secret mjpeg_salon
+  name: Camera YI Home
+  verify_ssl: false
+
+
+- platform: onvif
+  name: Camera Salon
+  host: http://192.168.1.17:2020/onvif/device_service
+  port: 2020
+  username: mougeat
+  password: SCKkruth06
+
+  
+- platform: mjpeg
+  name: Abondance Essert
+  mjpeg_url: https://www.valdabondance.com/vallee/camera/video/fremoux/fremoux1.jpg
+  verify_ssl: false
+  
+- platform: mjpeg
+  name: Abondance Covagny
+  mjpeg_url: https://webcams.valdabondance.com/covagny.jpg
+  verify_ssl: false
+
+- name: tablet_samsung
+  platform: generic
+  still_image_url:  !secret tablet_samsung
+
+- name: tablet_lenovo
+  platform: generic
+  still_image_url:  !secret tablet_lenovo
+
+- platform: generic
+  name: Camera bureau
+  still_image_url:  !secret camera_bureau

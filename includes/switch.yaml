@@ -1,0 +1,25 @@
+---
+# # switch# /config/includes/switch.yaml
+# ###########################################################
+#Mode OTA pour mise à jour via ESPHome
+
+  - platform: mqtt
+    command_topic: "Home/ota_mode"
+    state_topic: "Home/ota_mode"
+    name: "OTA Mode"
+    state_on: "on"
+    state_off: "off"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 1
+
+##Pompe eau de pluie 3000l
+  - platform: mqtt
+    name: "Status pompe eau de pluie"
+    state_topic: "Home/Out/Cuve/StatusPompe"
+    command_topic: "Home/Out/Cuve/NiveauBas"
+    payload_on: "on"
+    payload_off: "off"
+    state_on: "on"
+    state_off: "off"
+    qos: 0

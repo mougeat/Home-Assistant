@@ -1,0 +1,202 @@
+# ############################################################
+# #                                                         ##
+# #                           HACS                          ##
+# #                                                         ##
+# ############################################################
+  # Update is available - un-acknowledgeble, auto-dismiss, me only
+  # Wait 5 minutes before first to give core config check time to run
+  ha_update_available:
+    name: HA has an update
+    entity_id: binary_sensor.updater
+    state: 'on'
+    can_acknowledge: false
+    repeat: 
+      - 5
+      - 1440
+    skip_first: true
+    title: 'Mise à jour Home Assistant disponible'
+    message: "Nouvelle version HA disponible : {{ state_attr('binary_sensor.updater', 'newest_version') }}. Actuellement : {{ states('sensor.current_version') }}"
+    notifiers:
+      - notify_cyril
+    
+
+  # Supervisor update is available - un-acknowledgeable, auto-dismiss, me only
+  supervisor_update_available:
+    name: Supervisor has an update
+    entity_id: binary_sensor.updater_supervisor
+    state: 'on'
+    can_acknowledge: false
+    repeat: 
+      - 5
+      - 1440
+    title: 'Mise à jour Superviseur Home Assistant disponible'
+    message: "Nouvelle version HA superviseur disponible : {{ state_attr('sensor.supervisor_updates', 'newest_version') }}. Actuellement : {{ state_attr('sensor.supervisor_updates', 'current_version') }}"
+    notifiers:
+      - notify_cyril
+    
+
+  # HACS repos have updates available - unacknowledgeable, auto-dismiss, me only
+  hacs_update_available:
+    name: HACS repos have updates
+    entity_id: binary_sensor.updater_hacs
+    state: 'on'
+    can_acknowledge: false
+    repeat: 
+      - 5
+      - 1440
+    title: "Mise à jour disponible pour {{ states('sensor.hacs') }} HACS composant{% if states('sensor.hacs') | int > 1 %}s{% endif %}"
+    message: ""
+    notifiers:
+      - notify_cyril
+
+  # Addons have updates available - unacknowledgeable, auto-dismiss, me only
+  addon_update_available:
+    name: Addons have updates
+    entity_id: binary_sensor.updater_addons
+    state: 'on'
+    can_acknowledge: false
+    repeat: 
+      - 5
+      - 1440
+    title: "Updates available for {{ states('sensor.supervisor_updates') }} HA addon{% if states('sensor.supervisor_updates') | int > 1 %}s{% endif %}"
+    message: ""
+    notifiers:
+      - notify_cyril
+
+
+# ############################################################
+# #                                                         ##
+# #                  Windows / Door control                 ##
+# #                                                         ##
+# ############################################################
+
+##Door control
+  garage_door_alert:
+    name: ⚠️ 🚪 Porte du garage depuis  {{ relative_time(states.binary_sensor.status_porte_garage.last_changed) }}
+    entity_id: binary_sensor.garage_door_opened_alert
+    repeat:
+      - 5
+      - 20
+      - 30
+      - 60
+      - 120
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - notify_cyril
+
+
+  auto_poules_disabled:
+    name: ⚠️ Portes poules automatiques désactivé 
+    entity_id: binary_sensor.portes_poules_auto_disable
+    repeat: 720
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - notify_cyril
+
+# ############################################################
+# #                                                         ##
+# #                      Smoke detector                     ##
+# #                                                         ##
+# ############################################################
+
+
+# ############################################################
+# #                                                         ##
+# #                      Temperatures                       ##
+# #                                                         ##
+# ############################################################
+
+  plancher_alert:
+    name: ⚠️ Surchauffe du plancher chauffant depuis  {{ relative_time(states.binary_sensor.surchauffe_plancher.last_changed) }} risque de dommage sur le carrelage
+    entity_id: binary_sensor.surchauffe_plancher
+    repeat:
+      - 5
+      - 20
+      - 30
+      - 60
+      - 120
+    can_acknowledge: false
+    skip_first: true
+    notifiers:
+      - notify_cyril
+
+
+# ############################################################
+# #                                                         ##
+# #                      Leak  detector                     ##
+# #                                                         ##
+# ############################################################
+
+
+# ############################################################
+# #                                                         ##
+# #                    Pump temperature                     ##
+# #                                                         ##
+# ############################################################
+  freez_pump_3000:
+    name: ⚠️ Risque de gel sur la pompe pompe de la cuve 3000l 🚱!!! vidangez la !!!!!!!!!
+    entity_id: binary_sensor.pompe_3000_freez
+    state: 'on'
+    repeat:
+      - 5
+      - 30
+      - 60
+    skip_first: true
+    notifiers:
+      - notify_cyril
+
+  freez_pump_4000:
+    name: ⚠️ Risque de gel sur la pome pompe de la cuve 4000l 🚱!!! vidangez la !!!!!!!!!
+    entity_id: binary_sensor.pompe_4000_freez
+    state: 'on'
+    repeat:
+      - 5
+      - 30
+      - 60
+    skip_first: true
+    notifiers:
+      - notify_cyril
+
+  freez_tank_4000:
+    name: ⚠️ Risque de gel sur les conduites de la cuve 4000l 🚱!!! vidangez la !!!!!!!!!
+    entity_id: binary_sensor.tank_4000_freez
+    state: 'on'
+    repeat:
+      - 5
+      - 30
+      - 60
+    skip_first: true
+    notifiers:
+      - notify_cyril
+
+  overheat_pump_3000:
+    name: ⚠️ La pompe de la cuve 3000l est en surchauffe 🚱!!! coupez la !!!!!!!!!
+    entity_id: binary_sensor.pompe_3000_surchauffe
+    state: 'on'
+    repeat:
+      - 5
+      - 15
+      - 30
+      - 60
+      - 120
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - notify_cyril
+
+  overheat_pump_4000:
+    name: ⚠️ La pompe de la cuve 4000l est en surchauffe 🚱!!! coupez la !!!!!!!!!
+    entity_id: binary_sensor.pompe_4000_surchauffe
+    state: 'on'
+    repeat:
+      - 5
+      - 15
+      - 30
+      - 60
+      - 120
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - notify_cyril

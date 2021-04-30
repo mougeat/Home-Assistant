@@ -1,0 +1,297 @@
+---
+# # cover# /config/includes/cover.yaml
+# ###########################################################
+  - platform: myhome
+    devices:
+      volet_voisin:
+        where: '11'
+        name: Volet voisin
+        advanced: true
+
+      volet_salon:
+        where: '12'
+        name: Volet salon
+        advanced: false
+
+      volet_sam:
+        where: '13'
+        name: Volet salle à manger
+        advanced: false
+      
+      volet_porte_cuisine: 
+        where: '14'
+        name: Volet porte cuisine
+        advanced: false
+      
+      volet_cuisine: 
+        where: '15'
+        name: Volet cuisine
+        advanced: false
+
+      volet_bureau_terrasse:
+        where: '16'
+        name: Volet bureau terrasse
+        advanced: false
+
+      volet_bureau:
+        where: '17'
+        name: Volet bureau
+        advanced: false
+
+      volet_ilyann:
+        where: '21'
+        name: Volet Ilyann
+        advanced: false
+
+      volet_jed:
+        where: '22'
+        name: Volet Jed
+        advanced: false
+
+      volet_parents:
+        where: '23'
+        name: Volet Parents
+        advanced: false
+        
+  - platform: template
+    covers:
+      
+      cover_porte_cuisine:
+        device_class: shutter
+        value_template: >-
+          {% if is_state('cover.volet_porte_cuisine', 'unknown') %}
+            {% set state = states('sensor.last_cover_porte_cuisine') %}
+
+          {% elif is_state('cover.volet_porte_cuisine', 'closing') %}
+            {% set state = states('cover.volet_porte_cuisine') %}
+
+          {% elif is_state('cover.volet_porte_cuisine', 'opening') %}
+            {% set state = states('cover.volet_porte_cuisine') %}<
+
+          {% endif %}
+          {{ state }}
+        open_cover:
+          service: cover.open_cover
+          entity_id: cover.volet_porte_cuisine
+        close_cover:
+          service: cover.close_cover
+          entity_id: cover.volet_porte_cuisine
+        stop_cover:
+          service: cover.stop_cover
+          entity_id: cover.volet_porte_cuisine
+
+      cover_cuisine:
+        device_class: shutter
+        value_template: >-
+          {% if is_state('cover.volet_cuisine', 'unknown') %}
+            {% set state = states('sensor.last_cover_cuisine') %}
+
+          {% elif is_state('cover.volet_cuisine', 'closing') %}
+            {% set state = states('cover.volet_cuisine') %}
+
+          {% elif is_state('cover.volet_cuisine', 'opening') %}
+            {% set state = states('cover.volet_cuisine') %}<
+
+          {% endif %}
+          {{ state }}
+        open_cover:
+          service: cover.open_cover
+          entity_id: cover.volet_cuisine
+        close_cover:
+          service: cover.close_cover
+          entity_id: cover.volet_cuisine
+        stop_cover:
+          service: cover.stop_cover
+          entity_id: cover.volet_cuisine
+##
+      cover_salon:
+        device_class: shutter
+        value_template: >-
+          {% if is_state('cover.volet_salon', 'unknown') %}
+            {% set state = states('sensor.last_cover_salon') %}
+
+          {% elif is_state('cover.volet_salon', 'closing') %}
+            {% set state = states('cover.volet_salon') %}
+
+          {% elif is_state('cover.volet_salon', 'opening') %}
+            {% set state = states('cover.volet_salon') %}<
+
+          {% endif %}
+          {{ state }}
+        open_cover:
+          service: cover.open_cover
+          entity_id: cover.volet_salon
+        close_cover:
+          service: cover.close_cover
+          entity_id: cover.volet_salon
+        stop_cover:
+          service: cover.stop_cover
+          entity_id: cover.volet_salon
+##
+      cover_sam:
+        device_class: shutter
+        value_template: >-
+          {% if is_state('cover.volet_sam', 'unknown') %}
+            {% set state = states('sensor.last_cover_sam') %}
+
+          {% elif is_state('cover.volet_sam', 'closing') %}
+            {% set state = states('cover.volet_sam') %}
+
+          {% elif is_state('cover.volet_sam', 'opening') %}
+            {% set state = states('cover.volet_sam') %}<
+
+          {% endif %}
+          {{ state }}
+        open_cover:
+          service: cover.open_cover
+          entity_id: cover.volet_sam
+        close_cover:
+          service: cover.close_cover
+          entity_id: cover.volet_sam
+        stop_cover:
+          service: cover.stop_cover
+          entity_id: cover.volet_sam
+##
+      cover_voisin:
+        device_class: shutter
+        value_template: >-
+          {% if is_state('cover.volet_voisin', 'unknown') %}
+            {% set state = states('sensor.last_cover_voisin') %}
+
+          {% elif is_state('cover.volet_voisin', 'closing') %}
+            {% set state = states('cover.volet_voisin') %}
+
+          {% elif is_state('cover.volet_voisin', 'opening') %}
+            {% set state = states('cover.volet_voisin') %}<
+
+          {% endif %}
+          {{ state }}
+        open_cover:
+          service: cover.open_cover
+          entity_id: cover.volet_voisin
+        close_cover:
+          service: cover.close_cover
+          entity_id: cover.volet_voisin
+        stop_cover:
+          service: cover.stop_cover
+          entity_id: cover.volet_voisin
+##
+      cover_bureau:
+        device_class: shutter
+        value_template: >-
+          {% if is_state('cover.volet_bureau', 'unknown') %}
+            {% set state = states('sensor.last_cover_bureau') %}
+
+          {% elif is_state('cover.volet_bureau', 'closing') %}
+            {% set state = states('cover.volet_bureau') %}
+
+          {% elif is_state('cover.volet_bureau', 'opening') %}
+            {% set state = states('cover.volet_bureau') %}<
+
+          {% endif %}
+          {{ state }}
+        open_cover:
+          service: cover.open_cover
+          entity_id: cover.volet_bureau
+        close_cover:
+          service: cover.close_cover
+          entity_id: cover.volet_bureau
+        stop_cover:
+          service: cover.stop_cover
+          entity_id: cover.volet_bureau
+##
+      cover_bureau_terrasse:
+        device_class: shutter
+        value_template: >-
+          {% if is_state('cover.volet_bureau_terrasse', 'unknown') %}
+            {% set state = states('sensor.last_cover_bureau_terrasse') %}
+
+          {% elif is_state('cover.volet_bureau_terrasse', 'closing') %}
+            {% set state = states('cover.volet_bureau_terrasse') %}
+
+          {% elif is_state('cover.volet_bureau_terrasse', 'opening') %}
+            {% set state = states('cover.volet_bureau_terrasse') %}<
+
+          {% endif %}
+          {{ state }}
+        open_cover:
+          service: cover.open_cover
+          entity_id: cover.volet_bureau_terrasse
+        close_cover:
+          service: cover.close_cover
+          entity_id: cover.volet_bureau_terrasse
+        stop_cover:
+          service: cover.stop_cover
+          entity_id: cover.volet_bureau_terrasse
+##
+      cover_ilyann:
+        device_class: shutter
+        value_template: >-
+          {% if is_state('cover.volet_ilyann', 'unknown') %}
+            {% set state = states('sensor.last_cover_ilyann') %}
+
+          {% elif is_state('cover.volet_ilyann', 'closing') %}
+            {% set state = states('cover.volet_ilyann') %}
+
+          {% elif is_state('cover.volet_ilyann', 'opening') %}
+            {% set state = states('cover.volet_ilyann') %}<
+
+          {% endif %}
+          {{ state }}
+        open_cover:
+          service: cover.open_cover
+          entity_id: cover.volet_ilyann
+        close_cover:
+          service: cover.close_cover
+          entity_id: cover.volet_ilyann
+        stop_cover:
+          service: cover.stop_cover
+          entity_id: cover.volet_ilyann  
+##
+      cover_jed:
+        device_class: shutter
+        value_template: >-
+          {% if is_state('cover.volet_jed', 'unknown') %}
+            {% set state = states('sensor.last_cover_jed') %}
+
+          {% elif is_state('cover.volet_jed', 'closing') %}
+            {% set state = states('cover.volet_jed') %}
+
+          {% elif is_state('cover.volet_jed', 'opening') %}
+            {% set state = states('cover.volet_jed') %}<
+
+          {% endif %}
+          {{ state }}
+        open_cover:
+          service: cover.open_cover
+          entity_id: cover.volet_jed
+        close_cover:
+          service: cover.close_cover
+          entity_id: cover.volet_jed
+        stop_cover:
+          service: cover.stop_cover
+          entity_id: cover.volet_jed          
+##
+      cover_parents:
+        device_class: shutter
+        value_template: >-
+          {% if is_state('cover.volet_parents', 'unknown') %}
+            {% set state = states('sensor.last_cover_parents') %}
+
+          {% elif is_state('cover.volet_parents', 'closing') %}
+            {% set state = states('cover.volet_parents') %}
+
+          {% elif is_state('cover.volet_parents', 'opening') %}
+            {% set state = states('cover.volet_parents') %}<
+
+          {% endif %}
+          {{ state }}
+        open_cover:
+          service: cover.open_cover
+          entity_id: cover.volet_parents
+        close_cover:
+          service: cover.close_cover
+          entity_id: cover.volet_parents
+        stop_cover:
+          service: cover.stop_cover
+          entity_id: cover.volet_parents

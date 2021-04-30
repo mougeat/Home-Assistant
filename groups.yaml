@@ -1,0 +1,189 @@
+person_group:
+    entities:
+        - person.cyril
+        - person.naima
+
+light_exterieure:
+    name: Éclairage extérieur
+    entities:
+        - light.ext_chemin
+        - light.ext_entree
+        - light.ext_salon
+        - light.ext_cuisine
+        - light.ext_parents
+        - light.ext_salle_a_manger
+        - light.ext_bureau
+
+light_rez:
+    name: Éclairage rez
+    entities:
+        - group.light_cuisine
+        - group.light_salon
+        - group.light_bureau
+        - light.rez_entree
+        - light.rez_wc
+        - light.rez_couloir
+
+light_cuisine:
+    name: Éclairage cuisine
+    entities:
+        - light.rez_cuisine
+        - light.rez_applique_cuisine
+
+light_salon:
+    name: Éclairage salon
+    entities:
+        - light.rez_salle_a_manger
+        - light.rez_salon
+    
+
+light_bureau:
+    name: Éclairage bureau
+    entities:
+        - light.rez_sdb_bureau
+        - light.rez_appli_salle_de_bain_bureau
+        - light.rez_bureau
+
+light_enfants:
+    name: Éclairage enfants
+    entities:
+        - group.light_ilyann
+        - group.light_jed
+light_etage:
+    name: Éclairage étage
+    entities:
+        - group.light_ilyann
+        - group.light_jed
+        - group.light_parents
+        - group.light_sdb_principale
+        - light.1er_mezzanine
+        - light.2eme_grenier
+        - light.1er_wc
+        - light.1er_balisage_escalier
+        - light.1er_escalier
+        
+
+light_ilyann:
+    name: Éclairage Ilyann
+    entities:
+        - light.1er_ilyann_nuage
+        - light.1er_ilyann_soleil        
+light_jed:
+    name: Éclairage Jed
+    entities:
+        - light.1er_jed
+        - light.1er_jed_applique
+light_parents:
+    name: Éclairage parents
+    entities:
+        - light.1er_parents
+        - light.1er_naima
+        - light.1er_cyril
+        - light.1er_dressing
+        - light.1er_couloir_parents
+        - light.1er_sdb_parents_douche
+        - light.1er_sdb_parents_lavabo
+
+light_sdb_principale:
+    name: Salle de bain principale
+    entities: 
+        - light.1er_sdb_principale
+        - light.1er_applique_sdb_principale
+
+light_ss_sol:
+    name: Éclairage sous-sol
+    entities:
+        - light.ss_sol_garage
+        - light.ss_sol_chaufferie
+        - light.ss_sol_buanderie
+        - light.ss_sol_laverie
+        - light.ss_sol_wc_ss_sol
+        - light.ss_sol_escalier_cave
+
+light_garage:
+    name: Éclairage sous-sol
+    entities:
+        - light.ss_sol_garage
+        - light.ss_sol_laverie
+        - light.ss_sol_wc_ss_sol
+        - light.ss_sol_escalier_cave
+ 
+all_lights:
+    name: Éclairage
+    entities:
+        - group.light_exterieure
+        - group.light_rez
+        - group.light_etage
+        - group.light_ss_sol
+
+        
+alarm_flash_lights:
+    entities:
+        - group.all_lights
+
+alarm_flash_lights_off:
+    entities:
+        - light.rez_applique_cuisine
+
+cover_all:
+    name: Volets
+    entities:
+        - group.cover_groupe_rez
+        - group.cover_groupe_etage
+
+cover_groupe_rez:
+    name: Volets rez
+    entities:
+        - group.cover_groupe_cuisine
+        - group.cover_groupe_salon
+        - group.cover_groupe_bureau
+
+cover_groupe_etage:
+    name: Volets étage
+    entities:
+        - cover.cover_jed
+        - cover.cover_ilyann
+        - cover.cover_parents
+
+cover_groupe_cuisine:
+    name: Volets cuisine
+    entities:
+        - cover.cover_porte_cuisine
+        - cover.cover_cuisine
+
+cover_groupe_salon:
+    name: Volets salon
+    entities:
+        - cover.cover_voisin
+        - cover.cover_salon
+        - cover.cover_sam
+
+cover_groupe_bureau:
+    name: Volets bureau
+    entities:
+        - cover.cover_bureau
+        - cover.cover_bureau_terrasse
+        
+all_door:
+    name: Toutes les portes
+    entities:
+        - binary_sensor.door_and_window_sensor_174f
+        - binary_sensor.status_porte_garage
+        - binary_sensor.door_and_window_sensor_e65b
+        
+
+all_smoke:
+    name: Détecteurs fumée
+    entities:
+        - binary_sensor.smoke_sensor_55ca
+        - binary_sensor.smoke_sensor_5595
+        - binary_sensor.smoke_sensor_buanderie_55ca
+
+
+declenche_alarm:
+    name: Déclencheurs de l'alarme
+    entities:
+        - light.rez_entree
+        - light.1er_balisage_escalier
+        - binary_sensor.status_porte_garage
+        - group.all_door

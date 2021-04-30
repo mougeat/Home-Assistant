@@ -1,0 +1,594 @@
+---
+# # sensor# /config/includes/sensor.yaml
+# ###########################################################
+
+# Current Time and Date
+  - platform: time_date
+    display_options:
+        - 'time'
+        - 'date'
+        - 'date_time'
+        - 'date_time_iso'
+        - 'time_date'
+        - 'time_utc'
+        - 'beat'
+# ###################################################
+# Home Assistant
+# ###################################################
+# HA latest version
+  - platform: rest
+    name: "HA Latest Version"
+    resource: https://pypi.python.org/pypi/homeassistant/json
+    value_template: '{{ value_json.info.version }}'
+    scan_interval: 3600
+
+
+  # Uptime Sensor
+  - platform: uptime
+
+  - platform: systemmonitor
+    resources:
+    - type: disk_free
+      arg: /
+    - type: disk_use_percent
+      arg: /
+    - type: memory_free
+    - type: processor_use
+    - type: last_boot
+    - type: memory_use_percent
+    - type: load_1m
+
+  # Sensor to track available updates for supervisor & addons
+  - platform: command_line
+    name: Supervisor updates
+    command: 'curl http://supervisor/supervisor/info -H "Authorization: Bearer $(printenv SUPERVISOR_TOKEN)" | jq ''{"newest_version":.data.version_latest,"current_version":.data.version,"addons":[.data.addons[] | select(.version != .installed)]}'''
+    value_template: "{{ value_json.addons | length }}"
+    json_attributes:
+    - newest_version
+    - current_version
+    - addons
+
+#################################################################################
+    # HA latest version
+ # - platform: rest
+ #   name: "HA Latest Version"
+ #   resource: https://pypi.python.org/pypi/homeassistant/json
+ #   value_template: '{{ value_json.info.version }}'
+ #   scan_interval: 3600
+  - platform: template
+    sensors:
+# Thanks to @ccostan for the code here.  Some Intresting HA stats
+        sensor_count:
+            entity_id: []
+            friendly_name: 'Sensors'
+            value_template: >
+                {%- set domains = ['sensor'] -%}
+                {%- for domain in domains -%}
+                {%- for item in states[domain] -%}
+                    {% if loop.first %}
+                    {{loop.length}}
+                    {% endif %}
+                {%- endfor -%}
+                {%- endfor -%}
+        automation_count:
+            entity_id: []
+            friendly_name: 'Automations'
+            value_template: >
+                {%- set domains = ['automation'] -%}
+                {%- for domain in domains -%}
+                {%- for item in states[domain] -%}
+                    {% if loop.first %}
+                    {{loop.length}}
+                    {% endif %}
+                {%- endfor -%}
+                {%- endfor -%}
+        script_count:
+            entity_id: []
+            friendly_name: 'Scripts'
+            value_template: >
+                {%- set domains = ['script'] -%}
+                {%- for domain in domains -%}
+                {%- for item in states[domain] -%}
+                    {% if loop.first %}
+                    {{loop.length}}
+                    {% endif %}
+                {%- endfor -%}
+                {%- endfor -%}
+        switch_count:
+            entity_id: []
+            friendly_name: 'Switches'
+            value_template: >
+                {%- set domains = ['switch'] -%}
+                {%- for domain in domains -%}
+                {%- for item in states[domain] -%}
+                    {% if loop.first %}
+                    {{loop.length}}
+                    {% endif %}
+                {%- endfor -%}
+                {%- endfor -%}
+        binary_sensor_count:
+            entity_id: []
+            friendly_name: 'Binary Sensors'
+            value_template: >
+                {%- set domains = ['binary_sensor'] -%}
+                {%- for domain in domains -%}
+                {%- for item in states[domain] -%}
+                    {% if loop.first %}
+                    {{loop.length}}
+                    {% endif %}
+                {%- endfor -%}
+                {%- endfor -%}
+        lights_count:
+            entity_id: []
+            friendly_name: 'Lights'
+            value_template: >
+                {%- set domains = ['light'] -%}
+                {%- for domain in domains -%}
+                {%- for item in states[domain] -%}
+                    {% if loop.first %}
+                    {{loop.length}}
+                    {% endif %}
+                {%- endfor -%}
+                {%- endfor -%}
+        tracker_count:
+            entity_id: []
+            friendly_name: 'Devices'
+            value_template: >
+                {%- set domains = ['device_tracker'] -%}
+                {%- for domain in domains -%}
+                {%- for item in states[domain] -%}
+                    {% if loop.first %}
+                    {{loop.length}}
+                    {% endif %}
+                {%- endfor -%}
+                {%- endfor -%}
+        alert_count:
+            entity_id: []
+            friendly_name: 'Alerts'
+            value_template: >
+                {%- set domains = ['alert'] -%}
+                {%- for domain in domains -%}
+                {%- for item in states[domain] -%}
+                    {% if loop.first %}
+                    {{loop.length}}
+                    {% endif %}
+                {%- endfor -%}
+                {%- endfor -%}
+                
+# ###################################################
+# Date & Heure
+# ###################################################
+  - platform: template
+    sensors:
+        time_12_hour_am_pm:
+          friendly_name: "Time 12 Hour AM PM"
+          value_template: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%I:%M %p') }}"
+        time_24_hour:
+          friendly_name: "Time 24 Hour"
+          value_template: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%H:%M') }}"
+
+  - platform: template
+    sensors:
+        time_12_hour:
+          friendly_name: "Time 12 Hour"
+          value_template: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%I:%M') }}"
+        sunset:
+          value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom("%H:%M") %} {{ timestamp.lstrip("0") }}'
+
+  - platform: template
+    sensors:
+        sunrise:
+          value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_rising) | timestamp_custom("%H:%M") %} {{ timestamp.lstrip("0") }}'
+
+        daylight:
+          value_template: >
+            {% set nr = as_timestamp(state_attr('sun.sun','next_rising')) %}
+            {% set ns = as_timestamp(state_attr('sun.sun','next_setting')) %}
+            {% if nr > ns %}
+              {% set nr = nr - 60*60*24 %}
+            {% endif %}
+            {{ (ns - nr)|timestamp_custom('%H:%M',false) }} 
+
+
+# ###################################################
+# Temps jusqu'à la maison
+# ###################################################
+  - platform: waze_travel_time
+    name: Cyril vers maison
+    origin: person.cyril
+    destination: !secret waze_home
+    region: "EU"
+
+# ###################################################
+# Données MQTT
+# ###################################################
+
+    
+
+#SdB Parents
+  - platform: mqtt
+    name: "Température Sdb parents"
+    state_topic: "Home/Etage/SdbParents/Temperature"
+    unit_of_measurement: '°C'
+    icon: mdi:home-thermometer
+  - platform: mqtt
+    name: "Humidité Sdb parents"
+    state_topic: "Home/Etage/SdbParents/Humidity"
+    unit_of_measurement: '%'
+    icon: mdi:water-percent
+
+    
+# ###################################################
+# Mini Maxi pour les températures et humidité de la maison
+# ###################################################
+  - platform: min_max
+    type: min
+    name: Température mini
+    entity_ids:
+      - sensor.temperature_sdb_parents
+      #- sensor.temperature_sdb_bureau
+      - sensor.temperature_and_humidity_sensor_6d69_temperature #salon
+      - sensor.temperature_and_humidity_sensor_8e6b_temperature #cuisine
+      - sensor.temperature_and_humidity_sensor_609d_temperature #bureau
+      - sensor.temperature_and_humidity_sensor_c225_temperature #SdB Bureau
+      - sensor.temperature_and_humidity_sensor_8fc5_temperature #Ilyann
+      - sensor.temperature_and_humidity_sensor_b4bc_temperature #Jed
+      - sensor.temperature_and_humidity_sensor_fd7d_temperature #Parents
+      
+      
+  - platform: min_max
+    type: max
+    name: Température maxi
+    entity_ids:
+      - sensor.temperature_sdb_parents
+      #- sensor.temperature_sdb_bureau
+      - sensor.temperature_and_humidity_sensor_6d69_temperature #salon
+      - sensor.temperature_and_humidity_sensor_8e6b_temperature #cuisine
+      - sensor.temperature_and_humidity_sensor_609d_temperature #bureau
+      - sensor.temperature_and_humidity_sensor_c225_temperature #SdB Bureau
+      - sensor.temperature_and_humidity_sensor_8fc5_temperature #Ilyann
+      - sensor.temperature_and_humidity_sensor_b4bc_temperature #Jed
+      - sensor.temperature_and_humidity_sensor_fd7d_temperature #Parents
+      
+  - platform: min_max
+    type: min
+    name: Humidité mini
+    entity_ids:
+      - sensor.humidite_sdb_parents
+      #- sensor.humidite_sdb_bureau
+      - sensor.temperature_and_humidity_sensor_6d69_humidity #salon
+      - sensor.temperature_and_humidity_sensor_8e6b_humidity #cuisine
+      - sensor.temperature_and_humidity_sensor_609d_humidity #bureau
+      - sensor.temperature_and_humidity_sensor_c225_humidity #SdB Bureau
+      - sensor.temperature_and_humidity_sensor_8fc5_humidity #Ilyann
+      - sensor.temperature_and_humidity_sensor_b4bc_humidity #Jed
+      - sensor.temperature_and_humidity_sensor_fd7d_humidity #Parents
+      
+  - platform: min_max
+    type: max
+    name: Humidité maxi
+    entity_ids:
+      - sensor.humidite_sdb_parents
+      - sensor.temperature_and_humidity_sensor_6d69_humidity #salon
+      - sensor.temperature_and_humidity_sensor_8e6b_humidity #cuisine
+      - sensor.temperature_and_humidity_sensor_609d_humidity #bureau
+      - sensor.temperature_and_humidity_sensor_c225_humidity #SdB Bureau
+      - sensor.temperature_and_humidity_sensor_8fc5_humidity #Ilyann
+      - sensor.temperature_and_humidity_sensor_b4bc_humidity #Jed
+      - sensor.temperature_and_humidity_sensor_fd7d_humidity #Parents
+
+      
+##Température moyenne de la maison
+  - platform: min_max
+    entity_ids:
+      - sensor.temperature_and_humidity_sensor_6d69_temperature #salon
+      - sensor.temperature_and_humidity_sensor_8e6b_temperature #cuisine
+      - sensor.temperature_and_humidity_sensor_609d_temperature #bureau
+      - sensor.temperature_and_humidity_sensor_8fc5_temperature #Ilyann
+      - sensor.temperature_and_humidity_sensor_b4bc_temperature #Jed
+      - sensor.temperature_and_humidity_sensor_fd7d_temperature #Parents
+    name: 'realistic_temperature'
+    type: mean
+##Humudité moyenne de la maison
+  - platform: min_max
+    entity_ids:
+      - sensor.temperature_and_humidity_sensor_6d69_humidity #salon
+      - sensor.temperature_and_humidity_sensor_8e6b_humidity #cuisine
+      - sensor.temperature_and_humidity_sensor_609d_humidity #bureau
+      - sensor.temperature_and_humidity_sensor_8fc5_humidity #Ilyann
+      - sensor.temperature_and_humidity_sensor_b4bc_humidity #Jed
+      - sensor.temperature_and_humidity_sensor_fd7d_humidity #Parents
+    name: 'realistic_humidite'
+    type: mean
+    
+
+# ###################################################
+# Cuves et filtre eaux de pluie
+# ###################################################
+  - platform: template
+    sensors:
+      duree_de_vie_des_filtres_eau_de_pluie:
+        friendly_name: Durée de vie des filtres eau de pluie
+        value_template: '{{ ((as_timestamp(now()) - state_attr("input_datetime.date_reset_filtres", "timestamp")) / 86400) | round(0) }}'
+
+#  - platform: template
+#    sensors:
+#      niveau_eau_4000:
+#        friendly_name: Niveau d'eau cuve de 4000l
+#        value_template: >
+#          {% if states('sensor.niveau_cuve_4000l')|float > 0 %}
+#            {% set water_level = states('sensor.niveau_cuve_4000l') | float %}
+#            {% set invert_level = 1.09 - water_level %}
+#            {% set margin = invert_level * 100.00 %}
+#            {% set level = margin / (1.09 - 0.16) %}
+#            {% set level_round = level | round %}
+#            {{ level_round }}
+#          {% else %}
+#            0
+#          {% endif %}
+#        unit_of_measurement: '%'
+#        entity_id:
+#                - sensor.niveau_cuve_4000l
+#        ## 1,09m = cuve vide
+#        ## 0,16m = cuve pleine
+
+#  - platform: template
+#    sensors:
+#      niveau_eau_3000:
+#        friendly_name: Niveau d'eau cuve de 3000l
+#        value_template: >
+#          {% if states('sensor.niveau_cuve_3000l')|float > 0 %}
+#            {% set water_level = states('sensor.niveau_cuve_3000l') | float %}
+#            {% set invert_level = 1.90 - water_level %}
+#            {% set margin = invert_level * 100.00 %}
+#            {% set level = margin / 1.60 %}
+#            {% set level_round = level | round %}
+#            {{ level_round }}
+#          {% else %}
+#            0
+#          {% endif %}
+#        unit_of_measurement: '%'
+#        entity_id:
+#                - sensor.niveau_cuve_3000l
+        
+    
+# ###################################################
+# Météo
+# ###################################################
+  - platform: darksky
+    api_key: !secret darksky_api
+    forecast:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+    #hourly_forecast:
+      #- 0
+      #- 12
+    language: fr
+    monitored_conditions:
+      - icon
+      - summary
+      - nearest_storm_distance
+      - nearest_storm_bearing
+      - humidity
+      - temperature
+      - temperature_high
+      - temperature_low
+      - apparent_temperature
+      - apparent_temperature_high
+      - apparent_temperature_low
+      - wind_speed
+      - wind_bearing
+      - precip_type
+      - precip_probability
+      - precip_accumulation
+      - precip_intensity
+      - precip_intensity_max
+      - uv_index
+      - daily_summary
+      - pressure
+      - visibility
+    scan_interval:
+      minutes: 5
+      
+##********************************************
+##Consommation électrique
+##********************************************
+  - platform: command_line
+    name: Tarif en cours
+    command: curl -s 'http://192.168.1.16/data.json' | jq '.tarif_courant'
+    scan_interval: 10
+
+  - platform: template
+    sensors:
+      legrand_hchp:
+        friendly_name: Tarif en cours
+        entity_id: sensor.tarif_en_cours
+        value_template: >
+          {% if is_state('sensor.tarif_en_cours', '2') %}
+            HP
+          {% else %}
+            HC
+          {% endif %}
+
+  - platform: command_line
+    name: EcoCompteur Consommation base
+    command: curl -s 'http://192.168.1.16/data.json' | jq '.conso_base |floor/1000'
+    scan_interval: 1800 #30min
+    unit_of_measurement: kWh
+
+  - platform: command_line
+    name: EcoCompteur Abonnement
+    command: curl -s 'http://192.168.1.16/data.json' | jq '.isousc'
+    scan_interval: 43200 #12h
+    unit_of_measurement: A
+
+  - platform: command_line
+    name: EcoCompteur Chauffage
+    command: curl -s 'http://192.168.1.16/inst.json' | jq '.data1'
+    scan_interval: 2
+    unit_of_measurement: W
+
+  - platform: command_line
+    name: EcoCompteur Lave linge
+    command: curl -s 'http://192.168.1.16/inst.json' | jq '.data2'
+    scan_interval: 2
+    unit_of_measurement: W
+
+  - platform: command_line
+    name: EcoCompteur Sèche linge
+    command: curl -s 'http://192.168.1.16/inst.json' | jq '.data3'
+    scan_interval: 2
+    unit_of_measurement: W
+
+  - platform: command_line
+    name: EcoCompteur Four
+    command: curl -s 'http://192.168.1.16/inst.json' | jq '.data4'
+    scan_interval: 2
+    unit_of_measurement: W
+
+
+  - platform: command_line
+    name: EcoCompteur Lave vaisselle
+    command: curl -s 'http://192.168.1.16/inst.json' | jq '.data5'
+    scan_interval: 2
+    unit_of_measurement: W   
+
+  - platform: template
+    sensors:
+        conso_y_moins1:
+          friendly_name_template: "Conso Y-1"
+          value_template: >-
+            {{ state_attr('sensor.myenedis_19524312465076', 'last_year') }}
+        conso_y:
+          friendly_name_template: "Conso Y"
+          value_template: >-
+            {{ state_attr('sensor.myenedis_19524312465076', 'current_year') }}
+
+
+# #********************************************
+# #Memorisation etat volets
+# #********************************************
+  - platform: template
+    sensors:
+        last_cover_porte_cuisine:
+          friendly_name_template: "dernier etat volet porte cuisine"
+          value_template: >-
+            {{ states('cover.cover_porte_cuisine') }}
+        last_cover_cuisine:
+          friendly_name_template: "dernier etat volet cuisine"
+          value_template: >-
+            {{ states('cover.cover_cuisine') }}
+        last_cover_salon:
+          friendly_name_template: "dernier etat volet salon"
+          value_template: >-
+            {{ states('cover.cover_salon') }}
+        last_cover_sam:
+          friendly_name_template: "dernier etat volet SaM"
+          value_template: >-
+            {{ states('cover.cover_sam') }}
+        last_cover_voisin:
+          friendly_name_template: "dernier etat volet voisin"
+          value_template: >-
+            {{ states('cover.cover_voisin') }}
+        last_cover_bureau:
+          friendly_name_template: "dernier etat volet bureau"
+          value_template: >-
+            {{ states('cover.cover_bureau') }}
+        last_cover_bureau_terrasse:
+          friendly_name_template: "dernier etat volet bureau terrasse"
+          value_template: >-
+            {{ states('cover.cover_bureau_terrasse') }}
+        last_cover_ilyann:
+          friendly_name_template: "dernier etat volet bureau ilyann"
+          value_template: >-
+            {{ states('cover.cover_ilyann') }}
+        last_cover_jed:
+          friendly_name_template: "dernier etat volet bureau Jed"
+          value_template: >-
+            {{ states('cover.cover_jed') }}
+        last_cover_parents:
+          friendly_name_template: "dernier etat volet bureau parents"
+          value_template: >-
+            {{ states('cover.cover_parents') }}
+
+##********************************************
+##TEST
+##********************************************
+
+  
+  - platform: template
+    sensors:
+        prev_temp_maison:
+          #friendly_name: "température maison dans 3h"
+          friendly_name_template: >-
+              
+              {% if is_state('person.cyril', 'not_home') and is_state('sun.sun', 'above_horizon') %}
+                {% set timerange_full = (state_attr("sensor.cyril_vers_maison", "duration") / 60) %}
+                {% set timerange = timerange_full | round(2) %}
+              
+              {% elif is_state('sun.sun', 'below_horizon')  %}
+                {% set timerange_full = (as_timestamp(strptime(state_attr("sun.sun", "next_rising"), "")) - as_timestamp(now()) ) /3600 %}
+                {% set timerange = timerange_full | round(0) %}
+              
+              {% elif is_state('sun.sun', 'above_horizon') %}
+                {% set timerange = (2) %}
+              
+              {% else %}
+                {% set timerange = (8) %}
+              {% endif %}
+            
+              température intérieure prévue dans {{timerange}}h
+
+          #Si Accu en charge alors on gagne 0,33°C/h si maison <19°C si maison >=19°C on ne gagne rien
+          #Si  Accu non chargé et T° ext < 6°C alors on perds 0,19°C/h mais si T° ext >6°C alors on ne perd que 0,06°C/h
+          value_template: >-
+              {% if states('sensor.sun_azimuth')|float > 135 and states('sensor.sun_azimuth')|float < 220 and is_state('weather.dark_sky', 'sunny') %}
+                {% set facteur = (0.62) %}
+                
+              {% elif states('sensor.temperature_accu_haut')|float > states('input_number.temperature_mini_accu_chauffage')|float and states('sensor.realistic_temperature')|float < states('input_number.temperature_mini_maison_feu')|float %}
+                {% set facteur = (0.33) %}
+                
+              {% elif states('sensor.temperature_accu_haut')|float > states('input_number.temperature_mini_accu_chauffage')|float and states('sensor.realistic_temperature')|float > states('input_number.temperature_mini_maison_feu')|float and is_state('sun.sun', 'above_horizon') %}
+                {% set facteur = (0.13) %}
+              
+              {% elif states('sensor.temperature_accu_haut')|float > states('input_number.temperature_mini_accu_chauffage')|float and states('sensor.realistic_temperature')|float > states('input_number.temperature_mini_maison_feu')|float and is_state('sun.sun', 'below_horizon') %}
+                {% set facteur = (-0.0862) %}
+              
+              {% elif is_state('sun.sun', 'above_horizon') and states('sensor.chevenoz_cloud_cover')|float < 35 %}
+                {% set facteur = (0.33) %}
+
+              {% elif states('sensor.dark_sky_temperature')|float <= 6 %}
+                {% set facteur = (-0.19) %}
+                
+              {% elif states('sensor.dark_sky_temperature')|float > 6 %}
+                {% set facteur = (-0.06) %}
+
+              {% else %}
+                {% set facteur = (-10) %}
+                
+              {% endif %}
+              
+              {% if is_state('person.cyril', 'not_home') and is_state('sun.sun', 'above_horizon') %}
+                {% set timerange_full = (state_attr("sensor.cyril_vers_maison", "duration") / 60) %}
+                {% set timerange = timerange_full | round(2) %}
+              
+              {% elif is_state('sun.sun', 'below_horizon')  %}
+                {% set timerange_full = (as_timestamp(strptime(state_attr("sun.sun", "next_rising"), "")) - as_timestamp(now()) ) /3600 %}
+                {% set timerange = timerange_full | round(2) %}
+              
+              {% elif is_state('sun.sun', 'above_horizon') %}
+                {% set timerange = (2) %}
+              
+              {% else %}
+                {% set timerange = (8) %}
+              {% endif %}
+
+
+              {% set TempActuel = states('sensor.realistic_temperature') | float %}
+              {% set result = facteur * timerange + TempActuel %}
+              {% set result_round = result | round(2) %}
+              {{ result_round }}

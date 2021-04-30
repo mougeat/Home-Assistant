@@ -1,0 +1,33 @@
+- name: Tele
+  icon: "mdi:flower-tulip"
+  entities:
+    light.rez_salle_a_manger: "off"
+    light.rez_salon:
+      state: "on"
+      brightness: 40
+    media_player.livebox_tv:
+      state: "on"
+#       source: HOMEPAGE
+    cover.volet_voisin: "closed"
+    cover.volet_salon: "closed"
+
+- name: Nuit
+  icon: "mdi:weather-night"
+  entities:
+    group.all_lights: "off"
+    
+
+- name: Ouvre tt volets
+  icon: "mdi:window-shutter-open"
+  entities:
+    group.cover_all: "open"
+    
+- name: Ouvre volets bas
+  icon: "mdi:window-shutter-open"
+  entities:
+    group.cover_rez: "open"
+
+- name: Ferme tt volets
+  icon: "mdi:window-shutter"
+  entities:
+    group.cover_all: "closed"

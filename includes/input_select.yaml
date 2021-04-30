@@ -1,0 +1,191 @@
+---
+# # input_select# /config/includes/input_select.yaml
+# ###########################################################
+
+mobile_wallpaper:
+  name: Fond d'écran mobile
+  icon: mdi:monitor-screenshot
+  options:
+    - mobile2
+    - mobile3
+    - mobile4
+    - mobile5
+    - mobile6
+    - mobile7
+    - mobile8
+    - mobile9
+    - mobile10
+    - mobile11
+    - mobile12
+    - mobile13
+    - mobile14
+    - mobile15
+    - mobile16
+    - mobile17
+    - mobile18
+    - mobile19
+    - mobile20
+    - mobile21
+    - mobile22
+    - mobile23
+    - mobile24
+    - mobile25
+    - mobile26
+    - pexels-pixabay-235994
+    - pexels-street-donkey-3705709
+    - 6073af0f620b5ebd8f91a171f69fd852d6a88e94_2_690x388
+
+
+
+naima_wallpaper:
+  name: Fond d'écran Naima
+  icon: mdi:monitor-screenshot
+  options:
+    - mobile10
+    - mobile13
+    - mobile14
+    - mobile16
+    - mobile18
+    - mobile20
+    - mobile21
+    - pexels-pixabay-235994
+    - pexels-street-donkey-3705709
+    - 6073af0f620b5ebd8f91a171f69fd852d6a88e94_2_690x388
+    
+guest_wallpaper:
+  name: Fond d'écran invité
+  icon: mdi:monitor-screenshot
+  options:
+    - mobile9
+    - mobile10
+    - mobile13
+    - mobile14
+    - mobile15
+    - mobile16
+    - pexels-pixabay-235994
+    - pexels-street-donkey-3705709
+    - 6073af0f620b5ebd8f91a171f69fd852d6a88e94_2_690x388
+
+
+tablet_wallpaper:
+  name: Fond d'écran tablette
+  icon: mdi:monitor-screenshot
+  options:
+    - tablet1
+    - tablet2
+    - tablet3
+    - tablet4
+    - tablet5
+    - tablet6
+    - tablet7
+    - tablet8
+    - tablet9
+    - tablet10
+    - tablet11
+    - tablet13
+    - tablet14
+    - pexels-pixabay-235994
+    - pexels-street-donkey-3705709
+    - 6073af0f620b5ebd8f91a171f69fd852d6a88e94_2_690x388
+    
+compu_wallpaper:
+  name: Fond d'écran PC
+  icon: mdi:monitor-screenshot
+  options:
+    - tablet1
+    - tablet2
+    - tablet3
+    - tablet4
+    - tablet5
+    - tablet6
+    - tablet7
+    - tablet8
+    - tablet9
+    - tablet10
+    - tablet11
+    - tablet13
+    - tablet14
+    - tablet15
+    - tablet16
+    - tablet17
+    - tablet18
+    - tablet19
+    - tablet20
+    - tablet21
+    - pexels-pixabay-235994
+    - pexels-street-donkey-3705709
+    - 6073af0f620b5ebd8f91a171f69fd852d6a88e94_2_690x388
+    
+    
+auto_borderz:
+  name: Couleur de bordure
+  icon: mdi:border-all-variant
+  options:
+    - 'rgba(0,0,0,0.0)'
+    - Black
+    - White
+    - Lime
+    - LimeGreen
+    - Red
+    - Yellow
+    - Turquoise
+    - SlateBlue
+    - DarkSlateGrey
+    - SlateGrey
+    - Gray
+    - DimGray
+    - LightGray
+    - Blue
+    - DarkBlue
+    - DodgerBlue
+    - RoyalBlue
+    - Purple
+    - Orange
+    - Navy
+    - Maroon
+    - Chartreuse
+    - Aquamarine
+    - Aqua
+
+auto_cornerz:
+  name: Epaisseur de bordure
+  icon: mdi:border-all-variant
+  options:
+    - 0px
+    - 8px
+    - 12px
+    - 16px
+    - 18px
+    - 20px
+    - 24px
+    - 28px
+    
+alert_type:
+  name: Type d'alerte
+  icon: mdi:border-none-variant
+  options:
+    - alarm
+    - alert
+    - ready
+    - stop
+
+radio_station:
+    name: Station radio
+    icon: mdi:radio
+    options:
+        - RTL2
+        - RTL2 Châtel
+        - LFM
+        - Rouge FM
+        - Vertical
+        
+output_radio:
+    name: Sortie audio
+    icon: mdi:cast
+    options:
+        - Tel. Cyril
+        - Bureau Cyril
+        - Tablet Lenovo
+        - Tablet Samsung
+        - PC Bureau
+        - Bureau

@@ -1,0 +1,119 @@
+blueprint:
+  name: Close and open cover with sun position
+  description: Close and open cover with sun elevation and azimuth
+  domain: automation
+  input:
+    
+    cover_target:
+      name: Cover
+      description: cover or groups you would like to control
+      selector:
+        target:
+          entity:
+            domain: cover
+            device_class: shutter
+    weather_service:
+      name: Weather service
+      selector:
+        entity:
+          domain: weather
+    over_elevation:
+      name: Over sun elevation
+      description: Solar elevation. when sun is over this value, shutter could be triggered
+      default: 32
+      selector:
+        number:
+          min: -90.0
+          max: 360.0
+          unit_of_measurement: degrees
+          step: 1.0
+          mode: slider
+    below_azimuth:
+      name: Below sun azimuth
+      description: Solar azimuth. when sun is below this value, shutter could be triggered
+      default: 200
+      selector:
+        number:
+          min: -360.0
+          max: 360
+          unit_of_measurement: degrees
+          step: 1.0
+          mode: slider
+    over_azimuth:
+      name: Over sun azimuth
+      description: Solar azimuth. when sun is over this value, shutter could be triggered
+      default: 89
+      selector:
+        number:
+          min: -360.0
+          max: 360
+          unit_of_measurement: degrees
+          step: 1.0
+          mode: slider
+    temp_ext_max:
+      name: Maximal outdoor temperature
+      description: Maximal outdoor temperature when Otdoor temp is over this value, shutter could be triggered
+      default: 22
+      selector:
+        number:
+          min: 0
+          max: 30.0
+          unit_of_measurement: °C
+          step: 1.0
+          mode: slider
+
+trigger:
+  - platform: time_pattern
+    minutes: '*'
+  #- platform: state
+  #  entity_id: sun.sun
+  # Using the state of the sun to act as the trigger
+
+variables:
+  over_elevation: !input 'over_elevation'
+  over_azimuth: !input 'over_azimuth'
+  below_azimuth: !input 'below_azimuth'
+  weather_service: !input 'weather_service'
+  outdoor_temp:  '{{ state_attr(weather_service,''temperature'') }}'
+  temp_ext_max: !input 'temp_ext_max'
+  cover_target: !input 'cover_target'
+  sun_elevation:  '{{ state_attr(''sun.sun'',''elevation'') }}'
+  sun_azimuth:  '{{ state_attr(''sun.sun'',''azimuth'') }}'
+  cover: '{{  states(''cover.cover_bureau'') }}'
+
+# Add a condition to ensure that this only triggers near sunset, in the evening
+condition:
+  # Check that it is after sunrise
+  condition: and
+  conditions:
+    - condition: sun
+      after: sunrise
+      after_offset: '01:00:00'
+    - condition: sun
+      before: sunset
+      after_offset: '00:30:00'
+
+
+action:
+  # #Manque encrore gestion selon temperature
+  - service: >
+      {% if( cover == 'open' and (outdoor_temp | float) > (temp_ext_max | float) and (sun_elevation | float) > (over_elevation | float) and (sun_azimuth | float) > (over_azimuth | float) and (sun_azimuth | float) < (below_azimuth | float) ) %}
+        cover.close_cover
+      {% elif ( cover == 'closed' and ((sun_azimuth | float) < (over_azimuth | float) or (sun_azimuth | float) > (below_azimuth | float)) )%}
+        cover.open_cover
+      {% else %}
+        
+      {% endif %}
+    target: !input cover_target
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: >
+      {% if( (sun_elevation | float) > (over_elevation | float) and (sun_azimuth | float) > (over_azimuth | float) and (sun_azimuth | float) < (below_azimuth | float) ) %}
+        cover.stop_cover
+      {% else %}
+
+      {% endif %}
+    target: !input cover_target

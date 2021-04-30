@@ -1,0 +1,175 @@
+---
+# # input_numer# /config/includes/input_number.yaml
+# ###########################################################
+
+
+# ###########################################################
+# #Consommation des appareils ménager
+# ###########################################################
+
+
+conso_cel:
+  name: Consommation chauffe-eau
+  min: 300.00
+  max: 600.00
+  step: 10.00
+  icon: mdi:water-boiler
+  mode: box
+
+conso_chaudiere:
+  name: Consommation chaudière
+  min: 10.00
+  max: 100.00
+  step: 5.00
+  icon: mdi:radiator
+  mode: box
+
+conso_pompe_charge:
+  name: Consommation pompe de charge
+  min: 10.00
+  max: 100.00
+  step: 5.00
+  icon: mdi:pump
+  mode: box
+
+conso_pompe_plancher:
+  name: Consommation pompe plancher chauffant
+  min: 10.00
+  max: 100.00
+  step: 5.00
+  icon: mdi:pump
+  mode: box
+
+conso_pompe_radiateur:
+  name: Consommation pompe radiateur
+  min: 10.00
+  max: 100.00
+  step: 5.00
+  icon: mdi:pump
+  mode: box
+
+# ###########################################################
+# #Température et humidité
+# ###########################################################
+humidite_mini_vmc:
+  name: Humidité mini VMC
+  min: 0.00
+  max: 100.00 
+  step: 1.000
+  icon: mdi:water-minus
+  mode: box
+
+humidite_maxi_vmc:
+  name: Humidité maxi VMC
+  min: 0.00
+  max: 100.00 
+  step: 1.000
+  icon: mdi:water-plus
+  mode: box
+
+temperature_mini_vmc:
+  name: Température mini VMC
+  min: 0.00
+  max: 40.00 
+  step: 1.000
+  icon: mdi:home-thermometer
+  mode: box
+
+temperature_maxi_vmc:
+  name: Température maxi VMC
+  min: 0.00
+  max: 40.00 
+  step: 1.000
+  icon: mdi:home-thermometer
+  mode: box
+
+temperature_mini_maison_feu:
+  name: Température mini maison
+  min: 0.00
+  max: 30.00 
+  step: 0.500
+  icon: mdi:home-thermometer-outline
+  mode: box
+
+temperature_alert_maison_feu:
+  name: Température alerte maison
+  min: 0.00
+  max: 30.00 
+  step: 0.500
+  icon: mdi:home-alert
+  mode: box
+
+temperature_mini_accu_chauffage:
+  name: Température mini accumulateur
+  min: 0.00
+  max: 90.00 
+  step: 0.500
+  icon: mdi:hydraulic-oil-temperature
+  mode: box
+
+temperature_maxi_plancher:
+  name: Température maxi plancher
+  min: 0.00
+  max: 50.00 
+  step: 0.500
+  icon: mdi:home-alert
+  mode: box
+
+temperature_maxi_pompes_cuve:
+  name: Température maxi pompes cuves pluie
+  min: 0.00
+  max: 50.00 
+  step: 0.500
+  icon: mdi:home-alert
+  mode: box
+
+temperature_mini_pompes_cuve:
+  name: Température mini pompes cuves pluie
+  min: 0.00
+  max: 50.00 
+  step: 0.500
+  icon: mdi:home-alert
+  mode: box
+
+duree_vie_filtre_eau_pluie:
+  name: Durée de vie des filtres eau de pluie
+  min: 0.00
+  max: 300.00 
+  step: 1
+  icon: mdi:home-alert
+  mode: box
+
+# ###########################################################
+# #Azimuth et elevation
+# ###########################################################
+azimuth_close_bureau:
+  name: Azimuth fermeture volet bureau
+  min: 0.00
+  max: 300.00 
+  step: 0.50
+  icon: mdi:weather-sunny
+  mode: box
+
+azimuth_open_bureau:
+  name: Azimuth ouverture volet bureau
+  min: 0.00
+  max: 300.00 
+  step: 0.50
+  icon: mdi:weather-sunny
+  mode: box
+
+elevation_close_bureau:
+  name: Elevation fermeture volet bureau
+  min: 0.00
+  max: 65.00
+  step: 0.50
+  icon: mdi:weather-sunset-down
+  mode: box
+
+elevation_open_bureau:
+  name: Elevation ouverture volet bureau
+  min: 0.00
+  max: 65.00
+  step: 0.50
+  icon: mdi:weather-sunset-up
+  mode: box

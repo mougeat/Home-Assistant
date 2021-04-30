@@ -1,0 +1,92 @@
+blueprint:
+  name: Motion Light Tutorial
+  description: Turn a light on based on detected motion
+  domain: automation
+  input:
+    motion_sensor:
+      name: Motion Sensor
+      description: This sensor will be synchronized with the light.
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: motion
+    target_light:
+      name: Lights
+      description: The lights to keep in sync.
+      selector:
+        target:
+          entity:
+            domain: light
+    
+    cover_target:
+      name: Cover
+      description: cover or groups you would like to control
+      selector:
+        target:
+          entity:
+            domain: cover
+            device_class: shutter
+    
+    over_azimuth:
+      name: Over sun azimuth
+      description: Solar azimuth. when sun is over this value, shutter could be triggered
+      default: 89
+      selector:
+        number:
+          min: -360.0
+          max: 360
+          unit_of_measurement: degrees
+          step: 1.0
+          mode: slider
+    below_azimuth:
+      name: Below sun azimuth
+      description: Solar azimuth. when sun is below this value, shutter could be triggered
+      default: 200
+      selector:
+        number:
+          min: -360.0
+          max: 360
+          unit_of_measurement: degrees
+          step: 1.0
+          mode: slider
+    over_elevation:
+      name: Over sun elevation
+      description: Solar elevation. when sun is over this value, shutter could be triggered
+      default: 32
+      selector:
+        number:
+          min: -90.0
+          max: 360.0
+          unit_of_measurement: degrees
+          step: 1.0
+          mode: slider
+
+variables:
+  motion_sensor: !input motion_sensor
+  target_light: !input target_light
+  cover_target: !input cover_target
+  motion_sensor_name: "{{ states[motion_sensor].state }}"
+  target_cover_value: '{{ state_attr(cover_target,''entity_id'') }}'
+  over_azimuth: !input 'over_azimuth'
+  below_azimuth: !input 'below_azimuth'
+  over_elevation: !input 'over_elevation'
+  sun_azimuth:  '{{ state_attr(''sun.sun'',''azimuth'') }}'
+  sun_elevation:  '{{ state_attr(''sun.sun'',''elevation'') }}'
+
+trigger:
+  - platform: state
+    entity_id: !input motion_sensor
+    
+
+action:
+  
+
+  - service: system_log.write
+    data:
+      message: 'States :{{ cover_target }}'
+      level: info
+
+  - service: system_log.write
+    data:
+      message: 'Condition ferme volet OK'
+      level: info

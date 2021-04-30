@@ -1,0 +1,9 @@
+---
+# # proximity#  /config/includes/proximity.yaml
+# ######################################################
+
+home:
+    devices:
+      - device_tracker.sm_g970f
+    tolerance: 10
+    unit_of_measurement: km

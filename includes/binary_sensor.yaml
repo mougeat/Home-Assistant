@@ -1,0 +1,334 @@
+---
+# # binary sensor#  /config/includes/binary_sensor.yaml
+# ######################################################
+
+# ###################################################
+# Update
+# ###################################################
+  - platform: template
+    sensors:
+      updater_hacs:
+        friendly_name: 'Mise à jour HACS'
+        value_template: >-
+          {{ (states('sensor.hacs')|float > 0 ) }}
+  
+  - platform: tod
+    name: Période jour
+    after: sunrise
+    after_offset: "00:15"
+    before:  sunset
+    before_offset: "00:30"
+
+# ###################################################
+# Workday
+# ###################################################
+  - platform: workday
+    country: CH
+    province: FR
+
+  - platform: workday
+    name: Workday Ilyann
+    country: FRA
+    workdays: [mon, tue, thu, fri]
+    excludes: [wed, sat, sun, holiday]
+    add_holidays:
+      #vacances hiver
+      - '2021-02-06'
+      - '2021-02-07'
+      - '2021-02-08'
+      - '2021-02-09'
+      - '2021-02-10'
+      - '2021-02-11'
+      - '2021-02-12'
+      - '2021-02-13'
+      - '2021-02-14'
+      - '2021-02-15'
+      - '2021-02-16'
+      - '2021-02-17'
+      - '2021-02-18'
+      - '2021-02-19'
+      - '2021-02-20'
+      - '2021-02-21'
+      #vendredi saint - Lundi de Pâques
+      - '2021-04-02'
+      - '2021-04-05'
+      #Vacances de printemps
+      - '2021-04-10'
+      - '2021-04-11'
+      - '2021-04-12'
+      - '2021-04-13'
+      - '2021-04-14'
+      - '2021-04-15'
+      - '2021-04-16'
+      - '2021-04-17'
+      - '2021-04-18'
+      - '2021-04-19'
+      - '2021-04-20'
+      - '2021-04-21'
+      - '2021-04-22'
+      - '2021-04-23'
+      - '2021-04-24'
+      - '2021-04-25'
+      #Ascencion
+      - '2021-05-12'
+      - '2021-05-13'
+      - '2021-05-14'
+      - '2021-05-15'
+      - '2021-05-16'
+
+# ###################################################
+# Motion pour camera
+# ###################################################
+
+  - platform: template
+    sensors:
+      motion_salon:
+        friendly_name: 'mouvement salon'
+        value_template: >-
+            {{  is_state('light.rez_salon', 'on') }}
+      
+      motion_bureau:
+        friendly_name: 'mouvement bureau'
+        value_template: >-
+            {{  is_state('light.rez_bureau', 'on') }}
+
+      
+
+# ###################################################
+# Cuve eau de pluie
+# ###################################################
+
+##Pompe
+#  - platform: mqtt
+#    name: "Status pompe eau de pluie"
+#    state_topic: "Home/Out/Cuve/StatusPompe"
+#    payload_on: "on"
+#    payload_off: "off"
+#s    qos: 0
+    
+  - platform: template
+    sensors:
+      no_rain_water:
+        friendly_name: 'Cuves vides'
+        value_template: >-
+            {{  is_state('binary_sensor.niveau_bas_cuve_3000l', 'off')
+            and is_state('binary_sensor.niveau_bas_cuve_4000l', 'off') }}
+
+
+# Durée d'utilisation des filtres eau de pluie        
+  - platform: template
+    sensors:
+      change_rain_filtre:
+        friendly_name: 'Change filtre eau pluie'
+        value_template: >-
+            {{  (states("sensor.duree_de_vie_des_filtres_eau_de_pluie")|float > states("input_number.duree_vie_filtre_eau_pluie")|float) }} 
+          ## 183 jours = 6 mois
+          ## Alarme changer les filtres de la cuve après 6 mois soit 183 jours
+  - platform: template
+    sensors:
+      pompe_3000_surchauffe:
+        friendly_name: 'Surchauffe pompe 3000l'
+        value_template: >-
+            {{  (states("sensor.temperature_pompe_cuve_3000l")|float > states("input_number.temperature_maxi_pompes_cuve")|float) }} 
+  - platform: template
+    sensors:
+      pompe_4000_surchauffe:
+        friendly_name: 'Surchauffe pompe 4000l'
+        value_template: >-
+            {{  (states("sensor.temperature_pompe_cuve_4000l")|float > states("input_number.temperature_maxi_pompes_cuve")|float) }} 
+
+  - platform: template
+    sensors:
+      pompe_3000_freez:
+        friendly_name: 'Risque de gel pompe 3000l'
+        value_template: >-
+            {{  (states("sensor.temperature_pompe_cuve_3000l")|float < states("input_number.temperature_mini_pompes_cuve")|float)
+            and is_state('input_boolean.enable_alert_temperature_cuve', 'on') }}
+
+  - platform: template
+    sensors:
+      pompe_4000_freez:
+        friendly_name: 'Risque de gel pompe 4000l'
+        value_template: >-
+            {{  (states("sensor.temperature_pompe_cuve_4000l")|float < states("input_number.temperature_mini_pompes_cuve")|float) 
+            and is_state('input_boolean.enable_alert_temperature_cuve', 'on') }}
+  - platform: template
+    sensors:
+      tank_4000_freez:
+        friendly_name: 'Risque de gel cuve 4000l'
+        value_template: >-
+            {{  (states("sensor.temperature_cuve_4000l")|float < states("input_number.temperature_mini_pompes_cuve")|float) 
+            and is_state('input_boolean.enable_alert_temperature_cuve', 'on') }}
+# ###################################################
+# Contrôle des portes
+# ###################################################
+  - platform: template
+    sensors:
+      status_porte_garage:
+        friendly_name: 'Porte du garage'
+        device_class: garage_door
+        value_template: >-
+            {{ (states('sensor.porte_garage')|float < 0.20 
+                and states('sensor.porte_garage')|float > 0.0) }}
+  - platform: template
+    sensors:
+      garage_door_opened_alert:
+        friendly_name: 'Alerte Porte garage ouverte'
+        device_class: garage_door
+        value_template: >-
+            {{ is_state('sensor.status_porte_garage', 'on')
+                and is_state('sun.sun', 'below_horizon') }}
+
+  - platform: template
+    sensors:
+      portes_poules_auto_disable:
+        friendly_name: 'Contrôle portes poules auto désactivé'
+        device_class: door
+        value_template: >-
+            {{ is_state('input_boolean.auto_door_poules', 'off')
+                and is_state('binary_sensor.batterie_poules_low', 'off') }}
+        
+
+# ###################################################
+# Gestion de la VMC            
+# ###################################################
+  - platform: template
+    sensors:
+      need_vmc_on:
+        friendly_name: 'Demande VMC'
+        value_template: >-
+            {{  ( ( (states("sensor.humidite_mini")|float < states("input_number.humidite_mini_vmc")|float) 
+                  or (states("sensor.humidite_maxi")|float > states("input_number.humidite_maxi_vmc")|float) )
+                or ( ( (states("sensor.dark_sky_apparent_temperature")|float < states("input_number.temperature_maxi_vmc")|float) and (states("sensor.realistic_temperature")|float > states("input_number.dark_sky_apparent_temperature")|float) and (states("sensor.dark_sky_apparent_temperature")|float > states("input_number.temperature_mini_vmc")|float))
+                  or  ( (states("sensor.dark_sky_apparent_temperature")|float > states("input_number.temperature_mini_vmc")|float) and (states("sensor.realistic_temperature")|float < states("input_number.dark_sky_apparent_temperature")|float) and (states("sensor.dark_sky_apparent_temperature")|float < states("input_number.temperature_maxi_vmc")|float)) )
+                  
+                and is_state('input_boolean.auto_vmc', 'on') )
+              
+            }}
+
+# ###################################################
+# Controle batteries
+# ###################################################
+  #- platform: template
+  #  sensors:
+  #    batterie_poules_low:
+  #      friendly_name: 'Batterie poules basse'
+  #      device_class: battery
+  #      value_template: >-
+  #          {{ (states('sensor.batterie_poulailler')|float < 87.0 )
+  #              and is_state('input_boolean.enable_alert_batterie', 'on') }}
+
+
+# ###################################################
+# Controle des températures afin d'informer sur la nécessité de faire du feu
+# ###################################################
+  - platform: template
+    sensors:
+      heating_on_necessary_test:
+        friendly_name: 'Faire du feu - test'
+        device_class: heat
+        value_template: ""
+        
+  - platform: template
+    sensors:
+      heating_on_necessary:
+        friendly_name: 'Faire du feu'
+        device_class: heat
+        value_template: >-
+            {{ ((states("sensor.prev_temp_maison")|float < states("input_number.temperature_mini_maison_feu")|float )  
+                and (states("sensor.temperature_accu_haut")|float < states("input_number.temperature_mini_accu_chauffage")|float )
+                and (states("sensor.dark_sky_pressure")|float < 1020))
+                or (((states("sensor.charge_accu")|float < states("input_number.temperature_mini_accu_chauffage")|float) and (states("sensor.prev_temp_maison")|float < states("input_number.temperature_alert_maison_feu")|float) )
+                and (states("sensor.temperature_accu_haut")|float < states("input_number.temperature_mini_accu_chauffage")|float ))
+            }}
+  - platform: template
+    sensors:
+      surchauffe_plancher:
+        friendly_name: 'Surchauffe plancher'
+        device_class: heat
+        value_template: >-
+            {{ ( (states("sensor.plancher_chauffant")|float > states("input_number.temperature_maxi_plancher")|float ) )
+            }}
+
+# ###################################################
+# Check volets ouvert
+# ###################################################
+  - platform: template
+    sensors:
+      volet_ouvert:
+        friendly_name: 'Volet ouverts'
+        value_template: >-
+            {{  is_state('group.cover_all', 'open') }}
+
+
+# ###################################################
+# Gestion des consommation elec afin de dire quel appareil est en route       
+# ###################################################
+  - platform: template
+    sensors:
+      lave_linge_on:
+        friendly_name: 'Lave linge'
+        value_template: >-
+            {{  (states("sensor.ecocompteur_lave_linge")|float > 20.0) }}
+      seche_linge_on:
+        friendly_name: 'Sèche linge'
+        value_template: >-
+            {{  (states("sensor.ecocompteur_seche_linge")|float > 20.0) }}
+      lave_vaisselle_on:
+        friendly_name: 'Lave vaisselle'
+        value_template: >-
+            {{  (states("sensor.ecocompteur_lave_vaisselle")|float > 5.0) }}
+      four_on:
+        friendly_name: 'Four'
+        value_template: >-
+            {{  (states("sensor.ecocompteur_four")|float > 10.0) }}
+      chauffe_eau_on:
+        friendly_name: 'Chauffe-eau'
+        #Si conso > conso defini <
+        #ou si entre conso defini + conso chaudière
+        value_template: >-
+            {{ ((states("sensor.ecocompteur_chauffage")|float > (states("input_number.conso_cel")|float - 60.0) ) 
+                and (states("sensor.ecocompteur_chauffage")|float < (states("input_number.conso_cel")|float + 60.0)))
+                or
+                (states("sensor.ecocompteur_chauffage")|float > ((states("input_number.conso_cel")|float - 60.0) + (states("input_number.conso_chaudiere")|float - 10.0) ) 
+                and states("sensor.ecocompteur_chauffage")|float < ((states("input_number.conso_cel")|float + 60.0) + (states("input_number.conso_chaudiere")|float + 10.0))) }}
+
+      
+      ##Conso chaudière ON : 82W
+      chaudiere_chauffe:
+        friendly_name: 'Chaudière en chauffe'
+        value_template: >-
+            {{  (states("sensor.ecocompteur_chauffage")|float > states("input_number.conso_chaudiere")|float - 10.0)
+                and (states("sensor.ecocompteur_chauffage")|float < states("input_number.conso_chaudiere")|float + 10.0)
+                 or
+                (states("sensor.ecocompteur_chauffage")|float > ((states("input_number.conso_cel")|float - 30.0) + (states("input_number.conso_chaudiere")|float - 10.0) ) 
+                and states("sensor.ecocompteur_chauffage")|float < ((states("input_number.conso_cel")|float + 30.0) + (states("input_number.conso_chaudiere")|float + 10.0)))
+                or
+                (states("sensor.ecocompteur_chauffage")|float > ((states("input_number.conso_chaudiere")|float - 10.0) + (states("input_number.conso_pompe_radiateur")|float - 10.0) ) 
+                and states("sensor.ecocompteur_chauffage")|float < ((states("input_number.conso_chaudiere")|float + 10.0) + (states("input_number.conso_pompe_radiateur")|float + 10.0)))
+                or
+                (states("sensor.ecocompteur_chauffage")|float > ((states("input_number.conso_chaudiere")|float - 10.0) + (states("input_number.conso_pompe_radiateur")|float - 10.0)+ (states("input_number.conso_pompe_plancher")|float - 10.0) ) 
+                and states("sensor.ecocompteur_chauffage")|float < ((states("input_number.conso_chaudiere")|float + 10.0) + (states("input_number.conso_pompe_radiateur")|float + 10.0) + (states("input_number.conso_pompe_plancher")|float + 10.0))) }}
+      radiateur_on:
+        friendly_name: 'Radiateur'
+        value_template: >-
+            {{  ((states("sensor.ecocompteur_chauffage")|float > states("input_number.conso_pompe_radiateur")|float - 10.0)
+                and (states("sensor.ecocompteur_chauffage")|float < states("input_number.conso_pompe_radiateur")|float + 10.0))
+                or
+                (states("sensor.ecocompteur_chauffage")|float > ((states("input_number.conso_chaudiere")|float - 10.0) + (states("input_number.conso_pompe_radiateur")|float - 10.0) ) 
+                and states("sensor.ecocompteur_chauffage")|float < ((states("input_number.conso_chaudiere")|float + 10.0) + (states("input_number.conso_pompe_radiateur")|float + 10.0)))
+                or
+                (states("sensor.ecocompteur_chauffage")|float > ((states("input_number.conso_chaudiere")|float - 10.0) + (states("input_number.conso_pompe_radiateur")|float - 10.0)+ (states("input_number.conso_pompe_plancher")|float - 10.0) ) 
+                and states("sensor.ecocompteur_chauffage")|float < ((states("input_number.conso_chaudiere")|float + 10.0) + (states("input_number.conso_pompe_radiateur")|float + 10.0) + (states("input_number.conso_pompe_plancher")|float + 10.0))) }}
+
+      chauffage_sol_on:
+        friendly_name: 'Chauffage au sol'
+        value_template: >-
+            {{  ((states("sensor.ecocompteur_chauffage")|float > states("input_number.conso_pompe_plancher")|float - 10.0)
+                and (states("sensor.ecocompteur_chauffage")|float < states("input_number.conso_pompe_plancher")|float + 10.0))
+                or
+                (states("sensor.ecocompteur_chauffage")|float > ((states("input_number.conso_chaudiere")|float - 10.0) + (states("input_number.conso_pompe_radiateur")|float - 10.0) ) 
+                and states("sensor.ecocompteur_chauffage")|float < ((states("input_number.conso_chaudiere")|float + 10.0) + (states("input_number.conso_pompe_radiateur")|float + 10.0)))
+                or
+                (states("sensor.ecocompteur_chauffage")|float > ((states("input_number.conso_chaudiere")|float - 10.0) + (states("input_number.conso_pompe_radiateur")|float - 10.0)+ (states("input_number.conso_pompe_plancher")|float - 10.0) ) 
+                and states("sensor.ecocompteur_chauffage")|float < ((states("input_number.conso_chaudiere")|float + 10.0) + (states("input_number.conso_pompe_radiateur")|float + 10.0) + (states("input_number.conso_pompe_plancher")|float + 10.0))) }}

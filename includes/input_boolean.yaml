@@ -1,0 +1,254 @@
+---
+#  /config/input_boolean.yaml
+# ######################################################
+
+auto_background:
+    name: Fond d'écran automatique
+    icon: mdi:monitor-screenshot
+notifications:
+  name: Notifications
+  icon: mdi:message-text-outline
+voice_notifications:
+  name: Notifications vocale
+  #initial: false
+  icon: mdi:account-voice
+power_notifications:
+  name: Notifications appareils ménager
+  #initial: false
+  icon: mdi:power-plug-outline  
+auto_vmc:
+  name: VMC automatique
+  #initial: true
+  icon: mdi:fan  
+disable_popups:
+  name: Désactiver PopUp
+  initial: false
+  icon: mdi:television-off 
+flash_light_auto:
+  name: Flash lumières alarme
+  icon: mdi:message-text-outline
+auto_cover_bureau:
+  name: Volets automatique bureau
+  icon: mdi:window-shutter-alert
+auto_cover_salon:
+  name: Volets automatique salon
+  icon: mdi:window-shutter-alert
+auto_cover_voisin:
+  name: Volets automatique voisin
+  icon: mdi:window-shutter-alert
+auto_cover_cuisine:
+  name: Volets automatique cuisine
+  icon: mdi:window-shutter-alert
+auto_cover_rez:
+  name: Volets automatique rez
+  icon: mdi:window-shutter-alert
+auto_cover_etage:
+  name: Volets automatique etage
+  icon: mdi:window-shutter-alert
+auto_door_poules:
+  name: 'Porte poules auto'
+  icon: mdi:door
+enable_door_poules:
+  name: 'Enable Door poules'
+auto_pompe_3000l:
+  name: 'Pompe 3000l auto'
+  icon: mdi:pump
+auto_pompe_4000l:
+  name: 'Pompe 4000l auto'
+  icon: mdi:pump
+
+hide_sidebar:
+    name: Hide sidebar
+hide_header:
+    name: Hiide header
+kiosk:
+    name: Kiosk mode
+
+
+#Enable alert
+#enable_alert_batterie:
+#  name: Enable alert batterie
+#  icon: mdi:battery-alert-variant-outline
+enable_alert_temperature_cuve:
+  name: Enable alert temp. cuves
+  icon: mdi:snowflake-alert
+  
+cyril_work_alarm:
+  name: Cyril travail demain
+#  initial: true
+  icon: mdi:alarm
+naima_work_alarm:
+  name: Naima travail demain
+#  initial: false
+  icon: mdi:alarm  
+ilyann_work_alarm:
+  name: Reveil Ilyann
+#  initial: true
+  icon: mdi:alarm
+invite_a_la_maison:
+  name: invités à la maison
+#  initial: false
+  icon: mdi:account-supervisor-circle
+cyril_absent_demain:
+  name: Cyril absent demain
+  # Vacation Mode Toggle: Used as the condition for vacation lighting blueprint
+vacation_mode:
+  name: Mode vacances
+  icon: mdi:beach 
+
+# ###################################################  
+# dummy input_booleans
+# ###################################################
+#divers
+rez_salon:
+rez_bureau:
+rez_cuisine:
+1er_mezzanine:
+
+#Tablet
+tablet_control:
+tablet_home_assistant:
+tablet_orangepi:
+tablet_network:
+tablet_kiosk:
+tablet_consommations:
+tablet_automations:
+tablet_esphome:
+tablet_script:
+tablet_printer:
+tablet_settings:
+tablet_temperature:
+tablet_batteries:
+tablet_calendar:
+tablet_lights_on:
+tablet_cover:
+tablet_radio:
+tablet_scene:
+
+tablet_safety:
+tablet_fire:
+tablet_portes:
+tablet_fuites:
+tablet_alarme:
+tablet_camera:
+
+tablet_rez:
+tablet_1etage:
+tablet_cave:
+tablet_ext:
+tablet_parents:
+tablet_mezza:
+
+tablet_cuisine:
+tablet_salon:
+tablet_bureau:
+tablet_couloir_rez:
+tablet_ilyann:
+tablet_jed:
+tablet_sdb_principale:
+tablet_chaufferie:
+tablet_buanderie:
+tablet_garage:
+
+tablet_meteo:
+tablet_radar:
+
+#Mobile
+mobile_control:
+mobile_home_assistant:
+mobile_orangepi:
+mobile_network:
+mobile_kiosk:
+mobile_consommations:
+mobile_automations:
+mobile_esphome:
+mobile_fan:
+mobile_coffee:
+mobile_morning:
+mobile_clock:
+mobile_camera:
+mobile_printer:
+mobile_settings:
+mobile_temperature:
+mobile_batteries:
+mobile_calendar:
+mobile_lights_on:
+mobile_cover:
+mobile_radio:
+mobile_scene:
+
+mobile_fire:
+mobile_portes:
+mobile_fuites:
+mobile_alarme:
+
+mobile_rez:
+mobile_1etage:
+mobile_cave:
+mobile_ext:
+mobile_parents:
+mobile_mezza:
+
+mobile_cuisine:
+mobile_salon:
+mobile_bureau:
+mobile_couloir_rez:
+mobile_ilyann:
+mobile_jed:
+mobile_sdb_principale:
+mobile_chaufferie:
+mobile_buanderie:
+mobile_garage:
+
+mobile_meteo:
+mobile_radar:
+
+#Computer
+computer_control:
+computer_home_assistant:
+computer_orangepi:
+computer_network:
+computer_kiosk:
+computer_consommations:
+computer_automations:
+computer_esphome:
+computer_script:
+computer_printer:
+computer_settings:
+computer_temperature:
+computer_batteries:
+computer_calendar:
+computer_lights_on:
+computer_cover:
+computer_radio:
+computer_scene:
+
+computer_safety:
+computer_fire:
+computer_portes:
+computer_fuites:
+computer_alarme:
+computer_camera:
+
+computer_rez:
+computer_1etage:
+computer_cave:
+computer_ext:
+computer_parents:
+computer_mezza:
+
+computer_cuisine:
+computer_salon:
+computer_bureau:
+computer_couloir_rez:
+computer_ilyann:
+computer_jed:
+computer_sdb_principale:
+computer_chaufferie:
+computer_buanderie:
+computer_garage:
+
+computer_meteo:
+computer_radar:
+
+

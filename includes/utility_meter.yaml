@@ -1,0 +1,27 @@
+---
+# # utility_meter# /config/includes/utility_meter.yaml
+# ###########################################################
+
+consommation_chauffage_journalier:
+  source: sensor.ecocompteur_chauffage
+  cycle: daily
+
+consommation_four_journalier:
+  source: sensor.ecocompteur_four
+  cycle: daily
+  
+consommation_lave_linge_journalier:
+  source: sensor.ecocompteur_lave_linge
+  cycle: daily
+
+consommation_lave_vaisselle_journalier:
+  source: sensor.ecocompteur_lave_vaisselle
+  cycle: daily
+
+consommation_seche_linge_journalier:
+  source: sensor.ecocompteur_seche_linge
+  cycle: daily 
+  
+consommation_totale_journalier:
+  source: sensor.ecocompteur_consommation_base
+  cycle: daily 

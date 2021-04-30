@@ -1,0 +1,285 @@
+custom_header: !include lovelace/custom_header/custom_header.yaml
+popup_cards: !include_dir_named lovelace/popup-cards
+                
+preload_cards:
+  - card-tools
+  - compact_header
+  - layout-card
+  - card-mod
+  - mod-card
+  - state-switched
+  - state-switch
+  - hui-element
+  - bar-cardder
+  - button
+  - horizontal-stack
+  - bignumber-card
+  - q_card
+  - picture
+  - entities
+  - glance
+  - vertical-stack-in-card
+  - vertical-stack
+  - alarm-panel
+  - markdown
+  - stack-in-card
+  - iframe
+  - map
+  - homekit-card
+preload_rows:
+  - fold-entity-row
+  - hui-element
+  - input-select-entity
+  
+kiosk_mode:
+#  admin_settings:
+#    kiosk: false
+#  non_admin_settings:
+#    kiosk: true
+    
+  entity_settings:
+    - entity: 
+        input_boolean.hide_sidebar: 'on'
+      hide_sidebar: true
+    - entity:
+        input_boolean.hide_header: 'on'
+      hide_header: true
+    - entity:
+        input_boolean.kiosk: 'on'
+      kiosk: true
+#  users:
+#    user_settings:
+#      - users:
+#          - "cyril"
+#        kiosk: false
+   
+                  
+title: Barthel's
+views:
+  - title: Home
+    path: Computer
+    icon: 'mdi:home'
+    visible:
+      - user: dd0478d901b542e394c90a387bee63ab #tablet
+      - user: e91d1f47357d442894ad23156c0c0ed2 #CyrilCompu
+      - user: 6e42715c083d43928651defd1b509893 #CyrilTab
+    type: 'custom:grid-layout' 
+    layout:
+      grid-template-columns: 25% 50px 1fr 25%
+      grid-template-rows: auto 
+      grid-template-areas: |
+        "header header header header"
+        "sidebar . main main"
+        "footer footer footer footer"
+      mediaquery:
+      #  '(max-width: 1400px)':
+      #    grid-template-columns: 30% 60% 
+      #    grid-template-areas: |
+      #      "header header"
+      #      "sidebar main"
+      #      "footer footer"
+        '(max-width: 800px)':
+          grid-template-columns: 100%
+          grid-template-areas: |
+            "header"
+            "main"
+            "main"
+            "sidebar"
+            "footer"
+    cards:
+      - !include /config/lovelace/header/header_smartphone.yaml   
+      - !include /config/lovelace/header/header_horaire_soleil.yaml        
+      - !include /config/lovelace/header/footer_computer.yaml
+      - !include /config/lovelace/header/footer_smartphone.yaml 
+      - !include /config/lovelace/menu/menu_computer.yaml
+      #- !include /config/lovelace/menu/menu_tablet.yaml  
+      - !include /config/lovelace/menu/menu_cyril.yaml 
+      - !include /config/lovelace/main/main_computer.yaml
+      - !include /config/lovelace/main/main_smartphone.yaml   
+      
+  
+# ##############################################################################################################
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# ##############################################################################################################
+
+  - title: Cyril
+    path: cyril
+    panel: true
+    visible:
+      - user: 97eb3bbfec9941068df77d77373a6200 #Cyril 
+      - user: e91d1f47357d442894ad23156c0c0ed2 #CyrilCompu 
+      - user: d9ac4e23a5d74eb08c341844fad9da6d #Naima
+      - user: 7986d875c8af4fd98b766134e6954a8e
+    icon: 'mdi:home'
+    cards:
+    - type: entities
+      style: 
+        .: |
+            ha-card {
+                background: transparent;
+                overflow: hidden;
+                
+                border: solid 1px rgba(0, 0, 0,0.0);
+                
+                max-width: 100%;
+                height: auto;
+                display: block;
+                    
+            }
+            @keyframes ready {
+              from {border: solid 3px lime;}
+              to {border: solid 3px black;}
+            }
+            @keyframes alarm {
+              from {border: solid 3px red;}
+              to {border: solid 3px black; background: red;}
+            }
+            @keyframes alert {
+              from {border: solid 3px yellow;}
+              to {border: solid 3px black; background: yellow;}
+            }
+      entities:
+        - type: custom:vertical-stack-in-card 
+          cards:
+            - cards:
+                - !include /config/lovelace/header/header_smartphone.yaml   
+                - !include /config/lovelace/main/main_smartphone.yaml
+              
+                - !include /config/lovelace/menu/menu_cyril.yaml
+                - !include /config/lovelace/header/footer_smartphone.yaml 
+              type: vertical-stack
+     
+# ##############################################################################################################
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# ##############################################################################################################
+  - title: Naima
+    path: Naima    
+    panel: true
+    visible:
+      - user: e91d1f47357d442894ad23156c0c0ed2 #CyrilCompu
+        
+    icon: 'mdi:home-outline'
+    cards:
+    - type: entities
+      style: 
+        .: |
+            ha-card {
+                background: transparent;
+                overflow: hidden;
+                
+                border: solid 1px rgba(0, 0, 0,0.0);
+                
+                max-width: 100%;
+                height: auto;
+                display: block;
+                    
+            }
+            @keyframes ready {
+              from {border: solid 3px lime;}
+              to {border: solid 3px black;}
+            }
+            @keyframes alarm {
+              from {border: solid 3px red;}
+              to {border: solid 3px black; background: red;}
+            }
+            @keyframes alert {
+              from {border: solid 3px yellow;}
+              to {border: solid 3px black; background: yellow;}
+            }
+      entities:
+        - type: custom:vertical-stack-in-card
+          cards:
+            - cards:
+                - type: horizontal-stack
+                  cards:
+                        - type: picture-elements
+                          entity: person.cyril
+                          style: |
+                            ha-card {
+                              border-radius: 0px;
+                            }
+                          elements:
+                          - entity: person.cyril
+                            style:
+                              color: white
+                              left: 20%
+                              top: 95%
+                            type: state-label
+                          - entity: sensor.sm_g970f_niveau_de_batterie
+                            icon: mdi:battery
+                            style:
+                              color: white
+                              left: 10%
+                              top: 50%
+                            tap_action: more-info
+                            type: icon
+                          - entity: sensor.sm_g970f_niveau_de_batterie
+                            style:
+                              color: white
+                              left: 30%
+                              top: 50%
+                            type: state-label
+                          image: '/local/images-lovelace/cyril.png'
+                          tap_action:
+                            action: none
+                          #theme: aqua-fiesta
+                        
+                        - type: picture-elements
+                          entity: person.naima
+                          style: |
+                            ha-card {
+                              border-radius: 0px;
+                            }
+                          elements:
+                          - entity: person.naima
+                            style:
+                              color: white
+                              left: 80%
+                              top: 95%
+                            type: state-label
+                          - entity: sensor.sm_a600fn_niveau_de_batterie
+                            icon: mdi:battery
+                            style:
+                              color: white
+                              left: 65%
+                              top: 50%
+                            tap_action: more-info
+                            type: icon
+                          - entity: sensor.sm_a600fn_niveau_de_batterie
+                            style:
+                              color: white
+                              left: 85%
+                              top: 50%
+                            type: state-label
+                          image: '/local/images-lovelace/naima.png'
+                          tap_action:
+                            action: none
+                          theme: aqua-fiesta     
+                - !include /config/lovelace/menu/menu_naima.yaml
+                - !include /config/lovelace/cards/ephemeride.yaml
+              type: vertical-stack       
+# ##############################################################################################################
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# ##############################################################################################################                 
+  - title: Surveillance
+    icon: mdi:cctv 
+    path: camera
+    panel: true
+    cards:
+          - type: custom:surveillance-card
+            thumb_interval: 15
+            update_interval: 1
+            show_capture_buttons: false
+            recording_duration: 5
+            cameras:
+              - entity: camera.camera_salon
+                motion_entity: binary_sensor.motion_salon
+              - entity: camera.camera_bureau
+              - entity: camera.camera_yi_home
+              #- entity: camera.abondance_essert 
+              - entity: camera.tablet_lenovo      
+
+             
+# ##############################################################################################################
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# ##############################################################################################################

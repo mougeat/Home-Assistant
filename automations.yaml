@@ -1,0 +1,409 @@
+- id: '1585256741683'
+  alias: '[HACS] Check config with update'
+  description: Starts the check config addon when an update becomes available
+  trigger:
+  - entity_id: binary_sensor.updater
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      addon: core_check_config
+    service: hassio.addon_start
+- id: '1614153892631'
+  alias: Sauvegarde journalière
+  description: ''
+  use_blueprint:
+    path: vorion/create-automated-backups-every-day.yaml
+    input:
+      trigger_time: '12:00:00'
+      send_notification: true
+      notify_device: 9ae63c0617cf11eb8a116d0243a8ca11
+- id: '1619449889696'
+  alias: '[Notify] Surchauffe plancher'
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.surchauffe_plancher
+    platform: state
+    to: 'on'
+    for: 00:05:00
+  condition: []
+  action:
+  - service: script.overheat_plancher
+- id: '1616871683928'
+  alias: '[Notify] Batterie basse'
+  description: ''
+  use_blueprint:
+    path: sbyx/low-battery-level-detection-notification-for-all-battery-sensors.yaml
+    input:
+      time: '10:00:00'
+      exclude:
+        entity_id:
+        - sensor.lenovo_yt3_850f_niveau_de_batterie
+        - sensor.sm_a520f_battery_level
+        - sensor.sm_p610_niveau_de_batterie
+        device_id: []
+      actions:
+      - device_id: 9ae63c0617cf11eb8a116d0243a8ca11
+        domain: mobile_app
+        type: notify
+        title: ''
+        message: ATTENTION, {{sensors}} est basse
+      threshold: 30
+- id: '1619449865291'
+  alias: '[Notify] Temperatures pompes eau de pluie'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.pompe_3000_freez
+    to: 'on'
+    for: 00:03:00
+  - platform: state
+    entity_id: binary_sensor.pompe_4000_freez
+    to: 'on'
+    for: 00:03:00
+  - platform: state
+    entity_id: binary_sensor.tank_4000_freez
+    to: 'on'
+    for: 00:03:00
+  condition: []
+  action:
+  - service: script.freez_risk_3000
+  - service: script.freez_risk_4000
+  - service: script.overheat_risk_3000
+  - service: script.overheat_risk_4000
+  mode: single
+- id: '1588162289240'
+  alias: '[Notify] Change filtre eau de pluie'
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.change_rain_filtre
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    service: script.change_filtre
+- id: '1588341229129'
+  alias: '[Notify] Ouverture porte garage'
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.status_porte_garage
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    service: script.garage_door_open
+  - data: {}
+    service: script.garage_door_open_voice
+  - data: {}
+    service: script.alarme_intrusion_garage
+- id: '1619449746965'
+  alias: '[Notify] Chauffage necessaire'
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.heating_on_necessary
+    platform: state
+    to: 'on'
+    for: 00:30:00
+  condition: []
+  action:
+  - data: {}
+    service: script.chauffage_ncessaire
+  - data: {}
+    service: script.chauffage_ncessaire_voice
+- id: '1588492990896'
+  alias: '[Notify] cuve pluie vide'
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.no_rain_water
+    platform: state
+    to: 'on'
+    for: 00:01:00
+  condition: []
+  action:
+  - data: {}
+    service: script.cuve_pluie_vide
+  - data: {}
+    service: script.cuve_pluie_vide_voice
+- id: '1616990889173'
+  alias: '[Notify] Fin cycle lave linge'
+  description: ''
+  use_blueprint:
+    path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
+    input:
+      power_sensor: sensor.ecocompteur_lave_linge
+      finishing_hysteresis: 10
+      actions:
+      - service: script.fin_lave_linge
+      - service: script.fin_lave_linge_voice
+- id: '1619449713739'
+  alias: '[Notify] Fin cycle sèche linge'
+  description: ''
+  use_blueprint:
+    path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
+    input:
+      power_sensor: sensor.ecocompteur_seche_linge
+      starting_threshold: 6
+      starting_hysteresis: 5.25
+      finishing_threshold: 4
+      finishing_hysteresis: 10
+      actions:
+      - service: script.fin_seche_linge
+      - service: script.fin_seche_linge_voice
+- id: '1619449657753'
+  alias: '[Notify] Fin cycle lave vaisselle'
+  description: ''
+  use_blueprint:
+    path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
+    input:
+      power_sensor: sensor.ecocompteur_lave_vaisselle
+      starting_threshold: 4
+      starting_hysteresis: 5.25
+      finishing_threshold: 4
+      finishing_hysteresis: 19
+      actions:
+      - service: script.fin_lave_vaisselle
+      - service: script.fin_lave_vaisselle_voice
+- id: '1592978197435'
+  alias: '[HACS] Chargement theme'
+  description: ''
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - data:
+      name: ios-dark-mode-light-blue
+    service: frontend.set_theme
+- id: '1619449534069'
+  alias: '[PHONE] Mute radio cyril telephone'
+  description: Met la radio du bureau en sourdine lorsque le téléphone de Cyril sonne
+  trigger:
+  - platform: state
+    entity_id: sensor.sm_g970f_etat_du_telephone
+    to: ringing
+  - platform: state
+    entity_id: sensor.sm_g970f_etat_du_telephone
+    to: offhook
+  action:
+  - service: script.mute_radio_bureau
+- id: '1619449514173'
+  alias: '[PHONE] Unmute radio cyril telephone'
+  description: Met la radio du bureau en sourdine off lorsque le téléphone de Cyril
+    sonne plus
+  trigger:
+  - platform: state
+    entity_id: sensor.sm_g970f_etat_du_telephone
+    to: idle
+  condition:
+  - condition: state
+    entity_id: person.cyril
+    state: home
+  action:
+  - service: script.unmute_radio_bureau
+- id: '1619449490301'
+  alias: '[PRESENCE] Naima or Cyril left House'
+  trigger:
+  - platform: state
+    entity_id: person.naima
+    to: not_home
+  - platform: state
+    entity_id: person.cyril
+    to: not_home
+  action:
+  - service: script.cyril_away
+- id: '1619449449822'
+  alias: '[PRESENCE] Naima or Naima is to Home'
+  trigger:
+  - platform: state
+    entity_id: person.naima
+    to: home
+    for: 00:15:00
+  - platform: state
+    entity_id: person.cyril
+    to: home
+    for: 00:15:00
+  action:
+  - service: script.cyril_to_home
+  mode: single
+- id: '1619449370083'
+  alias: '[PRESENCE] Naima or Cyril arrive to Home'
+  trigger:
+  - platform: state
+    entity_id: person.naima
+    to: home
+  - platform: state
+    entity_id: person.cyril
+    to: home
+  action:
+  - service: script.cyril_arrive_to_home
+- id: '1619449347068'
+  alias: '[PRESENCE] turn off chemin'
+  trigger:
+  - platform: time
+    at: '20:00:00'
+  - platform: sun
+    event: sunrise
+  action:
+  - service: script.turn_off_chemin
+- id: '1619449323463'
+  alias: '[REVEIL] Cyrils wake up alarm'
+  trigger:
+    platform: template
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.time_cyril_alarm.attributes.timestamp
+      | int | timestamp_custom(''%H:%M'', False)) }}'
+  action:
+  - service: script.cyril_wake_up
+- id: '1619449300041'
+  alias: '[REVEIL] Ilyanns wake up alarm'
+  trigger:
+    platform: template
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.time_ilyann_alarm.attributes.timestamp
+      | int | timestamp_custom(''%H:%M'', False)) }}'
+  action:
+  - service: script.ilyann_wake_up
+- id: '1619449256121'
+  alias: '[REVEIL] Naimas wake up alarm'
+  trigger:
+    platform: template
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.time_naima_alarm.attributes.timestamp
+      | int | timestamp_custom(''%H:%M'', False)) }}'
+  action:
+  - service: script.naima_wake_up
+- id: '1619446652473'
+  alias: '[Notify] Emmener ilyann ecole'
+  trigger:
+  - platform: template
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.time_ilyann_ecole_matin.attributes.timestamp
+      | int | timestamp_custom(''%H:%M'', False)) }}'
+  - platform: template
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.time_ilyann_ecole_13h.attributes.timestamp
+      | int | timestamp_custom(''%H:%M'', False)) }}'
+  action:
+  - service: script.emmener_ilyann_ecole
+- id: '1619446614644'
+  alias: '[Notify] Chercher ilyann ecole'
+  trigger:
+  - platform: template
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.time_ilyann_ecole_midi.attributes.timestamp
+      | int | timestamp_custom(''%H:%M'', False)) }}'
+  - platform: template
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.time_ilyann_ecole_soir.attributes.timestamp
+      | int | timestamp_custom(''%H:%M'', False)) }}'
+  action:
+  - service: script.chercher_ilyann_ecole
+- id: '1619446588170'
+  alias: '[Alarme] Activation automatique de lalarme'
+  description: Activation automoatioque de l'alarme lorsque personne n'est à la maison
+    pendant 5min et qu'il n'y a pas d'invité
+  trigger:
+  - entity_id: group.person_group
+    platform: state
+    to: not_home
+    for: 00:05:00
+  condition:
+  - condition: state
+    entity_id: input_boolean.invite_a_la_maison
+    state: 'off'
+  action:
+  - data: {}
+    service: script.alarm_arm
+- id: '1619446554996'
+  alias: '[Alarme] Désactivation automatique de lalarme'
+  description: Désactivation automatique de l'alarme lorsque nous rentrons à la maison
+  trigger:
+  - entity_id: group.person_group
+    platform: state
+    to: home
+  condition: []
+  action:
+  - data: {}
+    service: script.alarm_disarm
+- id: '1619446529347'
+  alias: '[Alarme] Alarme activée'
+  description: Notification lorsque l'alarme est activée
+  trigger:
+  - entity_id: alarm_control_panel.home_alarm
+    platform: state
+    to: armed_away
+  condition: []
+  action:
+  - data: {}
+    service: script.alarm_away_mode_armed
+- id: '1619446502788'
+  alias: '[Alarme] Alarme désactivée'
+  description: Notification lorsque l'alarme est desactivée
+  trigger:
+  - entity_id: alarm_control_panel.home_alarm
+    platform: state
+    to: disarmed
+  condition: []
+  action:
+  - data: {}
+    service: script.alarm_disarmed
+- id: '1619446476615'
+  alias: '[Alarme] déclenchement de lalarme'
+  description: Si l'alarme est activée et que le groupe de contrôle déclencehement
+    passe à "on" Il y a intrusion dans la maison et on déclenche l'alarme
+  trigger:
+  - platform: state
+    entity_id: group.declenche_alarm
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.home_alarm
+    state: armed_away
+  action:
+  - data: {}
+    service: script.alarme_intrusion
+- id: '1619446443554'
+  alias: '[Notify] Fumée détectée'
+  description: Si de la fumée est detectée, on notifie
+  trigger:
+  - entity_id: group.all_smoke
+    platform: state
+    to: 'on'
+    for: 00:01:00
+  condition: []
+  action:
+  - data: {}
+    service: script.alarme_feu
+- id: '1619446400139'
+  alias: Maintien connexion F454
+  trigger:
+  - hours: '*'
+    minutes: '*'
+    seconds: /30
+    platform: time_pattern
+  condition: []
+  action:
+  - service: rest_command.reload_f454
+    data: {}
+  mode: single
+- id: '1619446248594'
+  alias: Gestion volet bureau
+  description: ''
+  use_blueprint:
+    path: cyril/close_cover_with_sun_elevation_and_azimuth.yaml
+    input:
+      cover_target:
+        entity_id: cover.cover_bureau
+      weather_service: weather.dark_sky
+      below_azimuth: 170
+- alias: test volet
+  description: ''
+  use_blueprint:
+    path: cyril/test.yaml
+    input:
+      motion_sensor: binary_sensor.motion_bureau
+      target_light:
+        entity_id: light.ss_sol_wc
+      cover_target:
+        entity_id: cover.cover_bureau
+      outdoor_temp_sensor: sensor.dark_sky_temperature
+      temp_ext_max: 2
+      over_elevation: 32
+      below_azimuth: 170
+      over_azimuth: 89
