@@ -1,0 +1,81 @@
+---
+ # input_boolean.mobile_scene
+title: Scène
+large: true
+hide_header: true
+style:
+  $: |
+    .mdc-dialog .mdc-dialog__container {
+      width: 100%;
+      background: url("/local/images-lovelace/background/{{ states.input_select.mobile_wallpaper.state }}.jpg");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      border-radius: {{ states.input_select.auto_cornerz.state }};
+      border: solid 3px {{ states.input_select.auto_borderz.state }};
+    }
+    .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+      width:100%;
+      box-shadow:none;
+    }
+      
+  .: |
+    :host {
+      --mdc-theme-surface: rgba(0,0,0,0);
+      --secondary-background-color: rgba(0,0,0,0);
+      --ha-card-background: rgba(0,0,0,0);
+      --mdc-dialog-scrim-color: rgba(0,0,0,0.8);
+      --mdc-dialog-min-height: 100%;
+      --mdc-dialog-min-width: 100%;
+      --mdc-dialog-max-width: 100%;  
+    
+    }
+    mwc-icon-button {
+      color: #FFF;
+    }
+card:
+      type: "custom:homekit-card"
+      titleColor: "#FFF"
+      entities:
+          - title: Scènes
+            entities:
+              - entity: input_boolean.vacation_mode
+                tap_action:
+                    action: call-service
+                    service: scene.turn_on
+                    service_data:
+                      entity_id: input_boolean.vacation_mode
+              
+              - entity: scene.good_night
+                tap_action:
+                    action: call-service
+                    service: scene.turn_on
+                    service_data:
+                      entity_id: scene.good_night
+
+              - entity: scene.tele
+                tap_action:
+                    action: call-service
+                    service: scene.turn_on
+                    service_data:
+                      entity_id: scene.tele
+              
+              - entity: scene.ouvre_tt_volets
+                tap_action:
+                    action: call-service
+                    service: scene.turn_on
+                    service_data:
+                      entity_id: scene.ouvre_tt_volets
+              
+              - entity: scene.ouvre_volets_bas
+                tap_action:
+                    action: call-service
+                    service: scene.turn_on
+                    service_data:
+                      entity_id: scene.ouvre_volets_bas
+
+              - entity: scene.ferme_tt_volets
+                tap_action:
+                    action: call-service
+                    service: scene.turn_on
+                    service_data:
+                      entity_id: scene.ferme_tt_volets

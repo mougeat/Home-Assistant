@@ -1,0 +1,29 @@
+---
+ # input_boolean.computer_kiosk
+title: 'Kiosk'
+large: true
+hide_header: true
+card:
+
+    type: entities
+    style:
+      .: |
+        .card-content {
+          background: url("/local/images-lovelace/background/{{ states.input_select.tablet_wallpaper.state }}.jpg");
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          border-radius: {{ states.input_select.auto_cornerz.state }};
+          border: solid 3px {{ states.input_select.auto_borderz.state }};
+          "--primary-text-color": "#F2F2F2";
+          "--paper-item-icon-color": rgb(19, 235, 19);
+          "--paper-item-icon-active-color": rgb(255, 255, 0);
+          "--iron-icon-height": 45px;
+          "--iron-icon-width": 45px;
+          "--app-toolbar-font-size": 1.3em;
+          animation: blink 2s linear infinite;
+          box-sizing: border-box;
+        }
+      
+    entities: 
+    - !include /config/lovelace/cards/kiosk.yaml
+                

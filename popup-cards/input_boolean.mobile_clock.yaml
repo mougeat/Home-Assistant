@@ -1,0 +1,5 @@
+---
+# input_boolean.mobile_clock
+title: 'Réveil'
+card:
+  !include /config/lovelace/cards/clock.yaml
