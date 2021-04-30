@@ -1,0 +1,72 @@
+  type: entities
+  show_header_toggle: false
+  entities:
+    - type: 'custom:text-divider-row'
+      text: Réveil
+    - binary_sensor.workday_sensor
+    - input_datetime.time_naima_alarm
+    - input_boolean.naima_work_alarm
+    - input_datetime.time_cyril_alarm
+    - input_boolean.cyril_work_alarm
+    - input_datetime.time_ilyann_alarm
+    - input_boolean.ilyann_work_alarm
+
+    #- type: 'custom:text-divider-row'
+    #  text: Alarme école Ilyann
+    #- input_datetime.time_ilyann_ecole_matin
+    #- input_datetime.time_ilyann_ecole_midi
+    #- input_datetime.time_ilyann_ecole_13h
+    #- input_datetime.time_ilyann_ecole_soir
+
+    - type: 'custom:text-divider-row'
+      text: Plannification
+        
+    - type: custom:scheduler-card
+      entities:
+        - name: "Notifications"
+          icon: mdi:account-voice
+          include: 
+            - input_boolean.notifications
+            - input_boolean.voice_notifications
+            - input_boolean.power_notifications
+            - input_boolean.enable_alert_batterie
+      groups:
+        - name: "Lighting"
+          icon: ceiling-light
+          include:
+            - light
+        - name: "Volets"
+          icon: mdi:window-shutter
+          include:
+            - cover
+            - script.evening_etage
+            - script.evening_rez
+            - script.evening_bureau
+            - script.evening_salon
+            - script.evening_voisin
+            - script.evening_cuisine
+
+        - name: "Notifications"
+          icon: mdi:account-voice
+          include:
+            - input_boolean.notifications
+            - input_boolean.voice_notifications
+            - input_boolean.power_notifications
+            - input_boolean.enable_alert_batterie
+            - script.emmener_ilyann_ecole
+            - script.chercher_ilyann_ecole
+        
+        - name: "Scripts"
+          icon: mdi:account-voice
+          include:
+            - script.good_night
+            - script.browser_blackout_button
+            - script.naima_wake_up
+            - script.cyril_wake_up
+            - script.ilyann_wake_up
+            - script.evening_etage
+            - script.evening_rez
+            - script.evening_bureau
+            - script.evening_salon
+            - script.evening_voisin
+            - script.evening_cuisine

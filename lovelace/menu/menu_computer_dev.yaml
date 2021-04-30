@@ -1,0 +1,360 @@
+anchors:
+  darren_tint_styles: &darrentintstyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      "--primary-text-color": "#f2f2f2"
+      "--paper-card-background-color": 'rgba(0, 0, 0,0.65)'
+      font-weight: bold
+      font-size: 10px
+      text-transform: capitalize
+      font-variant: small-caps
+      text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
+      "--paper-item-icon-color": lime
+      "--iron-icon-stroke-color": green
+      "--iron-icon-height": 41px
+      "--iron-icon-width": 41px
+      
+  entity_button_mobile: &entitybuttonmobile
+    style: |
+      :host {
+        border-radius: 22px;
+        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+        --paper-card-background-color: #000;
+        font-size: .95em;
+      }
+
+  standard_button_actions: &standardbuttonactions
+    tap_action:
+      action: more-info
+      haptic: light
+
+  standard_button_actions2: &standardbuttonactions2
+    tap_action:
+      action: toggle
+      haptic: success
+
+  standard_button_actions3: &standardbuttonactions3
+    tap_action:
+      action: call-service
+      service: script.office_lamps
+      haptic: success
+
+  standard_button_actions4: &standardbuttonactions4
+    tap_action:
+      action: call-service
+      service: script.alarm_panel_popup
+      haptic: success
+
+  show_label: &showlabel
+    show_state: false
+    show_label: true
+  show_state: &showstate
+    show_state: true
+    show_label: false
+  show_both: &showboth
+    show_state: true
+    show_label: true
+  show_none: &shownone
+    show_state: true
+    show_label: true
+    show_name: false
+  show_none2: &shownone2
+    show_state: false
+    show_label: false
+    show_name: false
+  show_none3: &shownone3
+    show_state: false
+    show_label: false
+    show_name: true
+
+  frontpage_size: &frontpagesize
+    color: auto
+
+  alarm_button2_style: &alarmbutton2style
+    card:
+      - border-radius: 15px
+      - width: 115px
+      - height: 95px
+      - --paper-card-background-color: rgba(0, 0, 0, 0.85)
+    state:
+      - font-size: 18px
+      - font-family: Righteous
+      - padding: 5px 0px
+      - justify-self: center
+      - text-transform: capitalize
+      - font-variant: small-caps
+      - letter-spacing: 1.4px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: center
+      - text-align: center
+    name:
+      - justify-self: center
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 16px
+      - color: white
+    icon:
+      - color: white
+
+
+type: entities
+show_header_toggle: false
+layout:
+  grid-area: sidebar
+style:
+  .: |
+    ha-card {
+      --ha-card-box-shadow: none;
+      background-color: transparent;
+      border-radius: none;
+    }
+    :host {
+      --ha-card-background: transparent;
+    }
+    .label{
+      font-size: 1em;
+      color: red;
+    }
+entities:
+  - cards:
+      ##*********************************************
+      #Section Control
+      - head: 
+          label: Système
+          type: section
+        items:
+          - columns: 3
+            entities:
+              - type: entity-button
+                entity: input_boolean.computer_control
+                name: 'Supervision'
+                icon: mdi:home-assistant
+                          
+              - type: entity-button
+                entity: input_boolean.computer_automations
+                name: 'Automatisme'
+                icon: mdi:cog
+                        
+              - type: entity-button
+                entity: input_boolean.computer_esphome
+                name: 'ESP Home'
+                icon: mdi:alpha-e-circle-outline
+
+              - type: entity-button
+                entity: input_boolean.computer_kiosk
+                name: 'Kiosk'
+                icon: mdi:application-cog
+                          
+              - type: entity-button
+                entity: input_boolean.computer_temperature
+                name: 'Températures'
+                icon: mdi:home-thermometer
+
+              - type: entity-button
+                entity: input_boolean.computer_batteries
+                name: 'Batteries'
+                icon: mdi:battery-charging
+
+              - type: entity-button
+                entity: input_boolean.computer_lights_on
+                name: 'Lumières'
+                icon: mdi:lightbulb-multiple
+
+              - type: entity-button
+                entity: input_boolean.computer_cover
+                name: 'Volets'
+                icon: mdi:window-shutter
+                          
+              - type: entity-button
+                entity: group.person_group
+                name: 'Carte'
+                icon: mdi:google-maps
+
+              - type: entity-button
+                entity: input_boolean.computer_radio
+                name: 'Radio'
+                icon: mdi:radio
+                        
+              - type: entity-button
+                entity: input_boolean.computer_consommations
+                name: 'Consommations'
+                icon: mdi:power-socket-fr
+                        
+              - type: entity-button
+                entity: input_boolean.computer_printer
+                name: 'Imprimante'
+                icon: mdi:printer
+                     
+            show_state: false
+            state_color: true
+            type: 'custom:hui-glance-card'   
+        open: false
+        padding: 0px
+        type: 'custom:fold-entity-row'
+      ##*********************************************
+      #Section pièces
+      - head: 
+          label: Pièces
+          type: section
+        items:
+          - columns: 3
+            entities:
+              - type: entity-button
+                entity: input_boolean.computer_cave
+                name: 'Cave'
+                icon: mdi:home-floor-negative-1
+                          
+              - type: entity-button
+                entity: input_boolean.computer_rez
+                name: 'Rez'
+                icon: mdi:home-floor-g
+                        
+              - type: entity-button
+                entity: input_boolean.computer_1etage
+                name: 'Enfants'
+                icon: mdi:human-child
+
+              - type: entity-button
+                entity: input_boolean.computer_parents
+                name: 'Parents'
+                icon: mdi:human-male-female
+                          
+              - type: entity-button
+                entity: input_boolean.computer_ext
+                name: 'Extérieur'
+                icon: mdi:nature-people                     
+            show_state: false
+            state_color: true
+            type: 'custom:hui-glance-card'   
+        open: false
+        padding: 0px
+        type: 'custom:fold-entity-row'
+      ##*********************************************
+      #Section Sécurité
+      - head: 
+          label: Sécurité
+          type: section
+        items:
+          - columns: 3
+            entities:
+              - type: entity-button
+                entity: input_boolean.computer_safety
+                name: 'Sécurité'
+                icon: mdi:security
+                          
+              - type: entity-button
+                entity: input_boolean.computer_camera
+                name: 'Caméras'
+                icon: mdi:cctv                   
+            show_state: false
+            state_color: true
+            type: 'custom:hui-glance-card'   
+        open: false
+        padding: 0px
+        type: 'custom:fold-entity-row'
+      ##*********************************************
+      #Section Météo
+      - head: 
+          label: Météo
+          type: section
+        items:
+          - columns: 3
+            entities:
+              - type: entity-button
+                entity: input_boolean.computer_meteo
+                name: 'Météo'
+                icon: mdi:weather-partly-cloudy
+                          
+              - type: entity-button
+                entity: input_boolean.computer_radar
+                name: 'Radar'
+                icon: mdi:radar                   
+            show_state: false
+            state_color: true
+            type: 'custom:hui-glance-card'   
+        open: false
+        padding: 0px
+        type: 'custom:fold-entity-row'
+      
+      #*********************************************
+      #Section alarme
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+            card:
+              - height: 10px 
+          - type: 'custom:restriction-card'
+            restrictions:                        
+              pin:
+                code: !secret code_alarme
+            card:
+              type: 'custom:button-card'
+              entity: alarm_control_panel.home_alarm
+              show_name: false
+              icon: "mdi:shield-check"
+              size: 105%
+              <<: *standardbuttonactions
+              <<: *showstate
+              <<: *frontpagesize
+              styles:
+                <<: *alarmbutton2style
+              state:
+                - value: "disarmed"
+                  style:
+                    - opacity: 0.7
+                  styles:
+                    name:
+                      - color: white
+                    state:
+                      - color: 'rgba(255, 255, 255,0.85)'
+                    icon:
+                      - color: 'var(--accent-color)'
+                      - --iron-icon-stroke-color: 'rgba(0, 0, 0,0.0)'
+                - value: "armed_home"
+                  icon: "mdi:alert"
+                  styles:
+                    name:
+                      - color: black
+                    state:
+                      - color: white
+                    icon:
+                      - color: red
+                      - --iron-icon-stroke-color: red
+                      - animation: blink 2s ease infinite
+                - value: "armed_away"
+                  icon: "mdi:alert"
+                  styles:
+                    name:
+                      - color: black
+                    state:
+                      - color: white
+                    icon:
+                      - color: red
+                      - animation: blink 2s ease infinite
+                - value: "pending"
+                  style:
+                    - opacity: 0.7
+                  icon: "mdi:clock-alert-outline"
+                  styles:
+                    name:
+                      - color: black
+                    state:
+                      - color: white
+                    icon:
+                      - color: orange
+                      - animation: blink 1s ease infinite
+
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+            card:
+              - height: 10px 
+    type: 'custom:vertical-stack-in-card'

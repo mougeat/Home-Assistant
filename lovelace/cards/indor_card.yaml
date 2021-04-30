@@ -1,0 +1,63 @@
+cards:
+##*********************************************
+#Section Control
+    - type: entities
+      style: 
+        .: |
+            ha-card {
+                --ha-card-box-shadow: none;
+                background-color: rgba(73,73,73,0.55);
+                border-radius: 15px;
+                "--primary-text-color": "#f2f2f2";
+                "--paper-card-background-color": 'rgba(0, 0, 0,0.65)';
+                "--paper-item-icon-color": lime;
+                "--iron-icon-stroke-color": green;
+                "--iron-icon-height": 41px;
+                "--iron-icon-width": 41px;
+                margin: 0;
+                padding: 0;
+            }
+        "#states > div > bar-card":
+            $: |
+                ha-card {
+                    background-color: transparent;
+                    margin: 0;
+                    padding: 0;
+                    height: 120px;
+                }
+      entities:
+      - type: custom:bar-card
+        severity:
+            - value: 40
+              color: 'rgba(0, 0, 255,0.8)'
+            - value: 100
+              color: 'var(--accent-color)'
+        title_position: inside
+        decimal: '0'
+        tap_action: info
+        columns: 1
+        padding: 2px
+        align: split
+        rounding: 10px
+        saturation: 85%
+        height: 19px
+        card_style:
+            background: "rgba(0, 0, 0, 0.4)"
+            border-radius: 10px
+        title_style:
+            font-weight: bold
+            font-size: 24px
+            color: '#FFF'
+            text-shadow: "2px 2px 4px black, 0 0 8px var(--accent-color)"
+        value_style:
+            font-size: 26px
+            font-weight: bold
+        entities:
+            - sensor.realistic_temperature
+            - sensor.realistic_humidite
+        
+        
+    - !include /config/lovelace/q_cards/agenda.yaml
+    
+    
+type: vertical-stack

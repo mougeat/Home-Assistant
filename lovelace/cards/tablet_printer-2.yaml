@@ -1,0 +1,48 @@
+            type: entities
+            title: Epson WF2630
+            show_header_toggle: false
+            entities:
+              - type: 'custom:hui-horizontal-stack-card'
+                cards:
+                  - type: 'custom:bar-card'
+                    entities:
+                      - entity: sensor.epson_wf_2630_series_black_ink
+                        color: black  
+                      - entity: sensor.epson_wf_2630_series_cyan_ink
+                        color: cyan
+                      - entity: sensor.epson_wf_2630_series_magenta_ink
+                        color: magenta
+                      - entity: sensor.epson_wf_2630_series_yellow_ink
+                        color: yellow
+                    direction: up
+                    indicator: auto-vertical
+                    entity_row: true
+                    bar-card-border-radius: 10px
+                    width: 3em
+                    height: 14em
+                    positions:
+                      icon: 'off'
+                      indicator: 'off'
+                      title: 'off'
+                    stack: horizontal
+                    style: |
+                      bar-card-value {
+                        margin-top: auto;
+                      }
+                  #- type: picture-elements
+                  #  image: /local/printer/blank.png
+                  #  elements:
+                  #    - type: image
+                  #      image: /local/printer/brothermfc9335cdw.png
+                  #      style:
+                  #        top: 50%
+                  #        left: 50%
+                  #        width: 100%
+                  #        filter: 'drop-shadow(2px 2px 5px rgb(100, 100, 100, 1)'
+                  #  style: |
+                  #    ha-card {
+                  #      border-radius: 0;
+                  #      box-shadow: none;
+                  #      background: transparent;
+                  #      height: 100%;
+                  #    }

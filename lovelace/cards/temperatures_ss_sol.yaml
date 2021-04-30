@@ -1,0 +1,146 @@
+#Sous sol
+          type: vertical-stack
+          cards:
+            - type: entities
+              show_header_toggle: false
+              entities: 
+                - type: 'custom:text-divider-row'
+                  text: Sous-sol
+                
+            - type: horizontal-stack
+              cards:
+                - type: custom:mini-graph-card
+                  name: Accumulateur
+                  hours_to_show: 72
+                  hour24: true
+                  points_per_hour: 4
+                  line_width: 4
+                  show:
+                    extrema: false
+                    fill: fade
+                    icon: true
+                    labels: false
+                    name: true
+                    state: true
+                  style: |
+                    ha-card {
+                      border: solid 2px var(--primary-color);
+                    }
+                  entities:
+                    - entity: sensor.temperature_accu_haut
+                      name: Haut
+                    - entity: sensor.temperature_accu_millieu
+                      name: Milieu
+                    - entity: sensor.charge_accu
+                      name: Charge
+                    
+                - type: custom:mini-graph-card
+                  name: Cuves eau de pluie
+                  hours_to_show: 72
+                  hour24: true
+                  points_per_hour: 4
+                  line_width: 4
+                  show:
+                    extrema: false
+                    fill: fade
+                    icon: true
+                    labels: false
+                    name: true
+                    state: true
+                  style: |
+                    ha-card {
+                      border: solid 2px var(--primary-color);
+                    }
+                  entities:
+                    - entity: sensor.temperature_pompe_cuve_3000l
+                      name: 3000l
+                    - entity: sensor.temperature_pompe_cuve_4000l
+                      name: 4000l
+                    
+            - type: horizontal-stack
+              cards:
+                - type: custom:mini-graph-card
+                  name: Buanderie
+                  hours_to_show: 72
+                  hour24: true
+                  points_per_hour: 4
+                  line_width: 4
+                  show:
+                    extrema: false
+                    fill: fade
+                    icon: true
+                    labels: false
+                    name: true
+                    state: true
+                  style: |
+                    ha-card {
+                      border: solid 2px var(--primary-color);
+                    }
+                  entities:
+                    - entity: sensor.temperature_temperature_buanderie
+                      name: Température
+                      
+                - type: custom:mini-graph-card
+                  name: Chaufferie
+                  hours_to_show: 72
+                  hour24: true
+                  points_per_hour: 4
+                  line_width: 4
+                  show:
+                    extrema: false
+                    fill: fade
+                    icon: true
+                    labels: false
+                    name: true
+                    state: true
+                  style: |
+                    ha-card {
+                      border: solid 2px var(--primary-color);
+                    }
+                  entities:
+                    - entity: sensor.temperature_and_humidity_sensor_e090_temperature
+                      name: Température
+                    - entity: sensor.temperature_and_humidity_sensor_e090_humidity
+                      name: Humidité
+
+            - type: horizontal-stack
+              cards:
+                - type: custom:mini-graph-card
+                  name: Poulailler
+                  hours_to_show: 72
+                  hour24: true
+                  points_per_hour: 4
+                  line_width: 4
+                  show:
+                    extrema: false
+                    fill: fade
+                    icon: true
+                    labels: false
+                    name: true
+                    state: true
+                  style: |
+                    ha-card {
+                      border: solid 2px var(--primary-color);
+                    }
+                  entities:
+                    - entity: sensor.temperature_poulailler
+                - type: custom:mini-graph-card
+                  name: Chevenoz
+                  hours_to_show: 72
+                  hour24: true
+                  points_per_hour: 4
+                  line_width: 4
+                  show:
+                    extrema: false
+                    fill: fade
+                    icon: true
+                    labels: false
+                    name: true
+                    state: true
+                  style: |
+                    ha-card {
+                      border: solid 2px var(--primary-color);
+                    }
+                  entities:
+                    - entity: sensor.dark_sky_temperature
+                    - entity: sensor.dark_sky_humidity

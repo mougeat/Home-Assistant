@@ -1,0 +1,16 @@
+  type: vertical-stack
+  cards:
+    - type: entities
+      show_header_toggle: false
+      entities:
+        - type: 'custom:text-divider-row'
+          text: Automatisme
+    - type: custom:auto-entities
+      card:
+        type: entities
+        show_header_toggle: false
+      filter:
+        include: 
+          - domain: automation
+    
+        

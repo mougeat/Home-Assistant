@@ -1,0 +1,409 @@
+anchors:
+  darren_tint_styles: &darrentintstyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      "--primary-text-color": "#f2f2f2"
+      "--paper-card-background-color": 'rgba(0, 0, 0,0.65)'
+      font-weight: bold
+      font-size: 10px
+      text-transform: capitalize
+      font-variant: small-caps
+      text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
+      "--paper-item-icon-color": lime
+      "--iron-icon-stroke-color": green
+      "--iron-icon-height": 41px
+      "--iron-icon-width": 41px
+      
+  entity_button_mobile: &entitybuttonmobile
+    style: |
+      :host {
+        border-radius: 22px;
+        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+        --paper-card-background-color: #000;
+        font-size: .95em;
+      }
+
+  standard_button_actions: &standardbuttonactions
+    tap_action:
+      action: more-info
+      haptic: light
+
+  standard_button_actions2: &standardbuttonactions2
+    tap_action:
+      action: toggle
+      haptic: success
+
+  standard_button_actions3: &standardbuttonactions3
+    tap_action:
+      action: call-service
+      service: script.office_lamps
+      haptic: success
+
+  standard_button_actions4: &standardbuttonactions4
+    tap_action:
+      action: call-service
+      service: script.alarm_panel_popup
+      haptic: success
+
+  show_label: &showlabel
+    show_state: false
+    show_label: true
+  show_state: &showstate
+    show_state: true
+    show_label: false
+  show_both: &showboth
+    show_state: true
+    show_label: true
+  show_none: &shownone
+    show_state: true
+    show_label: true
+    show_name: false
+  show_none2: &shownone2
+    show_state: false
+    show_label: false
+    show_name: false
+  show_none3: &shownone3
+    show_state: false
+    show_label: false
+    show_name: true
+
+  frontpage_size: &frontpagesize
+    color: auto
+
+  alarm_button2_style: &alarmbutton2style
+    card:
+      - border-radius: 15px
+      - width: 115px
+      - height: 95px
+      - --paper-card-background-color: rgba(0, 0, 0, 0.85)
+    state:
+      - font-size: 18px
+      - font-family: Righteous
+      - padding: 5px 0px
+      - justify-self: center
+      - text-transform: capitalize
+      - font-variant: small-caps
+      - letter-spacing: 1.4px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: center
+      - text-align: center
+    name:
+      - justify-self: center
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 16px
+      - color: white
+    icon:
+      - color: white
+
+
+type: entities
+style:
+    .: |
+        ha-card {
+            --ha-card-box-shadow: none;
+            background-color: transparent;
+            border-radius: none;
+        }
+
+entities:
+      - cards:
+        ##*********************************************
+        #Section Control
+            - type: entities
+              style:
+                .: |
+                    ha-card {
+                        --ha-card-box-shadow: none;
+                        background-color: transparent;
+                        border-radius: none;
+                        "--primary-text-color": "#f2f2f2";
+                        "--paper-card-background-color": 'rgba(0, 0, 0,0.65)';
+                        font-weight: bold;
+                        font-size: 1.55em;
+                        text-transform: capitalize;
+                        font-variant: small-caps;
+                        text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen";
+                        "--paper-item-icon-color": lime;
+                        "--iron-icon-stroke-color": green;
+                        "--iron-icon-height": 41px;
+                        "--iron-icon-width": 41px;
+                        margin-top: 5px;
+                    }
+                "#states > div > fold-entity-row":
+                    $: |
+                        ha-card {
+                            background-color: transparent;
+                        }
+              entities:
+                - head:
+                    label: Contrôle
+                    type: section
+                  items:
+                    - columns: 2
+                      entities:
+                          
+                        - type: entity-button
+                          entity: input_boolean.mobile_radio
+                          name: 'Radio'
+                          icon: mdi:radio
+
+                        - type: entity-button
+                          entity: input_boolean.mobile_lights_on
+                          name: 'Lumières'
+                          icon: mdi:lightbulb-multiple
+
+                        - type: entity-button
+                          entity: input_boolean.mobile_cover
+                          name: 'Volets'
+                          icon: mdi:window-shutter
+
+                        - type: entity-button
+                          entity: input_boolean.mobile_clock
+                          name: 'Montres'
+                          icon: mdi:alarm
+
+                        - type: entity-button
+                          entity: input_boolean.mobile_temperature
+                          name: 'Temp.'
+                          icon: mdi:home-thermometer
+
+                        - type: entity-button
+                          entity: group.person_group
+                          name: 'Carte'
+                          icon: mdi:google-maps
+                        
+                        - type: entity-button
+                          entity: input_boolean.mobile_consommations
+                          name: 'Conso'
+                          icon: mdi:power-socket-fr
+                          
+                          
+                          
+                      show_state: false
+                      state_color: true
+                      type: 'custom:hui-glance-card'   
+                  padding: 0px
+                  type: 'custom:fold-entity-row'
+        ##*********************************************
+        #Section Zone
+            - type: entities
+              style:
+                .: |
+                    ha-card {
+                        --ha-card-box-shadow: none;
+                        background-color: transparent;
+                        border-radius: none;
+                        "--primary-text-color": "#f2f2f2";
+                        "--paper-card-background-color": 'rgba(0, 0, 0,0.65)';
+                        font-weight: bold;
+                        font-size: 1.55em;
+                        text-transform: capitalize;
+                        font-variant: small-caps;
+                        text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen";
+                        "--paper-item-icon-color": lime;
+                        "--iron-icon-stroke-color": green;
+                        "--iron-icon-height": 41px;
+                        "--iron-icon-width": 41px;
+                        margin-top: 5px;
+                    }
+                "#states > div > fold-entity-row":
+                    $: |
+                        ha-card {
+                            background-color: transparent;
+                        }
+              entities:
+                - head:
+                    label: Pièces
+                    type: section
+                  items:
+                    - columns: 2
+                      entities:
+                        #Cuisine
+                        - type: entity-button
+                          entity: input_boolean.mobile_cuisine
+                          name: 'Cuisine'
+                          icon: mdi:silverware-variant
+                          
+                        #Salon
+                        - type: entity-button
+                          entity: input_boolean.mobile_salon
+                          name: 'Salon'
+                          icon: mdi:sofa
+                          
+                        #Bureau
+                        - type: entity-button
+                          entity: input_boolean.mobile_bureau
+                          name: 'Bureau'
+                          icon: mdi:desktop-mac
+                          
+                        #Ilyann
+                        - type: entity-button
+                          entity: input_boolean.mobile_ilyann
+                          name: 'Ilyann'
+                          icon: mdi:bed-king
+                        #Jed
+                        - type: entity-button
+                          entity: input_boolean.mobile_jed
+                          name: 'Jed'
+                          icon: mdi:baby-carriage
+
+                        #Parents
+                        - type: entity-button
+                          entity: input_boolean.mobile_parents
+                          name: 'Parents'
+                          icon: mdi:bed-king
+                          
+                        #Chaufferie
+                        - type: entity-button
+                          entity: input_boolean.mobile_chaufferie
+                          name: 'Chaufferie'
+                          icon: mdi:air-filter
+                          
+                        #Extérieur
+                        - type: entity-button
+                          entity: input_boolean.mobile_ext
+                          name: 'Extérieur'
+                          icon: mdi:outdoor-lamp
+                      show_state: false
+                      state_color: true
+                      type: 'custom:hui-glance-card'
+                  padding: 0px
+                  type: 'custom:fold-entity-row'
+        
+        ##*********************************************
+        #Section Météo
+            - type: entities
+              style:
+                .: |
+                    ha-card {
+                        --ha-card-box-shadow: none;
+                        background-color: transparent;
+                        border-radius: none;
+                        "--primary-text-color": "#f2f2f2";
+                        "--paper-card-background-color": 'rgba(0, 0, 0,0.65)';
+                        font-weight: bold;
+                        font-size: 1.55em;
+                        text-transform: capitalize;
+                        font-variant: small-caps;
+                        text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen";
+                        "--paper-item-icon-color": lime;
+                        "--iron-icon-stroke-color": green;
+                        "--iron-icon-height": 41px;
+                        "--iron-icon-width": 41px;
+                        margin-top: 5px;
+                    }
+                "#states > div > fold-entity-row":
+                    $: |
+                        ha-card {
+                            background-color: transparent;
+                        }
+              entities:
+                - head:
+                    label: Météo
+                    type: section
+                  items:
+                    - columns: 2
+                      entities:
+                        - type: entity-button
+                          entity: input_boolean.mobile_meteo
+                          name: 'Prévisions'
+                          icon: mdi:weather-partly-cloudy
+                        
+                        - type: entity-button
+                          entity: input_boolean.mobile_radar
+                          name: 'Radar'
+                          icon: mdi:radar
+
+                      show_state: false
+                      state_color: true
+                      type: 'custom:hui-glance-card'
+                  padding: 0px
+                  type: 'custom:fold-entity-row'
+
+            ##*********************************************
+            #Section alarme
+            - type: horizontal-stack
+              cards:
+                - type: custom:button-card
+                  color_type: blank-card
+                  styles:
+                  card:
+                    - height: 10px 
+                - type: 'custom:restriction-card'
+                  restrictions:
+                    confirm:
+                      text: 'Are you sure you want to unlock alarm panel?'
+                    pin:
+                      code: !secret code_alarme
+                  card:
+                    type: 'custom:button-card'
+                    entity: alarm_control_panel.home_alarm
+                    show_name: false
+                    icon: "mdi:shield-check"
+                    size: 105%
+                    <<: *standardbuttonactions
+                    <<: *showstate
+                    <<: *frontpagesize
+                    styles:
+                      <<: *alarmbutton2style
+                    state:
+                      - value: "disarmed"
+                        style:
+                          - opacity: 0.7
+                        styles:
+                          name:
+                            - color: white
+                          state:
+                            - color: 'rgba(255, 255, 255,0.85)'
+                          icon:
+                            - color: 'var(--accent-color)'
+                            - --iron-icon-stroke-color: 'rgba(0, 0, 0,0.0)'
+                      - value: "armed_home"
+                        icon: "mdi:alert"
+                        styles:
+                          name:
+                            - color: black
+                          state:
+                            - color: white
+                          icon:
+                            - color: red
+                            - --iron-icon-stroke-color: red
+                            - animation: blink 2s ease infinite
+                      - value: "armed_away"
+                        icon: "mdi:alert"
+                        styles:
+                          name:
+                            - color: black
+                          state:
+                            - color: white
+                          icon:
+                            - color: red
+                            - animation: blink 2s ease infinite
+                      - value: "pending"
+                        style:
+                          - opacity: 0.7
+                        icon: "mdi:clock-alert-outline"
+                        styles:
+                          name:
+                            - color: black
+                          state:
+                            - color: white
+                          icon:
+                            - color: orange
+                            - animation: blink 1s ease infinite
+                - type: custom:button-card
+                  color_type: blank-card
+                  styles:
+                  card:
+                    - height: 10px 
+
+            
+
+        type: 'custom:vertical-stack-in-card'

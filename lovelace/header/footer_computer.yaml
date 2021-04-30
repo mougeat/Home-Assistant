@@ -1,0 +1,32 @@
+type: custom:bar-card
+view_layout:
+  grid-area: footer
+  show:
+      mediaquery: "(min-width: 801px)"
+severity:
+  - value: 100
+    color: 'var(--accent-color-light)'
+title_position: inside
+decimal: '2'
+tap_action: info
+columns: 4
+padding: 2px
+align: split
+rounding: 6px
+saturation: 65%
+height: 25px
+card_style:
+  background: "rgba(0, 0, 0, 0.43)"
+  border-radius: 10px
+title_style:
+  font-size: 16px
+  color: '#F2F2F2'
+  text-shadow: "2px 2px 5px black"
+value_style:
+  font-size: 24px
+  font-weight: bold
+entities:
+  - sensor.realistic_temperature
+  - sensor.dark_sky_temperature
+  - sensor.realistic_humidite
+  - sensor.dark_sky_humidity 

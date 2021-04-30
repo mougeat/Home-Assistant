@@ -1,0 +1,18 @@
+#Camera de securité
+type: custom:vertical-stack-in-card
+cards:
+  - type: entities
+    show_header_toggle: false
+    entities:
+    - type: 'custom:text-divider-row'
+      text: Camera
+  - type: custom:surveillance-card
+    thumb_interval: 15
+    update_interval: 2
+    cameras:
+      - entity: camera.camera_jed
+      - entity: camera.camera_salon
+      - entity: camera.tablet_samsung
+      - entity: camera.tablet_lenovo
+      - entity: camera.abondance_essert
+      - entity: camera.abondance_covagny

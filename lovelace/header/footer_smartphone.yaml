@@ -1,0 +1,119 @@
+      type: entities
+      view_layout:
+        show:
+          mediaquery: "(max-width: 800px)"
+        grid-area: footer
+      style:
+          .: |
+              ha-card {
+                  --ha-card-box-shadow: none;
+                  background-color: transparent;
+                  border-radius: none;
+              }
+
+      entities:
+        - cards:            
+            # ###############################################################33
+            - type: 'custom:button-card'
+              color_type: blank-card
+              styles:
+                card:
+                  - height: 2px
+            # ###############################################################33
+            - type: custom:stack-in-card
+              style: |
+                ha-card {
+                  --paper-card-background-color: rgba(0, 0, 0,0.0);
+                  padding-top: 2px;
+                  padding-left: 2px;
+                  font-size: 22px
+                  border-radius: 8px;
+                )
+              cards:
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:bar-card
+                      severity:
+                        - value: 20
+                          color: '#DC143C'
+                        - value: 22
+                          color: '#1F717C'
+                        - value: 25
+                          color: '#1F717C'
+                      title_position: off
+                      tap_action: none
+                      columns: 2
+                      padding: 2px
+                      align: split
+                      show_icon: true
+                      rounding: 4px
+                      saturation: 65%
+                      height: 29px
+                      width: 100%
+                      max: 40
+                      positions:
+                          icon: 'inside'
+                          indicator: inside
+                          name: off
+                      card_style:
+                        background: rgba(0, 0, 0, 0.7)
+                        border-radius: 5px
+                      title_style:
+                        font-weight: bold
+                        font-size: 22px
+                        text-shadow: 2px 2px 4px black
+                      value_style:
+                        font-size: 22px
+                        font-weight: bold
+                        text-shadow: 2px 2px 4px black
+                      entities:
+                        - sensor.realistic_temperature
+                        - sensor.dark_sky_temperature
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:bignumber-card
+                      style: |
+                        ha-card {
+                          --paper-card-background-color: rgba(0, 0, 0,0.0);
+                          border-radius: 0px 0px 0px 16px;
+                          font-weight: bold;
+                          --primary-text-color: #fbfbfb;
+                          letter-spacing: 1px;
+                          font-size: .85em;
+                          height: 46px;
+                          display: block;
+                        }
+                      title: Lever de soleil
+                      entity: sensor.sunrise
+                      scale: 15px
+                    - type: custom:bignumber-card
+                      style: |
+                        ha-card {
+                          --paper-card-background-color: rgba(0, 0, 0,0.0);
+                          font-weight: bold;
+                          letter-spacing: 2px;
+                          height: 35px;
+                        }
+                      entity: sensor.time
+                      scale: 27px
+                    - type: 'custom:button-card'
+                      color_type: blank-card
+                      styles:
+                        card:
+                          - width: 5px
+                    - type: custom:bignumber-card
+                      style: |
+                        ha-card {
+                          --paper-card-background-color: rgba(0, 0, 0,0.0);
+                          border-radius: 0px 0px 0px 16px;
+                          font-weight: bold;
+                          --primary-text-color: #fbfbfb;
+                          letter-spacing: 1px;
+                          font-size: .85em;
+                          height: 46px;
+                          display: block;
+                        }
+                      title: Couché de soleil
+                      entity: sensor.sunset
+                      scale: 15px
+          type: 'custom:vertical-stack-in-card'

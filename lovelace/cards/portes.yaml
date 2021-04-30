@@ -1,0 +1,57 @@
+#Portes
+          
+type: custom:vertical-stack-in-card
+cards:
+  - type: 'custom:text-divider-row'
+    text: Portes
+  - type: custom:auto-entities
+    card:
+        type: glance
+    filter:
+        exclude:
+          - entity_id: sensor.*wifi*
+          - entity_id: sensor.*uptime*
+          - entity_id: sensor.*version*
+          - entity_id: sensor.porte_garage
+          - entity_id: binary_sensor.boutton_*
+          - entity_id: binary_sensor.porte_*stop*
+          - entity_id: binary_sensor.porte_*enable*
+          - entity_id: binary_sensor.porte_*auto*
+          - entity_id: binary_sensor.portes_*auto*
+          - entity_id: binary_sensor.porte_*periode*
+        include:
+        - entity_id: binary_sensor.*porte*
+        - entity_id: cover.porte_poulailler
+        - entity_id: binary_sensor.*window*
+        
+    sort:
+        method: name
+            
+#            - type: custom:vertical-stack-in-card
+#              cards:
+#                - type: horizontal-stack
+#                  cards:
+#                  - type: custom:button-card
+#                    color_type: blank-card
+#                    styles:
+#                      card:
+#                      - width: 15px
+#                  - type: custom:decluttering-card
+#                    template: switch_button_temp_dark
+#                    variables:
+#                    - entity: sensor.portegaragestatus
+#                    - name: Garage
+#                    - icon: mdi:garage-variant#
+#
+#                  - type: custom:decluttering-card
+#                    template: switch_button_temp_dark
+#                    variables:
+#                    - entity: binary_sensor.porte_entree
+#                    - name: Porte entrée
+#                    - icon: mdi:door
+#                  
+#                  - type: custom:button-card
+#                    color_type: blank-card
+#                    styles:
+#                      card:
+#                      - width: 15px

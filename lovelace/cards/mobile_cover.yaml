@@ -1,0 +1,16 @@
+  type: custom:auto-entities
+  show_empty: true
+  card:
+    type: entities
+
+  filter:
+    include:
+      - domain: cover
+        options:
+          tap_action:
+            action: toggle
+    exclude:
+      - entity_id: cover.volet_*
+      - entity_id: cover.porte_*
+
+      

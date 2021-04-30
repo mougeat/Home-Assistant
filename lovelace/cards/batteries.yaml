@@ -1,0 +1,21 @@
+type: custom:auto-entities
+card:
+    type: custom:battery-state-card
+    color_gradient:
+    - "#ff0000" # red
+    - "#ffff00" # yellow
+    - "#00ff00" # green
+    sort_by_level: asc
+filter:
+    exclude:
+        - entity_id: sensor.*health*
+        - entity_id: sensor.*state*
+        - entity_id: sensor.*sante*
+        - entity_id: sensor.*etat*
+        
+    include:
+        #- entity_id: sensor.*batt* 
+        - domain: sensor
+          attributes:
+            device_class: battery
+ 

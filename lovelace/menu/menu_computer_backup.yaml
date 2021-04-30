@@ -1,0 +1,192 @@
+anchors:
+  darren_tint_styles: &darrentintstyles
+    style:
+      background: rgba(0,0,0,0.35)
+      border-radius: 15px
+      "--primary-text-color": "#f2f2f2"
+      "--paper-card-background-color": 'rgba(0, 0, 0,0.65)'
+      font-weight: bold
+      font-size: 10px
+      text-transform: capitalize
+      font-variant: small-caps
+      text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen"
+      "--paper-item-icon-color": lime
+      "--iron-icon-stroke-color": green
+      "--iron-icon-height": 41px
+      "--iron-icon-width": 41px
+      
+  entity_button_mobile: &entitybuttonmobile
+    style: |
+      :host {
+        border-radius: 22px; 
+        box-shadow: 0px 0px 2px 1px var(--accent-color-lighter);
+        --paper-card-background-color: #000;
+        font-size: .95em;
+      }
+
+  standard_button_actions: &standardbuttonactions
+    tap_action:
+      action: more-info
+      haptic: light
+  show_state: &showstate
+    show_state: true
+    show_label: false
+  frontpage_size: &frontpagesize
+    color: auto
+  alarm_button2_style: &alarmbutton2style
+    card:
+      - border-radius: 15px
+      - width: 115px
+      - height: 95px
+      - --paper-card-background-color: rgba(0, 0, 0, 0.85)
+    state:
+      - font-size: 18px
+      - font-family: Righteous
+      - padding: 5px 0px
+      - justify-self: center
+      - text-transform: capitalize
+      - font-variant: small-caps
+      - letter-spacing: 1.4px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: center
+      - text-align: center
+    name:
+      - justify-self: center
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 16px
+      - color: white
+    icon:
+      - color: white
+
+type: vertical-stack
+cards:
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_control
+            - name: Supervision
+            - icon: 'mdi:home-assistant'
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_automations
+            - name: Automatisme
+            - icon: 'mdi:settings-outline'
+        
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_temperature
+            - name: Températures
+            - icon: 'mdi:home-thermometer'
+        
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_batteries
+            - name: Batteries
+            - icon: 'mdi:battery-charging'
+
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.mobile_lights_on
+            - name: Lumières
+            - icon: 'mdi:lightbulb-multiple'
+        
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_cover
+            - name: Volets
+            - icon: 'mdi:window-shutter'
+    
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_cave
+            - name: Cave
+            - icon: 'mdi:home-floor-negative-1'
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_rez
+            - name: Rez
+            - icon: 'mdi:home-floor-g'
+    
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_1etage
+            - name: Enfants
+            - icon: 'mdi:human-child'
+        
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_parents
+            - name: Parents
+            - icon: 'mdi:human-male-female'
+        
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_ext
+            - name: Extérieur
+            - icon: 'mdi:nature-people'
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_radio
+            - name: Radio
+            - icon: 'mdi:radio'
+    
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.computer_safety
+            - name: Sécurité
+            - icon: 'mdi:security'
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_consommations
+            - name: Consommations
+            - icon: 'mdi:power-socket-fr'
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_kiosk
+            - name: Kiosk
+            - icon: 'mdi:settings-outline'
+    - type: horizontal-stack
+      cards:    
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_meteo
+            - name: Météo
+            - icon: 'mdi:weather-partly-cloudy'
+
+        - type: custom:decluttering-card
+          template: switch_button_menu_dark
+          variables:
+            - entity: input_boolean.tablet_radar
+            - name: Radar
+            - icon: 'mdi:radar'

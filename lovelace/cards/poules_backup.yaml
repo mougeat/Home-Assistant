@@ -1,0 +1,21 @@
+#poules
+type: custom:vertical-stack-in-card
+cards:
+  - type: 'custom:text-divider-row'
+    text: Poulailler
+  - type: custom:auto-entities
+    card:
+        type: glance
+        show_state: true
+        columns: 3
+    filter:
+        exclude:
+        include:
+        - entity_id: binary_sensor.porte_poule_stop_bas
+        - entity_id: cover.porte_poulailler
+          options:
+              tap_action:
+                action: toggle
+        - entity_id: binary_sensor.porte_poule_stop_haut
+        - entity_id: sensor.temperature_poulailler
+

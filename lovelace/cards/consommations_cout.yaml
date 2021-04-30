@@ -1,0 +1,25 @@
+type: vertical-stack
+cards:
+  - type: entities
+    style:
+      .: |
+          ha-card {
+              border: solid 2px var(--primary-color);
+          }
+    entities:
+      - type: 'custom:content-card-linky'
+        entity: sensor.myenedis_19524312465076
+        showIcon: false
+        showHistory : true 
+        showPeakOffPeak: false
+        showInTableUnit : false
+        showDayPrice : true
+        showDayPriceHCHP: false
+        showDayHCHP: false
+
+            
+      - type: 'custom:text-divider-row'
+        text: Tarifs
+      #- input_number.energy_coast
+  
+  

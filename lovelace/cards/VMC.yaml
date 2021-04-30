@@ -1,0 +1,14 @@
+  type: entities
+  show_header_toggle: false
+  entities:
+    - type: 'custom:text-divider-row'
+      text: VMC
+    - switch.vmc
+    - binary_sensor.need_vmc_on
+    - input_boolean.auto_vmc
+    - type: 'custom:text-divider-row'
+      text: Mesure
+    - sensor.humidite_mini
+    - sensor.humidite_maxi
+    - sensor.temperature_maxi
+    - sensor.temperature_mini

@@ -1,0 +1,366 @@
+anchors:
+  standard_button_actions: &standardbuttonactions
+    tap_action:
+      action: more-info
+      haptic: light
+  show_state: &showstate
+    show_state: true
+    show_label: false
+  frontpage_size: &frontpagesize
+    color: auto
+  alarm_button2_style: &alarmbutton2style
+    card:
+      - border-radius: 15px
+      - width: 115px
+      - height: 95px
+      - --paper-card-background-color: rgba(0, 0, 0, 0.85)
+    state:
+      - font-size: 18px
+      - font-family: Righteous
+      - padding: 5px 0px
+      - justify-self: center
+      - text-transform: capitalize
+      - font-variant: small-caps
+      - letter-spacing: 1.4px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: center
+      - text-align: center
+    name:
+      - justify-self: center
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 16px
+      - color: white
+    icon:
+      - color: white
+type: entities
+style:
+    .: |
+        ha-card {
+            --ha-card-box-shadow: none;
+            background-color: transparent;
+            border-radius: none;
+        }
+
+entities:
+  - type: "custom:homekit-card"
+    enableColumns: true
+    style: |
+      :host {
+        --tile-background: rgba(255, 255, 255, 0.8);
+        --tile-border-radius: 12px;
+        --tile-width: 70px;
+        --tile-height: 70px;
+        --tile-on-background: rgba(255, 255, 255, 1);
+        
+        --tile-name-text-color: rgba(0, 0, 0, 0.4);
+        --tile-on-name-text-color: rgba(0, 0, 0, 1);
+        
+        --tile-state-text-color: rgba(0, 0, 0, 0.4);
+        --tile-on-state-text-color: rgba(0, 0, 0, 1);
+        
+        --tile-state-changed-text-color: rgb(134, 134, 134);
+        --tile-unavailable-state-text-color: rgba(255, 0, 0, 1);
+        
+        --tile-value-text-color: rgba(255, 0, 0, 1);
+        
+        
+        --tile-icon-color: rgba(0, 0, 0, 0.3);
+        --tile-on-icon-color: #f7d959;
+        
+        
+        --tile-width-mobile: 90px;
+        --tile-height-mobile: 90px;
+
+        --min-header-height: 150px;
+
+        --tile-icon-size: 30px;
+
+        --tile-image-radius: 100%
+
+        --slider-width: 120px;
+        --slider-height: 120px;
+      }
+    rows:
+      - row: 1
+        columns:
+          - column: 1
+            tileOnRow: 3
+            entities:
+              - title: Système
+                entities: 
+                  - entity: input_boolean.tablet_control
+                    name: Supervision
+                    icon: mdi:home-assistant
+                    state: false
+                    hideState: true
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_control
+                  
+                  - entity: input_boolean.tablet_automations
+                    name: Automatisme
+                    icon: mdi:cog
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_automations
+                  
+                  - entity: input_boolean.tablet_esphome
+                    name: ESP Home
+                    icon: mdi:alpha-e-circle-outline
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_esphome
+                  
+                  - entity: input_boolean.tablet_kiosk
+                    name: Kiosk
+                    icon: mdi:application-cog
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_kiosk
+
+                  - entity: input_boolean.tablet_temperature
+                    name: Températures
+                    icon: mdi:home-thermometer
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_temperature
+
+                  - entity: input_boolean.tablet_batteries
+                    name: Batteries
+                    icon: mdi:battery-charging
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_batteries
+
+                  - entity: input_boolean.tablet_lights_on
+                    name: Lumières
+                    icon: mdi:lightbulb-multiple
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_lights_on
+
+                  - entity: input_boolean.tablet_cover
+                    name: Volets
+                    icon: mdi:window-shutter
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_cover
+
+                  - entity: group.person_group
+                    name: Carte
+                    icon: mdi:google-maps
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: group.person_group
+
+                  - entity: input_boolean.tablet_radio
+                    name: Radio
+                    icon: mdi:radio
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_radio
+
+                  - entity: input_boolean.tablet_consommations
+                    name: Consommations
+                    icon: mdi:power-socket-fr
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_consommations
+
+                  - entity: input_boolean.tablet_printer
+                    name: Imprimante
+                    icon: mdi:printer
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_printer
+
+      - row: 2
+        columns:
+          - column: 1
+            tileOnRow: 3
+            entities:
+              - title: Pièces
+                entities: 
+                  - entity: input_boolean.tablet_cave
+                    name: Cave
+                    icon: mdi:home-floor-negative-1
+                    state: false
+                    hideState: true
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_cave
+                  
+                  - entity: input_boolean.tablet_rez
+                    name: Rez
+                    icon: mdi:home-floor-g
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_rez
+                  
+                  - entity: input_boolean.tablet_1etage
+                    name: Enfants
+                    icon: mdi:human-child
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_1etage
+                  
+                  - entity: input_boolean.tablet_parents
+                    name: Parents
+                    icon: mdi:human-male-female
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_parents
+
+                  - entity: input_boolean.tablet_ext
+                    name: Extérieur
+                    icon: mdi:nature-people
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_ext
+
+      - row: 3
+        columns:
+          - column: 1
+            tileOnRow: 2
+            entities:
+              - title: Sécurité
+                entities: 
+                  - entity: input_boolean.tablet_safety
+                    name: Sécurité
+                    icon: mdi:security
+                    state: false
+                    hideState: true
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_safety
+                  
+                  - entity: input_boolean.tablet_camera
+                    name: Camera
+                    icon: mdi:cctv
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_camera
+                  
+
+          - column: 2
+            tileOnRow: 2
+            entities:
+              - title: Météo
+                entities: 
+                  - entity: input_boolean.tablet_meteo
+                    name: Météo
+                    icon: mdi:weather-partly-cloudy
+                    state: false
+                    hideState: true
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_meteo
+                  
+                  - entity: input_boolean.tablet_radar
+                    name: Radar
+                    icon: mdi:radar
+                    state: false
+                    tap_action:
+                      action: more-info
+                      entity: input_boolean.tablet_radar
+  ##*********************************************
+  #Section alarme
+  - type: 'custom:vertical-stack-in-card'
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+            card:
+              - height: 10px 
+          - type: 'custom:restriction-card'
+            restrictions:
+              pin:
+                code: !secret code_alarme
+                retry_delay: 3
+                max_retries: 5
+                max_retries_delay: 15
+            card:
+              type: 'custom:button-card'
+              entity: alarm_control_panel.home_alarm
+              show_name: false
+              icon: "mdi:shield-check"
+              size: 105%
+              <<: *standardbuttonactions
+              <<: *showstate
+              <<: *frontpagesize
+              styles:
+                <<: *alarmbutton2style
+              state:
+                - value: "disarmed"
+                  style:
+                    - opacity: 0.7
+                  styles:
+                    name:
+                      - color: white
+                    state:
+                      - color: 'rgba(255, 255, 255,0.85)'
+                    icon:
+                      - color: 'var(--accent-color)'
+                      - --iron-icon-stroke-color: 'rgba(0, 0, 0,0.0)'
+                - value: "armed_home"
+                  icon: "mdi:alert"
+                  styles:
+                    name:
+                      - color: black
+                    state:
+                      - color: white
+                    icon:
+                      - color: red
+                      - --iron-icon-stroke-color: red
+                      - animation: blink 2s ease infinite
+                - value: "armed_away"
+                  icon: "mdi:alert"
+                  styles:
+                    name:
+                      - color: black
+                    state:
+                      - color: white
+                    icon:
+                      - color: red
+                      - animation: blink 2s ease infinite
+                - value: "pending"
+                  style:
+                    - opacity: 0.7
+                  icon: "mdi:clock-alert-outline"
+                  styles:
+                    name:
+                      - color: black
+                    state:
+                      - color: white
+                    icon:
+                      - color: orange
+                      - animation: blink 1s ease infinite
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+            card:
+              - height: 10px 

@@ -1,0 +1,12 @@
+type: custom:auto-entities
+card:
+  type: entities
+  title: Uptime
+filter:
+    include:
+    - entity_id: sensor.*uptime*human*
+    exclude:
+    - entity_id: sensor.*A520*
+    - entity_id: sensor.*G970*
+sort:
+    method: name

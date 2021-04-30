@@ -1,0 +1,118 @@
+
+    type: vertical-stack
+    cards:
+        - type: horizontal-stack
+          cards:
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+              card:
+              - width: 5px
+          - type: picture-elements
+            entity: group.light_ilyann
+            aspect_ratio: 16x9
+            camera_view: live
+            elements:
+            - entity: sensor.temperature_and_humidity_sensor_8fc5_temperature
+              icon: mdi:bed-single
+              style:
+                color: white
+                left: 15%
+                top: 82%
+              tap_action: more-info
+              type: icon
+            - entity: sensor.temperature_and_humidity_sensor_8fc5_temperature
+              style:
+                color: white
+                left: 15%
+                top: 95%
+              type: state-label
+            image: /local/images-lovelace/garage.jpg 
+            tap_action:
+              action: toggle
+            #theme: Purple-Nightz
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+              card:
+              - width: 5px
+        ################################################################################################################################
+        - type: "custom:homekit-card"
+          style: |
+            :host {
+              --tile-background: rgba(255, 255, 255, 0.8);
+              --tile-border-radius: 12px;
+              --tile-width: 100px;
+              --tile-height: 100px;
+              --tile-on-background: rgba(255, 255, 255, 1);
+              
+              --tile-name-text-color: rgba(0, 0, 0, 0.4);
+              --tile-on-name-text-color: rgba(0, 0, 0, 1);
+              
+              --tile-state-text-color: rgba(0, 0, 0, 0.9);
+              --tile-on-state-text-color: rgba(0, 0, 0, 1);
+              
+              --tile-state-changed-text-color: rgb(134, 134, 134);
+              --tile-unavailable-state-text-color: rgba(255, 0, 0, 1);
+              
+              --tile-value-text-color: rgba(255, 0, 0, 1);
+              
+              
+              --tile-icon-color: rgba(0, 0, 0, 0.3);
+              --tile-on-icon-color: #f7d959;
+              
+              
+              --tile-width-mobile: 70px;
+              --tile-height-mobile: 70px;
+
+              --min-header-height: 150px;
+
+              --tile-icon-size: 30px;
+
+              --tile-image-radius: 100%
+
+              --slider-width: 120px;
+              --slider-height: 120px;
+
+              animation: stop 6s ease-in-out 60;
+              margin-top: 5px;
+            }
+            ha-card {
+              border-radius: 0px;
+              font-weight: bold;
+              letter-spacing: 1px;  
+              opacity: .73;
+              height: 77px;
+              animation: {{ states.input_select.alert_type.state }} 6s ease-in-out 60;
+            }
+
+            @keyframes ready {
+              from {border: solid 3px lime;}
+              to {border: solid 3px black;}
+            }
+            @keyframes alarm {
+              from {border: solid 3px red;}
+              to {border: solid 3px black; background: red;}
+            }
+            @keyframes alert {
+              from {border: solid 3px yellow;}
+              to {border: solid 3px black; background: yellow;}
+            }
+          home: false
+          useBrightness: true
+          useTemperature: true
+          statePositionTop: false
+          titleColor: "#FFF"
+          entities:
+            - title: Eclairage
+              entities:
+                - entity: light.ss_sol_garage  
+                - entity: light.ss_sol_wc
+                - entity: light.ss_sol_escalier
+                - entity: light.ss_sol_laverie
+          
+
+        
+
+        ################################################################################################################################
+        - !include /config/lovelace/cards/cuve_pluie.yaml

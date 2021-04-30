@@ -1,0 +1,23 @@
+type: vertical-stack
+cards:
+  - type: 'custom:hui-entities-card'
+    entities:
+      - type: 'custom:text-divider-row'
+        text: Services
+      - script.run_config_check
+      - script.reload_automations
+      - script.reload_scripts
+      - card:
+          entity: script.restart_ha
+        restrictions:
+          confirm: true
+        type: 'custom:restriction-card'
+        row: true        
+        
+      - type: 'custom:text-divider-row'
+        text: Home Assistant
+      - entity: sensor.hacs
+      - entity: binary_sensor.updater
+
+        
+  

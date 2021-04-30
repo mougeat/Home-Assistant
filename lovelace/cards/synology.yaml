@@ -1,0 +1,160 @@
+type: vertical-stack
+cards:
+
+  
+        
+  - type: entities
+    show_header_toggle: false
+    entities:
+        - type: 'custom:text-divider-row'
+          text: Synology
+  - type: custom:bar-card
+    positions:
+      icon: 'off'
+      indicator: 'off'
+      minmax: inside
+      title: inside
+      value: inside
+    style: |-
+      .contentbar-direction-right {
+      flex-direction: column;
+      }
+      .min-direction-right {
+        margin: 0px;
+        margin-left: 4px;
+        margin-right: auto;
+        margin-bottom: -20px;
+        bottom: 10px;
+      }
+        bar-card-value {
+        margin: 0px;
+      }
+      bar-card-name {
+        margin: 0px;
+      }
+      bar-card-max {
+        margin: 0px;
+        margin-left: auto;
+        margin-top: -20px;
+        top: 10px;
+      }
+      bar-card-divider {
+        display: none;
+      }
+    columns: 2
+    entities:
+      - entity: sensor.maison_cpu_load_total
+        name: CPU
+      - entity: sensor.maison_memory_available_real
+        name: RAM
+                
+  - type: horizontal-stack
+    cards:
+      - type: custom:mini-graph-card
+        name: Download
+        hours_to_show: 24
+        points_per_hour: 4
+        hour24: true
+        line_width: 4
+        show:
+          extrema: true
+          fill: fade
+          icon: true
+          labels: false
+          name: true
+          state: true
+        style: |
+          ha-card {
+            border: none
+          }
+        color_thresholds:
+            - color: '#0da035' #Vert
+              value: 22
+            - color: '#039BE5' #Bleu
+              value: 20
+            - color: '#e0b400' #Orange
+              value: 15
+            - color: '#e45e65' #Rouge
+              value: 12
+        entities:
+          #- entity: sensor.orange_livebox_download_speed
+          - entity: sensor.maison_network_down
+
+      - type: custom:mini-graph-card
+        name: Upload
+        hours_to_show: 24
+        points_per_hour: 4
+        hour24: true
+        line_width: 4
+        show:
+          extrema: true
+          fill: fade
+          icon: true
+          labels: false
+          name: true
+          state: true
+        style: |
+          ha-card {
+            border: none
+          }
+        color_thresholds:
+            - color: '#0da035' #Vert
+              value: 4
+            - color: '#039BE5' #Bleu
+              value: 3
+            - color: '#e0b400' #Orange
+              value: 2
+            - color: '#e45e65' #Rouge
+              value: 1
+        entities:
+          #- entity: sensor.orange_livebox_upload_speed
+          - entity: sensor.maison_network_up
+
+  - type: glance
+    entities:
+        - entity: sensor.maison_volume_1_status
+        - entity: sensor.maison_drive_2_status
+        - entity: sensor.maison_volume_1_average_disk_temp
+        - entity: sensor.maison_drive_2_temperature
+
+  - type: custom:bar-card
+    positions:
+      icon: 'off'
+      indicator: 'off'
+      minmax: inside
+      title: inside
+      value: inside
+    style: |-
+      .contentbar-direction-right {
+      flex-direction: column;
+      }
+      .min-direction-right {
+        margin: 0px;
+        margin-left: 4px;
+        margin-right: auto;
+        margin-bottom: -20px;
+        bottom: 10px;
+      }
+        bar-card-value {
+        margin: 0px;
+      }
+      bar-card-name {
+        margin: 0px;
+      }
+      bar-card-max {
+        margin: 0px;
+        margin-left: auto;
+        margin-top: -20px;
+        top: 10px;
+      }
+      bar-card-divider {
+        display: none;
+      }
+    columns: 1
+    entities:
+      - sensor.maison_volume_1_volume_used
+
+#        - entity: sensor.processor_use
+#        - entity: sensor.last_boot
+#        - entity: sensor.memory_use_percent
+#        - entity: sensor.memory_free

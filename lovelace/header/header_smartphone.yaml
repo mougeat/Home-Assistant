@@ -1,0 +1,68 @@
+        type: horizontal-stack
+        view_layout:
+          show:
+              mediaquery: "(max-width: 800px)"
+          grid-area: header
+        cards:
+          - type: picture-elements
+            entity: person.cyril
+            style: |
+              ha-card {
+                border-radius: 0px;
+              }
+            elements:
+              - entity: person.cyril
+                style:
+                  color: white
+                  left: 20%
+                  top: 95%
+                type: state-label
+              - entity: sensor.sm_g970f_niveau_de_batterie
+                icon: mdi:battery
+                style:
+                  color: white
+                  left: 10%
+                  top: 50%
+                tap_action: more-info
+                type: icon
+              - entity: sensor.sm_g970f_niveau_de_batterie
+                style:
+                  color: white
+                  left: 30%
+                  top: 50%
+                type: state-label
+            image: '/local/images-lovelace/cyril.png'
+            tap_action:
+              action: none
+                        
+          - type: picture-elements
+            entity: person.naima
+            style: |
+                ha-card {
+                  border-radius: 0px;
+                }
+            elements:
+              - entity: person.naima
+                style:
+                  color: white
+                  left: 80%
+                  top: 95%
+                type: state-label
+              - entity: sensor.sm_a600fn_niveau_de_batterie
+                icon: mdi:battery
+                style:
+                  color: white
+                  left: 65%
+                  top: 50%
+                tap_action: more-info      
+                type: icon
+              - entity: sensor.sm_a600fn_niveau_de_batterie
+                style:
+                  color: white
+                  left: 85%
+                  top: 50%
+                type: state-label
+            image: '/local/images-lovelace/naima.png'
+            tap_action:
+              action: none     
+            theme: aqua-fiesta

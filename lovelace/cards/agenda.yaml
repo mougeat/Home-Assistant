@@ -1,0 +1,46 @@
+type: entities
+style: 
+    .: |
+        ha-card {
+            --ha-card-box-shadow: none;
+            background-color: rgba(73,73,73,0.55);
+            border-radius: 15px;
+            "--primary-text-color": "#f2f2f2";
+            "--paper-card-background-color": 'rgba(0, 0, 0,0.65)';
+            "--paper-item-icon-color": lime;
+            "--iron-icon-stroke-color": green;
+            "--iron-icon-height": 41px;
+            "--iron-icon-width": 41px;
+            margin: 0;
+            padding: 0;
+        }
+    "#states > div > atomic-calendar":
+        $: |
+            ha-card {
+                background-color: transparent;
+                margin: 0;
+                padding: 0;
+            }
+entities:
+    - type: 'custom:atomic-calendar'
+      dayWrapperLineColor: brown
+      dimFinishedEvents: true
+      entities:
+        - entity: calendar.cyril_ski_club_kruth_com
+        - entity: calendar.contacts
+        - entity: calendar.famille
+      eventBarColor: blue
+      finishedEventFilter: grayscale(100%)
+      finishedEventOpacity: 0.6
+      fullDayEventText: toute la journée
+      locationIconColor: '#f44242'
+      locationlinkColor: '#B58E31'
+      maxDaysToShow: 5
+      progressBarColor: blue
+      showColors: true
+      showCurrentEventLine: true
+      showMonth: true
+      showProgressBar: true
+      title: Agenda
+      titleSize: 110
+      untilText: jusqu'à

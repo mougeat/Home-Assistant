@@ -1,0 +1,25 @@
+#Eclairage exrtérieur
+type: custom:vertical-stack-in-card
+cards:
+################################################################################################################################
+        - type: "custom:homekit-card"
+          
+          home: false
+          useBrightness: true
+          useTemperature: true
+          statePositionTop: false
+          titleColor: "#FFF"
+          entities:
+            - title: Eclairage
+              entities:
+                - entity: group.light_exterieure
+                - entity: light.ext_entree
+                - entity: light.ext_salon
+                - entity: light.ext_cuisine
+                - entity: light.ext_bureau
+                - entity: light.ext_parents
+                - entity: light.ext_salle_a_manger
+                - entity: light.ext_chemin
+
+        ################################################################################################################################
+

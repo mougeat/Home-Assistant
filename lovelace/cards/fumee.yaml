@@ -1,0 +1,15 @@
+#Détecteurs de fuites
+type: custom:vertical-stack-in-card
+cards:
+  - type: 'custom:text-divider-row'
+    text: Détecteurs de fumées
+  - type: custom:auto-entities
+    card:
+        type: glance
+    filter:
+        exclude:
+        include:
+        - entity_id: binary_sensor.*smoke*
+        
+    sort:
+        method: name

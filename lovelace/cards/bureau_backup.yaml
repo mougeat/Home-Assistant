@@ -1,0 +1,193 @@
+        type: vertical-stack
+        cards:
+        - type: horizontal-stack
+          cards:
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+              card:
+              - width: 5px
+          - type: picture-elements
+            entity: group.light_bureau
+            aspect_ratio: 16x9
+            camera_view: live
+            elements:
+            - entity: sensor.temperature_and_humidity_sensor_609d_temperature
+              icon: mdi:desk
+              style:
+                color: white
+                left: 15%
+                top: 82%
+              tap_action: more-info
+              type: icon
+            - entity: sensor.temperature_and_humidity_sensor_609d_temperature
+              style:
+                color: white
+                left: 15%
+                top: 95%
+              type: state-label
+            - entity: sensor.temperature_and_humidity_sensor_c225_temperature
+              icon: mdi:shower-head
+              style:
+                color: white
+                left: 35%
+                top: 82%
+              tap_action: more-info
+              type: icon
+            - entity: sensor.temperature_and_humidity_sensor_c225_temperature
+              style:
+                color: white
+                left: 35%
+                top: 95%
+              type: state-label
+            
+            image: /local/images-lovelace/bureau.jpg
+            tap_action:
+              action: toggle
+            #theme: Purple-Nightz
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+              card:
+              - width: 5px
+        ################################################################################################################################
+        - type: "custom:homekit-card"
+          home: false
+          useBrightness: true
+          useTemperature: true
+          statePositionTop: false
+          titleColor: "#FFF"
+          entities:
+            - title: Eclairage
+              entities:
+                - entity: light.rez_bureau  
+                - entity: light.rez_sdb_bureau
+                - entity: light.rez_applique_sdb
+            - title: Volets
+              entities:
+                - entity: cover.cover_bureau 
+                  tap_action:
+                    action: more-info
+                    entity: cover.cover_bureau 
+                - entity: cover.cover_bureau_terrasse
+                  tap_action:
+                    action: more-info
+                    entity: cover.cover_bureau_terrasse 
+                
+            - title: Temp.
+              entities:
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                    hours_to_show: 72
+                    hour24: true
+                    points_per_hour: 4
+                    entities:
+                      - sensor.temperature_and_humidity_sensor_609d_temperature
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                    hours_to_show: 72
+                    hour24: true
+                    points_per_hour: 4
+                    entities:
+                      - sensor.temperature_and_humidity_sensor_609d_humidity
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                    hours_to_show: 72
+                    hour24: true
+                    points_per_hour: 4
+                    entities:
+                      - sensor.temperature_and_humidity_sensor_c225_temperature
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                    hours_to_show: 72
+                    hour24: true
+                    points_per_hour: 4
+                    entities:
+                      - sensor.temperature_and_humidity_sensor_c225_humidity
+        
+
+        ################################################################################################################################
+       
+        
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                - width: 15px
+                - height: 100px
+            - ca- artwork: cover
+              entity: media_player.officecyril
+              hide:
+                power_state: true
+                source: false
+                volume: false
+              icon: mdi:laptop
+              name: Bureau
+              type: custom:mini-media-player
+              shortcuts:
+                columns: 3
+                buttons:
+                  - name: RTL2
+                    type: service
+                    id: script.rtl2
+                    image: /local/images-lovelace/icon/rtl2.png
+                  - name: RTL2 Châtel
+                    type: service
+                    id: script.rtl2_chatel
+                    #image: /local/images-lovelace/icon/rtl2.png
+                  - name: LFM
+                    type: service
+                    id: script.lfm
+                    image: /local/images-lovelace/icon/lfm.png
+                  - name: Rouge FM
+                    type: service
+                    id: script.rouge_fm
+                    image: /local/images-lovelace/icon/rouge.jpg
+                  - name: Vertical
+                    type: service
+                    id: script.vertical
+                    image: /local/images-lovelace/icon/vertical.jpg
+                  - name: France info
+                    type: service
+                    id: script.france_info
+                    image: /local/images-lovelace/icon/france_info.jpg
+                  - name: RTS La première
+                    type: service
+                    id: script.rts1
+                    image: /local/images-lovelace/icon/rts1.png
+                  
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                - width: 15px
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                - width: 15px
+                - height: 100px
+            - ca- artwork: cover
+              entity: media_player.spotify_mougeat74
+              hide:
+                power_state: false
+                source: false
+                volume: false
+              icon: mdi:laptop
+              name: Spotify
+              type: custom:mini-media-player
+
+                  
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                - width: 15px

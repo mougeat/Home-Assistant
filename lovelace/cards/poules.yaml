@@ -1,0 +1,105 @@
+#poules
+type: custom:vertical-stack-in-card
+cards:
+#  - type: horizontal-stack
+#    cards:
+#      - type: button
+#        tap_action:
+#          action: none
+#        entity: binary_sensor.porte_poule_stop_bas_2
+#      - type: button
+#        tap_action:
+#          action: toggle
+#        entity: cover.porte_poulailler
+#      - type: button
+#        tap_action:
+#          action: none
+#        entity: binary_sensor.porte_poule_stop_haut_2
+
+  ################################################################################################################################
+  - type: "custom:homekit-card"
+    style: |
+          :host {
+            --tile-background: rgba(255, 255, 255, 0.8);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            
+            --tile-name-text-color: rgba(0, 0, 0, 0.4);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            
+            --tile-state-text-color: rgba(0, 0, 0, 0.9);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            
+            --tile-state-changed-text-color: rgb(134, 134, 134);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 1);
+            
+            --tile-value-text-color: rgba(255, 0, 0, 1);
+            
+            
+            --tile-icon-color: rgba(0, 0, 0, 0.3);
+            --tile-on-icon-color: #f7d959;
+            
+            
+            --tile-width-mobile: 70px;
+            --tile-height-mobile: 70px;
+
+            --min-header-height: 150px;
+
+            --tile-icon-size: 30px;
+
+            --tile-image-radius: 100%
+
+            --slider-width: 120px;
+            --slider-height: 120px;
+          } 
+    enableColumns: true
+    rows:
+    - row: 1
+      columns:
+        - column: 1
+          tileOnRow: 6
+          entities:
+            - title: 'Poulallier'
+              entities: 
+                - entity: binary_sensor.poulailler_stop_bas
+                  name: Bas
+                - entity: cover.porte_poulailler
+                  tap_action:
+                    action: more-info
+                    entity: cover.porte_poulailler 
+                - entity: binary_sensor.poulailler_stop_haut
+                  name: Haut
+                
+                - entity: sensor.poulailler_uptime
+                
+    - row: 2
+      columns:
+        - column: 1
+          tileOnRow: 6
+          entities:
+            - title: ''
+              entities: 
+
+                #- entity: sensor.temperature_poulailler
+                #- entity: sensor.tension_batterie_poulailler
+                
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                    hours_to_show: 72
+                    points_per_hour: 4
+                    hour24: true
+                    entities:
+                      - sensor.niveau_de_batterie_poulailler
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                    hours_to_show: 72
+                    points_per_hour: 4
+                    hour24: true
+                    entities:
+                      - sensor.temperature_poulailler
+
+        ################################################################################################################################

@@ -1,0 +1,370 @@
+anchors:
+  standard_button_actions: &standardbuttonactions
+    tap_action:
+      action: more-info
+      haptic: light
+  show_state: &showstate
+    show_state: true
+    show_label: false
+  frontpage_size: &frontpagesize
+    color: auto
+  alarm_button2_style: &alarmbutton2style
+    card:
+      - border-radius: 15px
+      - width: 115px
+      - height: 95px
+      - --paper-card-background-color: rgba(0, 0, 0, 0.85)
+    state:
+      - font-size: 18px
+      - font-family: Righteous
+      - padding: 5px 0px
+      - justify-self: center
+      - text-transform: capitalize
+      - font-variant: small-caps
+      - letter-spacing: 1.4px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: center
+      - text-align: center
+    name:
+      - justify-self: center
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 16px
+      - color: white
+    icon:
+      - color: white
+
+type: entities
+view_layout:
+  show:
+      mediaquery: "(max-width: 800px)"
+  grid-area: sidebar
+entities:
+    - cards:
+      - type: "custom:homekit-card"
+        style: |
+          :host {
+            --tile-background: rgba(255, 255, 255, 0.8);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            
+            --tile-name-text-color: rgba(0, 0, 0, 0.4);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            
+            --tile-state-text-color: rgba(0, 0, 0, 0.9);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-off-state-text-color: rgba(0, 0, 0, 0);
+            
+            
+            --tile-state-changed-text-color: rgb(134, 134, 134);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 1);
+            
+            --tile-value-text-color: rgba(255, 0, 0, 1);
+            
+            
+            --tile-icon-color: rgba(0, 0, 0, 0.3);
+            --tile-on-icon-color: #f7d959;
+            
+            
+            --tile-width-mobile: 70px;
+            --tile-height-mobile: 70px;
+
+            --min-header-height: 150px;
+
+            --tile-icon-size: 30px;
+
+            --tile-image-radius: 100%
+
+            --slider-width: 120px;
+            --slider-height: 120px;
+
+            animation: stop 6s ease-in-out 60;
+            margin-top: 5px;
+          }
+          ha-card {
+            border-radius: 0px;
+            font-weight: bold;
+            letter-spacing: 1px;  
+            opacity: .73;
+            height: 77px;
+            animation: {{ states.input_select.alert_type.state }} 6s ease-in-out 60;
+          }
+
+          @keyframes ready {
+            from {border: solid 3px lime;}
+            to {border: solid 3px black;}
+          }
+          @keyframes alarm {
+            from {border: solid 3px red;}
+            to {border: solid 3px black; background: red;}
+          }
+          @keyframes alert {
+            from {border: solid 3px yellow;}
+            to {border: solid 3px black; background: yellow;}
+          }
+        home: false
+        rules: |
+          {% if is_state('binary_sensor.status_porte_garage', 'on') %} <li> ⚠️ Porte du garage ouverte 🚪 </li> {% endif %}
+          {% if is_state('alarm_control_panel.home_alarm', 'triggered') %} <li> ⚠️🆘 ALERTE INTRUSION !!!!⚠️🆘 </li> {% endif %}
+          {% if is_state('binary_sensor.heating_on_necessary', 'on') %} <li> ⚠️ Froid prévu et, la {{  state_attr('sensor.prev_temp_maison', 'friendly_name')  }}  est de {{ states['sensor.prev_temp_maison'].state }}°C ! Il faudrait faire du feu  🔥 </li> {% endif %}
+          {% if is_state('binary_sensor.pompe_3000_freez', 'on') %} <li> ⚠️ 🚱  Risque de gel sur la cuve 3000 l !!!! </li> {% endif %}
+          {% if is_state('binary_sensor.pompe_4000_freez', 'on') %} <li> ⚠️ 🚱  Risque de gel sur la cuve 4000 l !!!!  </li> {% endif %}
+          {% if is_state('binary_sensor.no_rain_water', 'on') %} <li> ⚠️ 🚱  Les cuves d'eau de pluie sont vides, basculer sur le reseau !!!! </li> {% endif %}
+          {% if is_state('binary_sensor.change_rain_filtre', 'on') %} <li> ⚠️ Il est temps de changer les filtres eau de pluie </li> {% endif %}
+          {% if is_state('binary_sensor.surchauffe_plancher', 'on') %} <li> ⚠️ Surchauffe du plancher chauffant depuis  {{ relative_time(states.binary_sensor.surchauffe_plancher.last_changed) }} risque de dommage sur le carrelage </li> {% endif %}
+        useBrightness: true
+        useTemperature: true
+        statePositionTop: false
+        titleColor: "#FFF"
+        entities:
+          - title: Pièces
+            entities:
+              - entity: group.light_cuisine
+                name: 'Cuisine'
+                icon: mdi:silverware-variant
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_cuisine
+              
+              - entity: group.light_salon
+                name: 'Salon'
+                icon: mdi:sofa
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_salon
+              
+              - entity: group.light_bureau
+                name: 'Bureau'
+                icon: mdi:desktop-mac
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_bureau
+              
+              - entity: group.light_ilyann
+                name: 'Ilyann'
+                icon: mdi:bed-king
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_ilyann
+              
+              - entity: group.light_jed
+                name: 'Jed'
+                icon: mdi:baby-carriage
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_jed
+              
+              - entity: group.light_parents
+                name: 'Parents'
+                icon: mdi:bed-king
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_parents
+              
+              - entity: light.ss_sol_chaufferie
+                name: 'Chaufferie'
+                icon: mdi:air-filter
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_chaufferie
+              
+              - entity: light.ss_sol_buanderie
+                name: 'Buanderie'
+                icon: mdi:air-filter
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_buanderie
+
+              - entity: group.light_garage
+                name: 'Garage'
+                icon: mdi:air-filter
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_garage
+              
+              - entity: group.light_exterieure
+                name: 'Extérieur'
+                icon: mdi:outdoor-lamp
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_ext
+
+          - title: Sécurité
+            entities:
+              - entity: group.all_smoke
+                name: Feu
+                icon: mdi:smoke-detector
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_fire
+
+              - entity: group.all_door
+                name: Portes
+                icon: mdi:door
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_portes
+            
+              - entity: group.all_door
+                name: Camera
+                icon: mdi:camera
+                tap_action:
+                    action: navigate
+                    navigation_path: /lovelace-camera/salon
+              
+          - title: Météo
+            entities:
+              - entity: binary_sensor.periode_jour
+                name: Prévision
+                icon: mdi:weather-partly-cloudy 
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_meteo
+
+              - entity: binary_sensor.periode_jour
+                name: Radar
+                icon: mdi:radar
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_radar
+          
+          - title: Contrôle
+            entities:
+              - entity: binary_sensor.periode_jour
+                name: Scène
+                icon: mdi:progress-clock
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_scene
+
+              - entity: group.all_lights
+                name: Lumières
+                icon: mdi:lightbulb-multiple
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_lights_on
+
+              - entity: binary_sensor.volet_ouvert
+                name: Volets
+                icon: mdi:window-shutter
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_cover
+              
+              - entity: switch.vmc
+                name: VMC
+                icon: mdi:air-conditioner
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_fan
+
+              - entity: binary_sensor.periode_jour
+                name: Montre
+                icon: mdi:alarm
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_clock
+
+              - entity: binary_sensor.periode_jour
+                name: Temp.
+                icon: mdi:home-thermometer
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_temperature
+              
+              - entity: binary_sensor.periode_jour
+                name: Bat.
+                icon: mdi:battery-bluetooth-variant
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_batteries
+
+              - entity: binary_sensor.periode_jour
+                name: Automatisme
+                icon: mdi:cog
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_automations
+
+              - entity: binary_sensor.periode_jour
+                name: Conso.
+                icon: mdi:power-socket-fr
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_consommations
+                
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+            card:
+              - height: 10px 
+          - type: 'custom:button-card'
+            entity: alarm_control_panel.home_alarm
+            show_name: false
+            icon: "mdi:shield-check"
+            size: 105%
+            <<: *standardbuttonactions
+            <<: *showstate
+            <<: *frontpagesize
+            styles:
+              <<: *alarmbutton2style
+            state:
+              - value: "disarmed"
+                style:
+                  - opacity: 0.7
+                styles:
+                  name:
+                    - color: white
+                  state:
+                    - color: 'rgba(255, 255, 255,0.85)'
+                  icon:
+                    - color: 'var(--accent-color)'
+                    - --iron-icon-stroke-color: 'rgba(0, 0, 0,0.0)'
+              - value: "armed_home"
+                icon: "mdi:alert"
+                styles:
+                  name:
+                    - color: black
+                  state:
+                    - color: white
+                  icon:
+                    - color: red
+                    - --iron-icon-stroke-color: red
+                    - animation: blink 2s ease infinite
+              - value: "armed_away"
+                icon: "mdi:alert"
+                styles:
+                  name:
+                    - color: black
+                  state:
+                    - color: white
+                  icon:
+                    - color: red
+                    - animation: blink 2s ease infinite
+              - value: "pending"
+                style:
+                  - opacity: 0.7
+                icon: "mdi:clock-alert-outline"
+                styles:
+                  name:
+                    - color: black
+                  state:
+                    - color: white
+                  icon:
+                    - color: orange
+                    - animation: blink 1s ease infinite
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+            card:
+              - height: 10px 
+      type: 'custom:vertical-stack-in-card'

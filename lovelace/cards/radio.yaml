@@ -1,0 +1,102 @@
+  type: vertical-stack
+  cards:
+    - type: 'custom:text-divider-row'
+      text: Destination
+    - type: horizontal-stack
+      cards:
+        - type: picture
+          show_state: false
+          show_name: false
+          image: /local/images-lovelace/icon/desk-white.png
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            service_data:
+              entity_id: input_select.output_radio
+              option: Tablet Lenovo
+        - type: picture
+          show_state: false
+          show_name: false
+          image: /local/images-lovelace/icon/cellphone-android-white.png
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            service_data:
+              entity_id: input_select.output_radio
+              option: Tel. Cyril
+        - type: picture
+          show_state: false
+          show_name: false
+          image: /local/images-lovelace/icon/tablet-dashboard-white.png
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            service_data:
+              entity_id: input_select.output_radio
+              option: Tablet Samsung 
+    - type: 'custom:text-divider-row'
+      text: Channels
+    - type: horizontal-stack
+      cards:
+        - type: picture
+          show_state: false
+          show_name: false
+          image: /local/images-lovelace/icon/rtl2.png
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            service_data:
+              entity_id: input_select.radio_station
+              option: RTL2
+        - type: picture
+          show_state: false
+          show_name: false
+          image: /local/images-lovelace/icon/lfm.png
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            service_data:
+              entity_id: input_select.radio_station
+              option: LFM
+        - type: picture
+          show_state: false
+          show_name: false
+          image: /local/images-lovelace/icon/rouge.jpg
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            service_data:
+              entity_id: input_select.radio_station
+              option: Rouge FM
+        - type: picture
+          show_state: false
+          show_name: false
+          image: /local/images-lovelace/icon/vertical.jpg
+          tap_action:
+            action: call-service
+            service: input_select.select_option
+            service_data:
+              entity_id: input_select.radio_station
+              option: Vertical
+    
+    - type: entities
+      style: 
+        .: |
+          ha-card {
+            font-size: 2.1em
+            border-radius: 0px 0px 22px 22px
+            "--iron-icon-height": 48px
+            "--iron-icon-width": 48px
+          }
+      entities:  
+        - type: 'custom:hui-glance-card'
+          columns: 1
+          show_state: false
+          entities:
+            - type: entity-button
+              entity: sun.sun
+              name: PLAY
+              icon: mdi:play-box-outline
+              tap_action:
+                action: call-service
+                service: script.radio_player

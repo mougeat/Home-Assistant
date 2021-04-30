@@ -1,0 +1,106 @@
+type: vertical-stack
+cards:
+  - type: custom:mini-graph-card
+    name: Chauffage et eau chaude
+    entities:
+      - entity: sensor.ecocompteur_chauffage_euros
+        name: Conso. chauffage
+    group: false
+    hour24: true
+    hours_to_show: 336
+    points_per_hour: 0.042
+    show:
+      graph: bar
+      fill: fade
+      icon: true
+      labels: false
+      name: true
+      state: true
+    style: |
+      ha-card {
+        border: solid 2px var(--primary-color);
+      }
+            
+  - type: custom:mini-graph-card
+    name: lave linge
+    entities:
+      - entity: sensor.ecocompteur_lave_linge_euros
+        name: Conso. lave linge
+    group: false
+    hour24: true
+    hours_to_show: 336
+    points_per_hour: 0.042
+    show:
+      graph: bar
+      fill: fade
+      icon: true
+      labels: false
+      name: true
+      state: true
+    style: |
+      ha-card {
+        border: solid 2px var(--primary-color);
+      }
+  
+  - type: custom:mini-graph-card
+    name: Sèche linge
+    entities:
+      - entity: sensor.ecocompteur_seche_linge_euros
+        name: Conso. sèche linge
+    group: false
+    hour24: true
+    hours_to_show: 336
+    points_per_hour: 0.042
+    show:
+      graph: bar
+      fill: fade
+      icon: true
+      labels: false
+      name: true
+      state: true
+    style: |
+      ha-card {
+        border: solid 2px var(--primary-color);
+      }
+
+  - type: custom:mini-graph-card
+    name: Four
+    entities:
+      - entity: sensor.ecocompteur_four_euros
+        name: Conso. four
+    group: false
+    hour24: true
+    hours_to_show: 336
+    points_per_hour: 0.042
+    show:
+      graph: bar
+      fill: fade
+      icon: true
+      labels: false
+      name: true
+      state: true
+    style: |
+      ha-card {
+        border: solid 2px var(--primary-color);
+      }
+
+  - type: custom:mini-graph-card
+    name: Lave vaisselle
+    entities:
+      - entity: sensor.ecocompteur_lave_vaisselle_euros
+        name: Conso. lave vaisselle
+    group: false
+    hour24: true
+    hours_to_show: 336
+    points_per_hour: 0.042
+    show:
+      graph: bar
+      fill: fade
+      icon: true
+      labels: false
+      name: true
+      state: true
+    style: |
+      ha-card {
+        border: solid 2px var(--primary-color);
+      }

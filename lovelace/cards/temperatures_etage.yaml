@@ -1,0 +1,129 @@
+#Etage
+          type: vertical-stack
+          cards:
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - type: 'custom:text-divider-row'
+                  text: Etage
+            - type: horizontal-stack
+              cards:
+                - type: custom:mini-graph-card
+                  name: Ilyann
+                  hours_to_show: 72
+                  points_per_hour: 4
+                  hour24: true
+                  line_width: 4
+                  show:
+                    extrema: false
+                    fill: fade
+                    icon: true
+                    labels: false
+                    name: true
+                    state: true
+                  style: |
+                    ha-card {
+                      border: solid 2px var(--primary-color);
+                    }
+                  entities:
+                    - entity: sensor.temperature_and_humidity_sensor_8fc5_temperature
+                      name: Température
+                    - entity: sensor.temperature_and_humidity_sensor_8fc5_humidity
+                      name: Humidité
+                - type: custom:mini-graph-card
+                  name: Jed
+                  hours_to_show: 72
+                  points_per_hour: 4
+                  hour24: true
+                  line_width: 4
+                  show:
+                    extrema: false
+                    fill: fade
+                    icon: true
+                    labels: false
+                    name: true
+                    state: true
+                  style: |
+                    ha-card {
+                      border: solid 2px var(--primary-color);
+                    }
+                  entities:
+                    - entity: sensor.temperature_and_humidity_sensor_b4bc_temperature
+                      name: Température
+                    - entity: sensor.temperature_and_humidity_sensor_b4bc_humidity
+                      name: Humidité
+            - type: horizontal-stack
+              cards:
+                - type: custom:mini-graph-card
+                  name: Parents
+                  hours_to_show: 72
+                  points_per_hour: 4
+                  hour24: true
+                  line_width: 4
+                  show:
+                    extrema: false
+                    fill: fade
+                    icon: true
+                    labels: false
+                    name: true
+                    state: true
+                  style: |
+                    ha-card {
+                      border: solid 2px var(--primary-color);
+                    }
+                  entities:
+                    - entity: sensor.temperature_and_humidity_sensor_fd7d_temperature
+                      name: Température
+                    - entity: sensor.temperature_and_humidity_sensor_fd7d_humidity
+                      name: Humidité
+                - type: custom:mini-graph-card
+                  name: Salle de bain parents
+                  hours_to_show: 72
+                  points_per_hour: 4
+                  hour24: true
+                  line_width: 4
+                  show:
+                    extrema: false
+                    fill: fade
+                    icon: true
+                    labels: false
+                    name: true
+                    state: true
+                  style: |
+                    ha-card {
+                      border: solid 2px var(--primary-color);
+                    }
+                  entities:
+                    - entity: sensor.temperature_sdb_parents
+                      name: Température
+                    - entity: sensor.humidite_sdb_parents
+                      name: Humidité
+            - type: horizontal-stack
+              cards:
+                - type: custom:mini-graph-card
+                  name: Mezzanine
+                  hours_to_show: 72
+                  points_per_hour: 4
+                  hour24: true
+                  line_width: 4
+                  show:
+                    extrema: false
+                    fill: fade
+                    icon: true
+                    labels: false
+                    name: true
+                    state: true
+                  style: |
+                    ha-card {
+                      border: solid 2px var(--primary-color);
+                    }
+                  entities:
+                    - entity: sensor.temperature_and_humidity_sensor_e0b4_temperature
+                      name: Température
+                    - entity: sensor.temperature_and_humidity_sensor_e0b4_humidity
+                      name: Humidité
+                - type: custom:mini-graph-card
+                  name: nul
+                  hours_to_show: 72
+                  entities:
+                    - entity: sensor.null

@@ -1,0 +1,292 @@
+anchors:
+  standard_button_actions: &standardbuttonactions
+    tap_action:
+      action: more-info
+      haptic: light
+  show_state: &showstate
+    show_state: true
+    show_label: false
+  frontpage_size: &frontpagesize
+    color: auto
+  alarm_button2_style: &alarmbutton2style
+    card:
+      - border-radius: 15px
+      - width: 115px
+      - height: 95px
+      - --paper-card-background-color: rgba(0, 0, 0, 0.85)
+    state:
+      - font-size: 18px
+      - font-family: Righteous
+      - padding: 5px 0px
+      - justify-self: center
+      - text-transform: capitalize
+      - font-variant: small-caps
+      - letter-spacing: 1.4px
+      - color: white
+    grid:
+      - grid-template-areas: '"i" "n" "s" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    img_cell:
+      - align-self: center
+      - text-align: center
+    name:
+      - justify-self: center
+      - font-weight: bold
+      - font-family: Righteous
+      - font-size: 16px
+      - color: white
+    icon:
+      - color: white
+
+type: entities
+view_layout:
+  show:
+      mediaquery: "(min-width: 400px)"
+  grid-area: sidebar 
+entities:
+    - cards:
+      - type: "custom:homekit-card"
+        style: |
+          :host {
+            --tile-background: rgba(255, 255, 255, 0.8);
+            --tile-border-radius: 12px;
+            --tile-width: 70px;
+            --tile-height: 70px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            
+            --tile-name-text-color: rgba(0, 0, 0, 0.4);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            
+            --tile-state-text-color: rgba(0, 0, 0, 0.9);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-off-state-text-color: rgba(0, 0, 0, 0);
+            
+            
+            --tile-state-changed-text-color: rgb(134, 134, 134);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 1);
+            
+            --tile-value-text-color: rgba(255, 0, 0, 1);
+            
+            
+            --tile-icon-color: rgba(0, 0, 0, 0.3);
+            --tile-on-icon-color: #f7d959;
+            
+            
+            --tile-width-mobile: 70px;
+            --tile-height-mobile: 70px;
+
+            --min-header-height: 150px;
+
+            --tile-icon-size: 30px;
+
+            --tile-image-radius: 100%
+
+            --slider-width: 120px;
+            --slider-height: 120px;
+
+            animation: stop 6s ease-in-out 60;
+            margin-top: 5px;
+          }
+          ha-card {
+            border-radius: 0px;
+            font-weight: bold;
+            letter-spacing: 1px;  
+            opacity: .73;
+            height: 77px;
+            animation: {{ states.input_select.alert_type.state }} 6s ease-in-out 60;
+          }
+
+          @keyframes ready {
+            from {border: solid 3px lime;}
+            to {border: solid 3px black;}
+          }
+          @keyframes alarm {
+            from {border: solid 3px red;}
+            to {border: solid 3px black; background: red;}
+          }
+          @keyframes alert {
+            from {border: solid 3px yellow;}
+            to {border: solid 3px black; background: yellow;}
+          }
+        home: false
+        useBrightness: true
+        useTemperature: true
+        statePositionTop: false
+        titleColor: "#FFF"
+        entities:
+          - title: Zones
+            entities:
+              - entity: group.light_ss_sol
+                name: 'Sous-Sol'
+                icon: mdi:home-floor-negative-1
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_cave
+              
+              - entity: group.light_rez
+                name: 'Rez'
+                icon: mdi:home-floor-g
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_rez
+              
+              - entity: group.light_enfants
+                name: 'Enfants'
+                icon: mdi:human-child
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_1etage
+              
+              - entity: group.light_parents
+                name: 'Parents'
+                icon: mdi:human-male-female
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_parents
+              
+              - entity: group.light_exterieure
+                name: 'Extérieur'
+                icon: mdi:nature-people
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_ext
+
+          - title: Météo
+            entities:
+              - entity: binary_sensor.periode_jour
+                name: Prévision
+                icon: mdi:weather-partly-cloudy
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_meteo
+
+              - entity: binary_sensor.periode_jour
+                name: Radar
+                icon: mdi:radar
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_radar
+
+          - title: Contrôle
+            entities:
+              - entity: group.all_door
+                name: Sécurité
+                icon: mdi:security
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_safety
+
+              - entity: binary_sensor.periode_jour
+                name: Scène
+                icon: mdi:progress-clock
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_scene
+
+              - entity: group.all_lights
+                name: Lumières
+                icon: mdi:lightbulb-multiple
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_lights_on
+
+              - entity: binary_sensor.volet_ouvert
+                name: Volets
+                icon: mdi:window-shutter
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_cover
+              
+              - entity: binary_sensor.periode_jour
+                name: Automatisations
+                icon: mdi:cog
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_automations
+
+              - entity: binary_sensor.periode_jour
+                name: Thermomètre
+                icon: mdi:home-thermometer
+                tap_action:
+                    action: more-info
+                    entity: input_boolean.tablet_temperature
+                
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+            card:
+              - height: 10px 
+          - type: 'custom:restriction-card'
+            restrictions:
+              confirm:
+                text: 'Are you sure you want to unlock alarm panel?'
+              pin:
+                code: !secret code_alarme
+                retry_delay: 3
+                max_retries: 5
+                max_retries_delay: 15
+            card:
+              type: 'custom:button-card'
+              entity: alarm_control_panel.home_alarm
+              show_name: false
+              icon: "mdi:shield-check"
+              size: 105%
+              <<: *standardbuttonactions
+              <<: *showstate
+              <<: *frontpagesize
+              styles:
+                <<: *alarmbutton2style
+              state:
+                - value: "disarmed"
+                  style:
+                    - opacity: 0.7
+                  styles:
+                    name:
+                      - color: white
+                    state:
+                      - color: 'rgba(255, 255, 255,0.85)'
+                    icon:
+                      - color: 'var(--accent-color)'
+                      - --iron-icon-stroke-color: 'rgba(0, 0, 0,0.0)'
+                - value: "armed_home"
+                  icon: "mdi:alert"
+                  styles:
+                    name:
+                      - color: black
+                    state:
+                      - color: white
+                    icon:
+                      - color: red
+                      - --iron-icon-stroke-color: red
+                      - animation: blink 2s ease infinite
+                - value: "armed_away"
+                  icon: "mdi:alert"
+                  styles:
+                    name:
+                      - color: black
+                    state:
+                      - color: white
+                    icon:
+                      - color: red
+                      - animation: blink 2s ease infinite
+                - value: "pending"
+                  style:
+                    - opacity: 0.7
+                  icon: "mdi:clock-alert-outline"
+                  styles:
+                    name:
+                      - color: black
+                    state:
+                      - color: white
+                    icon:
+                      - color: orange
+                      - animation: blink 1s ease infinite
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+            card:
+              - height: 10px 
+      type: 'custom:vertical-stack-in-card'

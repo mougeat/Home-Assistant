@@ -1,0 +1,98 @@
+type: vertical-stack
+cards:
+  - type: entities
+    show_header_toggle: false
+    entities:
+        - type: 'custom:text-divider-row'
+          text: Internet
+  - type: horizontal-stack
+    cards:
+      - type: custom:mini-graph-card
+        name: Ping
+        hours_to_show: 48
+        points_per_hour: 4
+        hour24: true
+        line_width: 2
+        show:
+          extrema: false
+          fill: fade
+          icon: true
+          labels: false
+          name: true
+          state: true
+          graph: bar
+        style: |
+          ha-card {
+            border: none
+          }
+        color_thresholds:
+            - color: '#e45e65' #Rouge
+              value: 40
+            - color: '#e0b400' #Orange
+              value: 26
+            - color: '#039BE5' #Bleu
+              value: 25
+            - color: '#0da035' #Vert
+              value: 15
+        entities:
+          - entity: sensor.speedtest_ping
+          
+  - type: horizontal-stack
+    cards:
+      - type: custom:mini-graph-card
+        name: Download
+        hours_to_show: 24
+        points_per_hour: 4
+        hour24: true
+        line_width: 4
+        show:
+          extrema: true
+          fill: fade
+          icon: true
+          labels: false
+          name: true
+          state: true
+        style: |
+          ha-card {
+            border: none
+          }
+        color_thresholds:
+            - color: '#0da035' #Vert
+              value: 22
+            - color: '#039BE5' #Bleu
+              value: 20
+            - color: '#e0b400' #Orange
+              value: 15
+            - color: '#e45e65' #Rouge
+              value: 12
+        entities:
+          - entity: sensor.speedtest_download
+
+      - type: custom:mini-graph-card
+        name: Upload
+        hours_to_show: 24
+        points_per_hour: 4
+        hour24: true
+        line_width: 4
+        show:
+          extrema: true
+          fill: fade
+          icon: true
+          labels: false
+          name: true
+          state: true
+        style: |
+          ha-card {
+            border: none
+          }
+        color_thresholds:
+            - color: '#0da035' #Vert
+              value: 4
+            - color: '#039BE5' #Bleu
+              value: 3
+            - color: '#e0b400' #Orange
+              value: 2
+            - color: '#e45e65' #Rouge
+              value: 1
+        entities:
+          - entity: sensor.speedtest_upload

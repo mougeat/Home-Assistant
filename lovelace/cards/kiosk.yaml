@@ -1,0 +1,48 @@
+  type: custom:vertical-stack-in-card
+  cards:    
+  - type: entities
+    show_header_toggle: false
+    entities:
+        - input_boolean.auto_background
+        - input_boolean.hide_sidebar
+        - input_boolean.hide_header
+        - input_boolean.kiosk
+        - input_select.mobile_wallpaper
+        - input_select.tablet_wallpaper
+        - input_select.compu_wallpaper
+        - input_select.naima_wallpaper
+        - input_select.guest_wallpaper
+        - input_select.auto_cornerz
+        - input_select.auto_borderz
+        - input_select.alert_type
+  - type: "custom:homekit-card"
+    enableColumns: true
+    rows:
+    - row: 1
+      columns:
+        - column: 1
+          tileOnRow: 4
+          entities:
+            - title: Kiosk
+              entities: 
+                - entity: sun.sun
+                  name: Sleep
+                  icon: mdi:sleep
+                  hideState: true
+                  tap_action:
+                    action: call-service
+                    service: script.good_night
+                - entity: sun.sun
+                  name: Blackout
+                  icon: mdi:television-off
+                  hideState: true
+                  tap_action:
+                    action: call-service
+                    service: script.browser_blackout_button
+                - entity: sun.sun
+                  name: Reload
+                  icon: mdi:monitor-dashboard
+                  hideState: true
+                  tap_action:
+                    action: call-service
+                    service: script.browser_window_reload

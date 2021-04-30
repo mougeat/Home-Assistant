@@ -1,0 +1,19 @@
+# # input_numer# /config/lovelace/cards/consommations_config.yaml
+# #####################################################################
+
+type: entities
+show_header_toggle: false
+entities:
+  - type: 'custom:text-divider-row'
+    text: Consommations des appareils
+  - input_number.conso_cel
+  - input_number.conso_chaudiere
+  - input_number.conso_pompe_charge
+  - input_number.conso_pompe_plancher
+  - input_number.conso_pompe_radiateur
+  - type: 'custom:text-divider-row'
+    text: Status
+  - binary_sensor.chauffe_eau_on
+  - binary_sensor.chaudiere_chauffe
+  - binary_sensor.radiateur_on
+  - binary_sensor.chauffage_sol_on

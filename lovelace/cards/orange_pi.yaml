@@ -1,0 +1,118 @@
+type: vertical-stack
+cards:
+
+  
+        
+  - type: entities
+    show_header_toggle: false
+    entities:
+        - type: 'custom:text-divider-row'
+          text: Serveur Hassio
+        
+  - type: custom:bar-card
+    positions:
+      icon: 'on'
+      indicator: 'on'
+      minmax: inside
+      title: inside
+      value: inside
+    style: |-
+      .contentbar-direction-right {
+        flex-direction: column;
+      }
+      .min-direction-right {
+        margin: 0px;
+        margin-left: 4px;
+        margin-right: auto;
+        margin-bottom: -20px;
+        bottom: 10px;
+      }
+      bar-card-value {
+        margin: 0px;
+      }
+      bar-card-name {
+        margin: 0px;
+      }
+      bar-card-max {
+        margin: 0px;
+        margin-left: auto;
+        margin-top: -20px;
+        top: 10px;
+      }
+      bar-card-divider {
+        display: none;
+      }
+    columns: 2
+    entities:
+      - entity: sensor.processor_use
+        name: CPU
+      - entity: sensor.memory_use_percent
+        name: RAM
+
+        
+        #- type: custom:mini-graph-card
+        #  name: Raspberry
+        #  hours_to_show: 24
+        #  points_per_hour: 4
+        #  hour24: true
+        #  line_width: 4
+        #  show:
+        #    extrema: true
+        #    fill: fade
+        #    icon: true
+        #    labels: false
+        #    name: true
+        #    state: true
+        #  style: |
+        #    ha-card {
+        #        border: none
+        #    }
+        #  entities:
+        #    - entity: sensor.processor_use
+        #    - entity: sensor.memory_use_percent
+  - type: glance
+    entities:
+        - entity: sensor.last_boot
+        - entity: switch.ota_mode 
+
+  - type: custom:bar-card
+    positions:
+      icon: 'on'
+      indicator: 'on'
+      minmax: inside
+      title: inside
+      value: inside
+    style: |-
+      .contentbar-direction-right {
+        flex-direction: column;
+      }
+      .min-direction-right {
+        margin: 0px;
+        margin-left: 4px;
+        margin-right: auto;
+        margin-bottom: -20px;
+        bottom: 10px;
+      }
+      bar-card-value {
+        margin: 0px;
+      }
+      bar-card-name {
+        margin: 0px;
+      }
+      bar-card-max {
+        margin: 0px;
+        margin-left: auto;
+        margin-top: -20px;
+        top: 10px;
+      }
+      bar-card-divider {
+        display: none;
+      }
+    columns: 1
+    entities:
+      - sensor.disk_use_percent
+
+#        - entity: sensor.processor_use
+#        - entity: sensor.last_boot
+#        - entity: sensor.memory_use_percent
+#        - entity: sensor.memory_free

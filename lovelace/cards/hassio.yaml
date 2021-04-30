@@ -1,0 +1,34 @@
+type: vertical-stack
+cards:
+  
+        
+  ################################################################################################################################
+  - type: "custom:homekit-card"
+    enableColumns: true
+    rows:
+    - row: 1
+      columns:
+        - column: 1
+          tileOnRow: 4
+          entities:
+            - title: HASSIO
+              entities: 
+                - entity: sensor.sensor_count
+                  hideState: true
+                - entity: sensor.automation_count
+                  hideState: true
+                - entity: sensor.script_count
+                  hideState: true
+                - entity: sensor.switch_count
+                  hideState: true
+                - entity: sensor.binary_sensor_count
+                  hideState: true
+                - entity: sensor.lights_count 
+                  hideState: true
+                - entity: sensor.tracker_count
+                  hideState: true
+                - entity: sensor.alert_count
+                  hideState: true
+
+              
+        ################################################################################################################################

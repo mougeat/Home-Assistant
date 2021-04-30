@@ -1,0 +1,129 @@
+        type: vertical-stack
+        cards:
+        - type: horizontal-stack
+          cards:
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+              card:
+              - width: 5px
+          - type: picture-entity
+            entity: camera.camera_salon
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+              card:
+              - width: 5px
+        - type: entities
+          style: "ha-card {\n    background: rgba(117, 190, 218, 0.0);\n}\n"
+          entities:
+          - type: custom:bar-card
+            severity:
+            - value: 20
+              color: '#DC143C'
+            - value: 22
+              color: '#1F717C'
+            - value: 120
+              color: '#1F717C'
+            title_position: inside
+            #decimal: '0'
+            tap_action: none
+            columns: 1
+            padding: 2px
+            align: split
+            rounding: 10px
+            saturation: 65%
+            height: 38px
+            card_style:
+              background: rgba(0, 0, 0, 0.4)
+              border-radius: 10px
+            title_style:
+              font-size: 24px
+              font-variant: small-caps
+              color: '#F2F2F2'
+              text-shadow: 1px 1px 2px black, 0 0 25px gray, 0 0 5px dimgray
+            value_style:
+              font-size: 26px
+              font-weight: bold
+            entities:
+            - sensor.temperature_and_humidity_sensor_6d69_temperature
+            - sensor.temperature_and_humidity_sensor_6d69_humidity
+        - type: horizontal-stack
+          cards:
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+              card:
+              - width: 15px
+          - type: custom:decluttering-card
+            template: switch_button_temp_dark
+            variables:
+            - entity: light.salon
+            - name: Salon
+            - icon: mdi:ceiling-light
+          - type: custom:decluttering-card
+            template: switch_button_temp_dark
+            variables:
+            - entity: light.salle_a_manger
+            - name: Salle à manger
+            - icon: mdi:ceiling-light
+          - type: custom:button-card
+            color_type: blank-card
+            styles:
+              card:
+              - width: 15px
+
+        - type: custom:button-card
+          color_type: blank-card
+          styles:
+            card:
+            - height: 10px
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                - width: 15px
+                - height: 100px
+            - ca- artwork: cover
+              entity: media_player.livebox_tv
+              hide:
+                power_state: false
+                source: false
+                volume: false
+              icon: mdi:netflix
+              artwork: cover
+              type: custom:mini-media-player
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                - width: 15px
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                - width: 15px
+                - height: 100px
+            - ca- artwork: cover
+              entity: media_player.salon
+              hide:
+                power_state: false
+                source: false
+                volume: false
+              icon: mdi:google-chrome
+              artwork: cover
+              type: custom:mini-media-player
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                - width: 15px
+            - type: custom:button-card
+              color_type: blank-card
+              styles:
+                card:
+                - width: 15px

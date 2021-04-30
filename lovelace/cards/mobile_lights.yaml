@@ -1,0 +1,105 @@
+type: entities
+style:
+    .: |
+        ha-card {
+            --ha-card-box-shadow: none;
+            background-color: transparent;
+            border-radius: none;
+        }
+    "#states > div > auto-entities":
+        $: |
+            ha-card {
+                background-color: transparent;
+            }
+entities:
+  - type: 'custom:text-divider-row'
+    text: Extérieur
+  - type: 'custom:auto-entities'
+    show_empty: true
+    card:
+      type: glance
+      show_state: false
+      columns: 4
+    filter:
+      include:
+        - entity_id: light.ext_*
+          state: "on" # Remember that "on" and "off" are magic in yaml, and must always be quoted
+          options:
+            tap_action:
+              action: toggle
+
+  - type: 'custom:text-divider-row'
+    text: Rez
+  - type: 'custom:auto-entities'
+    show_empty: true
+    card:
+      type: glance
+      show_state: false
+      columns: 4
+    filter:
+      include:
+        - entity_id: light.rez_*
+          state: "on" # Remember that "on" and "off" are magic in yaml, and must always be quoted
+          options:
+            tap_action:
+              action: toggle
+
+  - type: 'custom:text-divider-row'
+    text: 1er étage
+  - type: 'custom:auto-entities'
+    show_empty: true
+    card:
+      type: glance
+      show_state: false
+      columns: 4
+    filter:
+      include:
+        - entity_id: light.1er_*
+          state: "on" # Remember that "on" and "off" are magic in yaml, and must always be quoted
+          options:
+            tap_action:
+              action: toggle
+  
+  - type: 'custom:text-divider-row'
+    text: Grenier
+  - type: 'custom:auto-entities'
+    show_empty: true
+    card:
+      type: glance
+      show_state: false
+      columns: 4
+    filter:
+      include:
+        - entity_id: light.2eme_*
+          state: "on" # Remember that "on" and "off" are magic in yaml, and must always be quoted
+          options:
+            tap_action:
+              action: toggle
+      exclude:
+      - entity_id: light.rez_*
+      - entity_id: light.ext_*
+      - entity_id: light.ss_sol_*
+      - entity_id: light.a6cyril
+      - entity_id: light.a6cyril_lan
+      - entity_id: light.tabletsamsung
+      - entity_id: light.officecyril
+      - entity_id: light.tabletlenovo
+      - entity_id: light.vmc
+      - entity_id: light.vmc_high
+      - entity_id: light.browser_*
+
+  - type: 'custom:text-divider-row'
+    text: Sous-sol
+  - type: 'custom:auto-entities'
+    show_empty: true
+    card:
+      type: glance
+      show_state: false
+      columns: 4
+    filter:
+      include:
+        - entity_id: light.ss_sol_*
+          state: "on" # Remember that "on" and "off" are magic in yaml, and must always be quoted
+          options:
+            tap_action:
+              action: toggle

@@ -1,0 +1,62 @@
+  type: vertical-stack
+  cards:
+    - type: entities
+      show_header_toggle: false
+      entities:
+        - type: 'custom:text-divider-row'
+          text: Règlages automatisme
+        - input_boolean.notifications
+        - input_boolean.voice_notifications
+        - input_boolean.power_notifications
+        - input_boolean.auto_vmc
+        - input_boolean.vacation_mode
+        #- input_boolean.cyril_work_alarm
+        #- input_boolean.naima_work_alarm
+        #- input_boolean.ilyann_work_alarm
+        - input_boolean.invite_a_la_maison
+        - input_boolean.flash_light_auto
+        - input_boolean.auto_door_poules
+        - input_boolean.auto_pompe_3000l
+        - input_boolean.auto_pompe_4000l
+
+        - type: 'custom:text-divider-row'
+          text: Règlages alert
+        
+        - input_boolean.enable_alert_temperature_cuve
+        
+        - type: 'custom:text-divider-row'
+          text: Règlages Volets
+        - input_boolean.auto_cover_rez
+        - input_boolean.auto_cover_salon
+        - input_boolean.auto_cover_voisin
+        - input_boolean.auto_cover_cuisine
+        - input_boolean.auto_cover_bureau
+        - input_boolean.auto_cover_etage
+
+        - type: 'custom:text-divider-row'
+          text: Règlages VMC
+        - input_number.humidite_mini_vmc
+        - input_number.humidite_maxi_vmc
+        - input_number.temperature_mini_vmc
+        - input_number.temperature_maxi_vmc
+
+        - type: 'custom:text-divider-row'
+          text: Règlages chauffage
+        - input_number.temperature_mini_maison_feu
+        - input_number.temperature_alert_maison_feu
+        - input_number.temperature_mini_accu_chauffage
+        - input_number.temperature_maxi_plancher
+        
+
+        - type: 'custom:text-divider-row'
+          text: Règlages cuve eau de pluie
+        - input_number.temperature_maxi_pompes_cuve
+        - input_number.temperature_mini_pompes_cuve
+        - input_number.duree_vie_filtre_eau_pluie
+        
+    
+      
+
+
+    
+      

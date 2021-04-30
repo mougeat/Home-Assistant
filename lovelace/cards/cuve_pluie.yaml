@@ -1,0 +1,77 @@
+#Cuve 3000
+type: custom:vertical-stack-in-card
+cards:
+
+
+################################################################################################################################
+  - type: "custom:homekit-card"
+    style: |
+          :host {
+            --tile-background: rgba(255, 255, 255, 0.8);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            
+            --tile-name-text-color: rgba(0, 0, 0, 0.4);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            
+            --tile-state-text-color: rgba(0, 0, 0, 0.9);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-off-state-text-color: rgba(0, 0, 0, 1);
+            
+            --tile-state-changed-text-color: rgb(134, 134, 134);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 1);
+            
+            --tile-value-text-color: rgba(255, 0, 0, 1);
+            
+            
+            --tile-icon-color: rgba(0, 0, 0, 0.3);
+            --tile-on-icon-color: #f7d959;
+            
+            
+            --tile-width-mobile: 70px;
+            --tile-height-mobile: 70px;
+
+            --min-header-height: 150px;
+
+            --tile-icon-size: 30px;
+
+            --tile-image-radius: 100%
+
+            --slider-width: 120px;
+            --slider-height: 120px;
+          } 
+    enableColumns: true
+    rows:
+    - row: 1
+      columns:
+        - column: 1
+          tileOnRow: 6
+          entities:
+            - title: Cuve 3000l
+              entities: 
+                - entity: binary_sensor.niveau_haut_cuve_3000l
+                - entity: binary_sensor.niveau_milieu_cuve_3000l
+                - entity: binary_sensor.niveau_bas_cuve_3000l
+                - entity: switch.status_pompe_eau_de_pluie
+                
+    - row: 2
+      columns:
+        - column: 1
+          tileOnRow: 6
+          entities:
+            - title: Temp.
+              entities:
+                - card: custom:mini-graph-card
+                  wider: true
+                  higherSize: 4
+                  cardOptions:
+                    hours_to_show: 72
+                    hour24: true
+                    points_per_hour: 4
+                    entities:
+                      - sensor.temperature_pompe_cuve_3000l
+
+              
+        ################################################################################################################################

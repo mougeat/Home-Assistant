@@ -1,0 +1,43 @@
+type: custom:auto-entities
+card:
+    type: custom:bar-card
+    severity:
+        - value: 18
+          color: '#DC143C'
+        - value: 23
+          color: '#1F717C'
+        - value: 60
+          color: '#DC143C'
+        - value: 120
+          color: '#1F717C'
+    title_position: inside
+    tap_action: none
+    columns: 1
+    padding: 2px
+    align: split
+    show_icon: true
+    rounding: 4px
+    saturation: 65%
+    height: 29px
+    max: 30
+    card_style:
+        background: rgba(0, 0, 0, 0.7)
+        border-radius: 5px
+    title_style:
+        font-weight: bold
+        font-size: 19px
+        color: '#FFF'
+        text-shadow: 2px 2px 4px black
+    value_style:
+        font-size: 24px
+        font-weight: bold
+        text-shadow: 2px 2px 4px black
+filter:
+    exclude:
+
+    include:
+    - entity_id: sensor.temperature_sdb_parents
+    - entity_id: sensor.temperature_and_humidity_sensor_*_temperature
+    
+sort:
+    method: name

@@ -1,0 +1,83 @@
+type: vertical-stack
+cards:
+  #- type: entities
+  #  show_header_toggle: false
+  #  entities:
+  #      - type: 'custom:text-divider-row'
+  #        text: Radio
+  #      - input_select.output_radio
+  #      - input_select.radio_station
+  #      - script.radio_player
+  ######
+  - type: horizontal-stack
+    cards:
+        - entity: media_player.a6cyril_lan
+          type: custom:mini-media-player
+          info: short
+          name: Tel. Cyril
+          artwork: cover
+          hide:
+            mute: false
+            icon: false
+            power_state: true
+        - entity: media_player.tabletsamsung
+          type: custom:mini-media-player
+          info: short
+          name: Tablet
+          artwork: cover
+          hide:
+            mute: false
+            icon: false
+            power_state: true
+        - entity: media_player.officecyril
+          type: custom:mini-media-player
+          info: short
+          name: PC Cyril
+          artwork: cover
+          hide:
+            mute: false
+            icon: false
+            power_state: true
+  - type: horizontal-stack
+    cards:      
+        - entity: media_player.tabletlenovo
+          type: custom:mini-media-player
+          info: short
+          name: Bureau
+          artwork: cover
+          hide:
+            mute: false
+            icon: false
+            power_state: true
+          shortcuts:
+              columns: 6
+              buttons:
+                - name: RTL2
+                  type: service
+                  id: script.rtl2
+                  image: /local/images-lovelace/icon/rtl2.png
+                - name: RTL2 Châtel
+                  type: service
+                  id: script.rtl2
+                  #image: /local/images-lovelace/icon/rtl2.png
+                - name: LFM
+                  type: service
+                  id: script.lfm
+                  image: /local/images-lovelace/icon/lfm.png
+                - name: Rouge FM
+                  type: service
+                  id: script.rouge_fm
+                  image: /local/images-lovelace/icon/rouge.jpg
+                - name: Vertical
+                  type: service
+                  id: script.vertical
+                  image: /local/images-lovelace/icon/vertical.jpg
+                - name: France info
+                  type: service
+                  id: script.france_info
+                  image: /local/images-lovelace/icon/france_info.jpg
+                - name: RTS La première
+                  type: service
+                  id: script.rts1
+                  image: /local/images-lovelace/icon/rts1.png
+  

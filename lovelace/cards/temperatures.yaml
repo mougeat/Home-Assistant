@@ -1,0 +1,146 @@
+type: "custom:homekit-card"
+enableColumns: true
+rows:
+    - row: 1
+      columns:
+        - column: 1
+          tileOnRow: 2
+          entities:
+            - title: Rez
+              entities: 
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - sensor.temperature_and_humidity_sensor_6d69_temperature
+                          
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - sensor.temperature_and_humidity_sensor_8e6b_temperature
+                
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - sensor.temperature_and_humidity_sensor_609d_temperature
+                        
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - sensor.temperature_and_humidity_sensor_c225_temperature
+                          
+        - column: 2
+          tileOnRow: 2
+          entities:
+            - title: Etages
+              entities: 
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - sensor.temperature_and_humidity_sensor_8fc5_temperature
+                          
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - sensor.temperature_and_humidity_sensor_b4bc_temperature
+                
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - sensor.temperature_and_humidity_sensor_fd7d_temperature
+                        
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - sensor.temperature_and_humidity_sensor_e0b4_temperature
+                        
+        - column: 2
+          tileOnRow: 2
+          entities:
+            - title: Sous-sol
+              entities: 
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - sensor.temperature_and_humidity_sensor_e090_temperature
+
+                - card: custom:mini-graph-card
+                  wider: true
+                  higher: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - entity: sensor.temperature_accu_haut
+                          name: Haut
+                        - entity: sensor.temperature_accu_millieu
+                          name: Milieu
+
+
+                - card: custom:mini-graph-card
+                  wider: true
+                  higher: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - entity: sensor.charge_accu
+                          name: Charge
+                          
+                - card: custom:mini-graph-card
+                  wider: true
+                  higher: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - sensor.temperature_pompe_cuve_3000l
+                        - sensor.temperature_pompe_cuve_4000l
+                        
+                - card: custom:mini-graph-card
+                  wider: true
+                  cardOptions:
+                      hours_to_show: 72
+                      hour24: true
+                      points_per_hour: 4
+                      entities:
+                        - sensor.temperature_poulailler
+                        

@@ -1,0 +1,234 @@
+type: vertical-stack
+cards:
+  - type: entities
+    style:
+      .: |
+          ha-card {
+              border: solid 2px var(--primary-color);
+          }
+    entities:
+      - type: 'custom:content-card-linky'
+        entity: sensor.myenedis_19524312465076
+        showIcon: False
+        showHistory : true 
+        showPeakOffPeak: false
+        showInTableUnit : false
+        showDayPrice : false
+        showDayPriceHCHP: false
+        showDayHCHP: false
+
+  #- type: horizontal-stack
+  #  cards:
+  #        - type: custom:mini-graph-card
+  #          name: Totale
+  #          entities:
+  #            - entity: sensor.ecocompteur_consommation_base
+  #              name: Conso. totale
+  #          group: false
+  #          hour24: true
+  #          hours_to_show: 24
+  #          line_width: 4
+  #          show:
+  #            extrema: true
+  #            fill: fade
+  #            icon: true
+  #            labels: false
+  #            name: true
+  #            state: true
+  #          state_map:
+  #            - label: Day
+  #              value: 'off'
+  #            - label: Night
+  #              value: 'on'
+  #          style: |
+  #            ha-card {
+  #              border: solid 2px var(--primary-color);
+  #            }
+  
+  - type: horizontal-stack
+    cards:
+          - type: custom:mini-graph-card
+            name: Chauffage et eau chaude
+            entities:
+              - entity: sensor.ecocompteur_chauffage
+                name: Conso. chauffage
+            group: false
+            hour24: true
+            hours_to_show: 24
+            line_width: 4
+            show:
+              extrema: true
+              fill: fade
+              icon: true
+              labels: false
+              name: true
+              state: true
+            style: |
+              ha-card {
+                border: solid 2px var(--primary-color);
+              }
+            color_thresholds:
+              - color: '#039BE5'
+                value: 0
+              - color: '#0da035'
+                value: 300
+              - color: '#e0b400'
+                value: 500
+              - color: '#e45e65'
+                value: 1200
+            color_thresholds_transition: hard
+            
+          - type: custom:mini-graph-card
+            name: Four
+            group: false
+            hour24: true
+            hours_to_show: 24
+            line_width: 4
+            show:
+              extrema: true
+              fill: fade
+              icon: true
+              labels: false
+              name: true
+              state: true
+            state_map:
+              - label: Day
+                value: 'off'
+              - label: Night
+                value: 'on'
+            style: |
+              ha-card {
+                border: solid 2px var(--primary-color);
+              }
+            color_thresholds:
+              - color: '#039BE5'
+                value: 0
+              - color: '#0da035'
+                value: 300
+              - color: '#e0b400'
+                value: 500
+              - color: '#e45e65'
+                value: 1200
+            color_thresholds_transition: hard
+            entities:
+              - entity: sensor.ecocompteur_four
+                name: Conso. four
+
+            
+          
+            
+
+  - type: horizontal-stack
+    cards:
+      
+          - type: custom:mini-graph-card
+            name: Lave linge
+            entities:
+              - entity: sensor.ecocompteur_lave_linge
+                name: Conso. lave linge
+            group: false
+            hour24: true
+            hours_to_show: 24
+            line_width: 4
+            show:
+              extrema: true
+              fill: fade
+              icon: true
+              labels: false
+              name: true
+              state: true
+            state_map:
+              - label: Day
+                value: 'off'
+              - label: Night
+                value: 'on'
+            style: |
+              ha-card {
+                border: solid 2px var(--primary-color);
+              }
+            color_thresholds:
+              - color: '#039BE5'
+                value: 0
+              - color: '#0da035'
+                value: 300
+              - color: '#e0b400'
+                value: 500
+              - color: '#e45e65'
+                value: 1200
+            color_thresholds_transition: hard
+
+          - type: custom:mini-graph-card
+            name: Sèche linge
+            entities:
+              - entity: sensor.ecocompteur_seche_linge
+                name: Conso. sèche linge
+            group: false
+            hour24: true
+            hours_to_show: 24
+            line_width: 4
+            show:
+              extrema: true
+              fill: fade
+              icon: true
+              labels: false
+              name: true
+              state: true
+            state_map:
+              - label: Day
+                value: 'off'
+              - label: Night
+                value: 'on'
+            style: |
+              ha-card {
+                border: solid 2px var(--primary-color);
+              }
+            
+            color_thresholds:
+              - color: '#039BE5'
+                value: 0
+              - color: '#0da035'
+                value: 300
+              - color: '#e0b400'
+                value: 500
+              - color: '#e45e65'
+                value: 1200
+            color_thresholds_transition: hard
+
+  - type: horizontal-stack
+    cards:
+          - type: custom:mini-graph-card
+            name: Lave vaisselle
+            entities:
+              - entity: sensor.ecocompteur_lave_vaisselle
+                name: Conso. lave vaisselle
+            group: false
+            hour24: true
+            hours_to_show: 24
+            line_width: 4
+            show:
+              extrema: true
+              fill: fade
+              icon: true
+              labels: false
+              name: true
+              state: true
+            state_map:
+              - label: Day
+                value: 'off'
+              - label: Night
+                value: 'on'
+            style: |
+              ha-card {
+                border: solid 2px var(--primary-color);
+              }
+            
+            color_thresholds:
+              - color: '#039BE5'
+                value: 0
+              - color: '#0da035'
+                value: 300
+              - color: '#e0b400'
+                value: 500
+              - color: '#e45e65'
+                value: 1200
+            color_thresholds_transition: hard

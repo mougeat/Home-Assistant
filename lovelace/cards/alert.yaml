@@ -1,0 +1,8 @@
+type: 'custom:vertical-stack-in-card'
+cards:
+    - type: 'custom:list-card'
+      entity: sensor.74_weather_alert
+      feed_attribute: Orages
+      columns:
+        - title: " "
+          field: event

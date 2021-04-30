@@ -1,0 +1,29 @@
+type: entities
+show_header_toggle: false
+title: Imprimante
+style:
+    .: |
+        ha-card {
+            --ha-card-box-shadow: none;
+            background-color: rgba(0,0,0,0.35);
+            border-radius: 15px;
+            "--primary-text-color": "#f2f2f2";
+            "--paper-card-background-color": 'rgba(0, 0, 0,0.65)';
+            font-weight: bold;
+            font-size: 1.55em;
+            text-transform: capitalize;
+            font-variant: small-caps;
+            text-shadow: "1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen";
+            "--paper-item-icon-color": lime;
+            "--iron-icon-stroke-color": green;
+            "--iron-icon-height": 41px;
+            "--iron-icon-width": 41px;
+            margin-top: 5px;
+        }
+entities:
+ 
+  - sensor.epson_wf_2630_series
+  - sensor.epson_wf_2630_series_black_ink
+  - sensor.epson_wf_2630_series_cyan_ink
+  - sensor.epson_wf_2630_series_magenta_ink
+  -  sensor.epson_wf_2630_series_yellow_ink

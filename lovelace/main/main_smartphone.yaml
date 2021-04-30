@@ -1,0 +1,7 @@
+type: custom:vertical-stack-in-card
+view_layout:
+  grid-area: main
+  show:
+      mediaquery: "(max-width: 800px)"
+cards:
+  - !include /config/lovelace/main/markdown.yaml

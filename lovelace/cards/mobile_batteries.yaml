@@ -1,0 +1,14 @@
+type: custom:battery-state-card
+color_gradient:
+    - "#ff0000" # red
+    - "#ffff00" # yellow
+    - "#00ff00" # green
+entities:
+    - sensor.ilyann_battery_level
+    - sensor.jed_battery_level
+    - sensor.parents_battery_level
+    - sensor.salon_battery_level
+    - sensor.sdb_bureau_battery_level
+    - sensor.sm_a520f_battery_level
+    - sensor.sm_g970f_battery_level
+sort_by_level: asc

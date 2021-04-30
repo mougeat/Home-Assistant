@@ -1,0 +1,34 @@
+type: custom:auto-entities
+card:
+    type: custom:battery-state-card
+    color_gradient:
+    - "#ff0000" # red
+    - "#ffff00" # yellow
+    - "#00ff00" # green
+    sort_by_level: asc
+filter:
+    exclude:
+        - entity_id: sensor.*health*
+        - entity_id: sensor.*state*
+        - entity_id: sensor.*sante*
+        - entity_id: sensor.*etat*
+        
+    include:
+        #- entity_id: sensor.*tension*
+        - entity_id: sensor.*batt* 
+
+
+#type: custom:battery-state-card
+#color_gradient:
+#    - "#ff0000" # red
+#    - "#ffff00" # yellow
+#    - "#00ff00" # green
+#entities:
+#    - sensor.tension_parents
+#    - sensor.tension_jed
+#    - sensor.tension_ilyann
+#    - sensor.tension_bureau
+#    - sensor.tension_sdb_bureau
+#    - sensor.sm_a520f_battery_level
+#    - sensor.sm_g970f_battery_level
+#sort_by_level: asc

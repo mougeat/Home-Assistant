@@ -1,0 +1,8 @@
+type: custom:vertical-stack-in-card
+view_layout:
+  grid-area: main
+  show:
+      mediaquery: "(min-width: 801px)"
+cards:
+  - !include /config/lovelace/main/markdown.yaml
+  - !include /config/lovelace/main/camera.yaml

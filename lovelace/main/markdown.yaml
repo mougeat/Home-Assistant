@@ -1,0 +1,45 @@
+type: markdown
+style: |
+  ha-card {
+    border-radius: 0px;
+    font-weight: bold;
+    letter-spacing: 1px;  
+    height: 77px;
+    animation: {{ states.input_select.alert_type.state }} 6s ease-in-out 60;
+    background: rgba(0,0,0,0.43);
+    --primary-text-color: rgba(255,255,255,0.63);
+    position: relative;
+    --primary-color": rgba(248, 248, 248,0.53);
+  }
+  :host {
+    animation: stop 6s ease-in-out 60;
+    margin-top: 5px;    
+  }
+  @keyframes ready {
+    from {border: solid 3px lime;}
+    to {border: solid 3px black;}
+  }
+  @keyframes alarm {
+    from {border: solid 3px red;}
+    to {border: solid 3px black; background: red;}
+  }
+  @keyframes alert {
+    from {border: solid 3px yellow;}
+    to {border: solid 3px black; background: yellow;}
+  }
+content: |   
+  # Salut {{user}}, 
+                                      
+  
+  {% if is_state('alarm_control_panel.home_alarm', 'triggered') %} > ⚠️🆘 ALERTE INTRUSION !!!!⚠️🆘 {% endif %}
+  {% if is_state('group.all_smoke', 'on') %} > ⚠️🆘 ALERTE FUMMEE  !!!!⚠️🆘 {% endif %}
+  {% if is_state('binary_sensor.status_porte_garage', 'on') %} > ⚠️ Porte du garage ouverte 🚪 {% endif %}
+  {% if is_state('binary_sensor.heating_on_necessary', 'on') %} > ⚠️ Froid prévu et, la {{  state_attr('sensor.prev_temp_maison', 'friendly_name')  }}  est de {{ states['sensor.prev_temp_maison'].state }}°C ! Il faudrait faire du feu  🔥 {% endif %}
+  {% if is_state('binary_sensor.pompe_3000_freez', 'on') %} > ⚠️ 🚱  Risque de gel sur la cuve 3000 l !!!! {% endif %}
+  {% if is_state('binary_sensor.pompe_4000_freez', 'on') %} > ⚠️ 🚱  Risque de gel sur la cuve 4000 l !!!! {% endif %}
+  {% if is_state('binary_sensor.pompe_3000_surchauffe', 'on') %} > ⚠️ La pompe de la cuve 3000l est en surchauffe 🚱!!! coupez la !!!!!!!!! {% endif %}
+  {% if is_state('binary_sensor.pompe_4000_surchauffe', 'on') %} > ⚠️ La pompe de la cuve 4000l est en surchauffe 🚱!!! coupez la !!!!!!!!! {% endif %}
+  {% if is_state('binary_sensor.no_rain_water', 'on') %} > ⚠️ 🚱  Les cuves d'eau de pluie sont vides, basculer sur le reseau !!!! {% endif %}
+  {% if is_state('binary_sensor.change_rain_filtre', 'on') %} > ⚠️ Il est temps de changer les filtres eau de pluie {% endif %}
+  {% if is_state('binary_sensor.surchauffe_plancher', 'on') %} > ⚠️ Surchauffe du plancher chauffant depuis  {{ relative_time(states.binary_sensor.surchauffe_plancher.last_changed) }} risque de dommage sur le carrelage {% endif %}
+ 

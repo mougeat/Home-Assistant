@@ -1,0 +1,145 @@
+  type: "custom:homekit-card"
+  enableColumns: true
+  rows:
+    - row: 1
+      columns:
+        - column: 1
+          tileOnRow: 2
+          entities:
+            - title: Système
+              entities: 
+                - entity: input_boolean.mobile_radio
+                  name: Radio
+                  icon: mdi:radio
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_radio
+                
+                - entity: input_boolean.mobile_lights_on
+                  name: Lumières
+                  icon: mdi:lightbulb-multiple
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_lights_on
+                
+                - entity: input_boolean.mobile_cover
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_cover
+                
+                - entity: input_boolean.mobile_clock
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_clock
+
+                - entity: input_boolean.mobile_temperature
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_temperature
+
+                - entity: input_boolean.person_group
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.person_group
+
+                - entity: input_boolean.mobile_consommations
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_consommations
+
+    
+    - row: 2
+      columns:
+        - column: 1
+          tileOnRow: 2
+          entities:
+            - title: Pièces
+              entities: 
+                - entity: input_boolean.mobile_cuisine
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_cuisine
+                
+                - entity: input_boolean.mobile_salon
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_salon
+                
+                - entity: input_boolean.mobile_bureau
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_bureau
+                
+                - entity: input_boolean.mobile_ilyann
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_ilyann
+
+                - entity: input_boolean.mobile_jed
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_jed
+
+                - entity: input_boolean.mobile_parents
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_parents
+
+                - entity: input_boolean.mobile_chaufferie
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_chaufferie
+
+                - entity: input_boolean.mobile_ext
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_ext
+
+    - row: 3
+      columns:
+        - column: 1
+          tileOnRow: 2
+          entities:
+            - title: Météo
+              entities: 
+                - entity: input_boolean.mobile_meteo
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_meteo
+                
+                - entity: input_boolean.mobile_radar
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_radar
+                
+    - row: 4
+      columns:
+        - column: 1
+          tileOnRow: 2
+          entities:
+            - title: Sécurité
+              entities: 
+                - entity: input_boolean.mobile_portes
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_portes
+                
+                - entity: input_boolean.mobile_alarme
+                  tap_action:
+                    action: more-info
+                    entity: input_boolean.mobile_alarme
+    
+    - row: 5
+      columns:
+        - column: 1
+          tileOnRow: 2
+          entities:
+            - title: ''
+              entities: 
+                - entity: alarm_control_panel.home_alarm
+                  confirmation:  Are you sure you want to ${actionConfig.action}
+                  tap_action:
+                    action: more-info
+                    entity: alarm_control_panel.home_alarm
+                
+                

@@ -1,0 +1,68 @@
+#custom_header:
+background: 'var(--sidebar-selected-background-color)'
+active_tab_color: 'var(--accent-color)'
+tab_indicator_color: 'var(--accent-color)'
+notification_dot_color: 'var(--accent-color)'
+all-tabs-color: 'var(--sidebar-icon-color)'
+kiosk_mode: true
+hide_header: false
+disable_sidebar: true
+exceptions:
+    - conditions:
+        user: Guest
+      config:
+        kiosk_mode: true
+    - conditions:
+        user: Tablet
+      config:
+        kiosk_mode: true
+        hide_header: true
+        default_tab: Tablet
+    - conditions:
+        user: Computer
+      config:
+        kiosk_mode: true
+        hide_header: true
+        default_tab: Computer
+    - conditions:
+        user: Naima
+      config:
+        kiosk_mode: true
+        hide_header: true
+        default_tab: Naima
+    - conditions:
+        user: Cyril
+        media_query: '(max-width: 600px)'
+        user_agent: Mobile
+      config:
+        kiosk_mode: true
+        hide_header: true
+        disable_sidebar: true
+        default_tab: Cyril
+    - conditions:
+        user: Cyril
+      config:
+        hide_tabs: []
+        hide_unused: false
+        show_tabs: []
+        kiosk_mode: false
+        hide_header: false
+        disable_sidebar: false
+        default_tab: Computer
+        button_text:
+        options: >-
+          {{ hours24 }}:{{ minutesLZ }} - <ha-icon icon='mdi:weather-{{
+          states.weather.dark_sky.state }}'></ha-icon> {{
+          states.weather.dark_sky.attributes.temperature }}°
+    - conditions:
+        user: Cyril
+        device_id: 05d50a61-dcef085d
+      config:
+        hide_tabs: []
+        hide_unused: true
+        show_tabs: []
+        kiosk_mode: true
+        hide_header: true
+        disable_sidebar: true
+        default_tab: Computer
+hide_unused: true
